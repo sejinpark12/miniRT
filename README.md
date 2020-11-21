@@ -1,6 +1,6 @@
 # miniRT
 
-## miniLibX로 윈도우 생성과 간단한 도형 그리기
+## 1. miniLibX로 윈도우 생성과 간단한 도형 그리기
 
 **miniRT/cub3d** 프로젝트는 **miniLibX** 그래픽 라이브러리를 사용하여 구현합니다.
 그러므로 먼저 **miniLibX**로 윈도우를 생성하고 간단한 도형을 그려보겠습니다.
@@ -30,7 +30,8 @@ int main(void)
   void	  *mlx;
   void	  *mlx_win;
   t_data  img;
-  int     i
+  int     i;
+  int     j;
   int     k;
 
   mlx = mlx_init();
@@ -39,12 +40,12 @@ int main(void)
   img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
   for (i = 250, k = 99; i < 300; i++, k -= 2)
   {
-    for (int j = 150 + k; j < 250; j++)
+    for (j = 150 + k; j < 250; j++)
       my_mlx_pixel_put(&img, i, j, 0x0000FF00);
   }
   for (i = 300, k = 0; i < 350; i++, k += 2)
   {
-    for (int j = 150 + k; j < 250; j++)
+    for (j = 150 + k; j < 250; j++)
       my_mlx_pixel_put(&img, i, j, 0x0000FF00);
   }
   mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
@@ -106,6 +107,16 @@ int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, 
 컴파일 후 실행파일을 실행하면 아래와 같은 삼각형 이미지를 확인할 수 있습니다.
 
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/99638554-bfb30a00-2a89-11eb-900d-ca511d517360.png"></p>
+
+## 참고
+https://github.com/qst0/ft_libgfx#minilibx
+
+https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
+
+
+## 2. 키보드 입력으로 도형 움직이기
+
+생성한 삼각형을 키보드 입력으로 움직여보도록 하겠습니다.
 
 ## 참고
 https://github.com/qst0/ft_libgfx#minilibx
