@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define	UP		125
-#define	DOWN	126
+#define	UP		126
+#define	DOWN	125
 #define	LEFT	123
 #define	RIGHT	124
 #define ESC		53
@@ -16,6 +16,7 @@ typedef struct 	s_data
 	int			height;
 	int			x;
 	int			y;
+	int			up, down, left, right;
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;
@@ -31,32 +32,74 @@ void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-int				ft_move(int keycode, t_data *data)
+int				ft_move(t_data *data)
+{
+	if (data->left == 1 && data->x > 0)
+	{
+		data->x -= 3;
+		printf("x = %d, y= %d\n", data->x, data->y);
+	}
+	if (data->right == 1 && data->x < data->width)
+	{
+		data->x += 3;
+		printf("x = %d, y= %d\n", data->x, data->y);
+	}
+	if (data->up == 1 && data->y > 0)
+	{
+		data->y -= 3;
+		printf("x = %d, y= %d\n", data->x, data->y);
+	}
+	if (data->down == 1 && data->y < data->height)
+	{
+		data->y += 3;
+		printf("x = %d, y= %d\n", data->x, data->y);
+	}
+	return (0);
+}
+
+int				ft_key_press(int keycode, t_data *data)
 {
 	if (keycode == ESC)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
-	else if (keycode == LEFT)
+	if (keycode == LEFT)
 	{
-		data->x -= 1;
-		printf("key = %d, x = %d, y = %d\n", keycode, data->x, data->y);
+		data->left = 1;
 	}
-	else if (keycode == RIGHT)
+	if (keycode == RIGHT)
 	{
-		data->x += 1;
-		printf("key = %d, x = %d, y = %d\n", keycode, data->x, data->y);
+		data->right = 1;
 	}
-	else if (keycode == UP)
+	if (keycode == UP)
 	{
-		data->y += 1;
-		printf("key = %d, x = %d, y = %d\n", keycode, data->x, data->y);
+		data->up = 1;
 	}
-	else if (keycode == DOWN)
+	if (keycode == DOWN)
 	{
-		data->y -= 1;
-		printf("key = %d, x = %d, y = %d\n", keycode, data->x, data->y);
+		data->down = 1;
+	}
+	return (0);
+}
+
+int				ft_key_release(int keycode, t_data *data)
+{
+	if (keycode == LEFT)
+	{
+		data->left = 0;
+	}
+	if (keycode == RIGHT)
+	{
+		data->right = 0;
+	}
+	if (keycode == UP)
+	{
+		data->up = 0;
+	}
+	if (keycode == DOWN)
+	{
+		data->down = 0;
 	}
 	return (0);
 }
@@ -69,7 +112,6 @@ int				ft_draw(t_data *data)
 	int x = data->x;
 	int y = data->y;
 
-	mlx_hook(data->mlx_win, 2, 1L<<0, ft_move, data);
 	for (i = 0; i < data->width; i++)
 	{
 		for (j = 0; j < data->height; j++)
@@ -89,6 +131,13 @@ int				ft_draw(t_data *data)
 	return (0);
 }
 
+int main_loop(t_data *data)
+{
+	ft_draw(data);
+	ft_move(data);
+	return (0);
+}
+
 int	main(void)
 {
 	t_data	data;
@@ -102,8 +151,9 @@ int	main(void)
 
 	data.x = 250;
 	data.y = 150;
-	//mlx_hook(data.mlx_win, 2, 1L<<0, ft_move, &data);
-	mlx_loop_hook(data.mlx, ft_draw, &data);
+	mlx_hook(data.mlx_win, 2, 1L<<0, ft_key_press, &data);
+	mlx_hook(data.mlx_win, 3, 1L<<1, ft_key_release, &data);
+	mlx_loop_hook(data.mlx, main_loop, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }

@@ -116,9 +116,16 @@ https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 
 ## 2. 키보드 입력으로 도형 움직이기
 
+
+
+<p align="center"><img src="https://user-images.githubusercontent.com/19530862/99901744-5ab31a80-2cfc-11eb-8ea5-f050da4ff738.gif"></p>
+
+
 생성한 삼각형을 키보드 입력으로 움직여보도록 하겠습니다.
 
 ## 참고
 https://github.com/qst0/ft_libgfx#minilibx
 
 https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
+
+https://github.com/l-yohai/cub3d/blob/master/mlx_example/05_sprite_raycast.c
