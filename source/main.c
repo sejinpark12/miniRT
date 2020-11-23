@@ -2,20 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define	UP		126
-#define	DOWN	125
-#define	LEFT	123
-#define	RIGHT	124
-#define ESC		53
+#define	UP			126
+#define	DOWN		125
+#define	LEFT		123
+#define	RIGHT		124
+#define ESC			53
+#define KeyPress	2
+#define KeyRelease	3
 
 typedef struct 	s_data
 {
 	void		*mlx;
 	void		*mlx_win;
-	int			width;
-	int			height;
-	int			x;
-	int			y;
+	int			width, height;
+	int			x, y;
 	int			up, down, left, right;
 	void		*img;
 	char		*addr;
@@ -65,47 +65,32 @@ int				ft_key_press(int keycode, t_data *data)
 		exit(0);
 	}
 	if (keycode == LEFT)
-	{
 		data->left = 1;
-	}
 	if (keycode == RIGHT)
-	{
 		data->right = 1;
-	}
 	if (keycode == UP)
-	{
 		data->up = 1;
-	}
 	if (keycode == DOWN)
-	{
 		data->down = 1;
-	}
 	return (0);
 }
 
 int				ft_key_release(int keycode, t_data *data)
 {
 	if (keycode == LEFT)
-	{
 		data->left = 0;
-	}
 	if (keycode == RIGHT)
-	{
 		data->right = 0;
-	}
 	if (keycode == UP)
-	{
 		data->up = 0;
-	}
 	if (keycode == DOWN)
-	{
 		data->down = 0;
-	}
 	return (0);
 }
 
 int				ft_draw(t_data *data)
 {
+	printf("ft_draw!\n");
 	int i;
 	int j;
 	int k;
@@ -149,6 +134,7 @@ int	main(void)
 	data.img = mlx_new_image(data.mlx, 600, 400);
 	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
 
+	mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
 	data.x = 250;
 	data.y = 150;
 	mlx_hook(data.mlx_win, 2, 1L<<0, ft_key_press, &data);
