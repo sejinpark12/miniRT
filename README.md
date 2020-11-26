@@ -110,7 +110,7 @@ int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, 
 
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/99638554-bfb30a00-2a89-11eb-900d-ca511d517360.png"></p>
 
-## 참고
+### 참고
 https://github.com/qst0/ft_libgfx#minilibx
 
 https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
@@ -293,12 +293,14 @@ int mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param);
 
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/99901744-5ab31a80-2cfc-11eb-8ea5-f050da4ff738.gif"></p>
 
-## 참고
+### 참고
 https://github.com/qst0/ft_libgfx#minilibx
 
 https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 
 https://github.com/l-yohai/cub3d/blob/master/mlx_example/05_sprite_raycast.c
+
+---
 
 ## 3. 벡터 구조체 만들기
 그래픽 연산을 하기 위해 필요한 벡터 구조체와 벡터 함수들을 만들겠습니다. 이 벡터 구조체로 색상, 위치, 방향 등등의 많은 것들을 표현할 수 있습니다.
@@ -474,5 +476,7 @@ int ft_draw(t_data *data)
 
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/100335935-e2f53080-3018-11eb-9cd8-eca44b0607cb.png"></p>
 
-## 참고
+### 참고
 https://raytracing.github.io/books/RayTracingInOneWeekend.html#thevec3class
+
+---
