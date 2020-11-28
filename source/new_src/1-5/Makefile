@@ -1,0 +1,50 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
+#    Updated: 2020/11/28 19:50:15 by sejpark          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SRC			= main.c vec3.c ray.c
+OBJS 		= ${SRC:.c=.o}
+
+NAME 		= miniRT
+LIBFT 		= libft.a
+LIBFTPATH 	= ./ 
+MLX 		= libmlx.dylib
+MLXPATH 	= ./
+CC 			= gcc
+RM 			= rm -f
+CFLAGS 		= -Wall -Wextra -Werror
+FRAMEWORK 	= -framework OpenGL -framework Appkit
+
+all : 		${NAME}
+
+${NAME} : 	${OBJS}
+			@echo "\n\033[0;32mminiRT Building..."
+			${CC} ${CFLAGS} -L${LIBFTPATH} -lft -L${MLXPATH} -lmlx ${FRAMEWORK} -o ${NAME} ${OBJS} 
+			@echo "\033[0m"
+
+.c.o :
+			@echo "\n\033[0;32mminiRT Compiling..."
+			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+			@echo "\033[0m"
+
+clean :
+			@echo "\033[0;31mCleaning..."
+			${RM} ${OBJS}
+			@echo "\033[0m"
+
+fclean : 	clean
+			@echo "\033[0;31mRemoving executable..."
+			${RM} ${NAME} 
+			@echo "\033[0m"
+
+re : 		fclean all
+
+.PHONY : 	all clean fclean re bonus

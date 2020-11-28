@@ -111,8 +111,10 @@ int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, 
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/99638554-bfb30a00-2a89-11eb-900d-ca511d517360.png"></p>
 
 ### 참고
+**ft_libgfx AKA b_gfx overload**
 https://github.com/qst0/ft_libgfx#minilibx
 
+**42 Docs**
 https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 
 ---
@@ -294,10 +296,13 @@ int mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param);
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/99901744-5ab31a80-2cfc-11eb-8ea5-f050da4ff738.gif"></p>
 
 ### 참고
+**ft_libgfx AKA b_gfx overload**
 https://github.com/qst0/ft_libgfx#minilibx
 
+**42 Docs**
 https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 
+**cub3d I-yohai github**
 https://github.com/l-yohai/cub3d/blob/master/mlx_example/05_sprite_raycast.c
 
 ---
@@ -477,6 +482,123 @@ int ft_draw(t_data *data)
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/100335935-e2f53080-3018-11eb-9cd8-eca44b0607cb.png"></p>
 
 ### 참고
+**Ray Tracing in One Weekend - Peter Shirley**
 https://raytracing.github.io/books/RayTracingInOneWeekend.html#thevec3class
 
 ---
+
+## 4. 광선 구조체 만들기
+레이 트레이싱을 구현하기 위해서는 광선을 쏘아 픽셀에 어떤 색이 보이는지 계산하기 위한 광선 구조체가 필요합니다. 광선은 **`P(t) = A + tb`** 로 나타낼 수 있습니다. **A**는 광선의 원점이고 **b**는 광선의 방향입니다. **t**는 실수입니다. **t**값을 변경하면 광선 상의 어떠한 지점으로도 이동 가능합니다. 먼저 광선 구조체와 함수 선언을 `ray.h`에 작성하겠습니다.
+
+### 1. 광선 정의하기
+**광선 구조체**
+```c
+typedef struct  s_ray
+{
+  t_point3      orig;
+  t_vec3        dir;
+}               t_ray;
+```
+
+**광선 함수**
+```c
+t_ray *ft_ray_set(t_ray *target, t_point3 *origin, t_vec3 *direction);
+t_point3 *ft_ray_at(t_point3 *target, t_ray *ray, float t);
+```
+
+광선 구조체는 광선의 원점 `t_point3 orig`와 광선의 방향 `t_vec3 dir`를 멤버로 가지고 있습니다. `ft_ray_set()` 함수는 광선을 초기화하는 함수입니다. `ft_ray_at()` 함수는 `t`값에 따른 광선 상의 점을 구하는 함수입니다.
+
+다음으로 광선 함수의 정의를 `ray.c`에 작성하겠습니다.
+
+**광선 함수 정의**
+```c
+t_ray *ft_ray_set(t_ray *target, t_point3 *origin, t_vec3 *direction)
+{
+  target->orig = *origin;
+  target->dir = *direction;
+  return (target);
+}
+
+t_point3  *ft_ray_at(t_point3 *target, t_ray *ray, float t)
+{
+  target->x = ray->orig.x + t * ray->dir.x;
+  target->y = ray->orig.y + t * ray->dir.y;
+  target->z = ray->orig.z + t * ray->dir.z;
+  return (target);
+}
+```
+
+### 2. 광선을 스크린으로 쏘기
+레이 트레이싱을 구현하기 위해서는 다음의 연산이 필요합니다.
+1. 카메라에서 픽셀까지의 광선을 계산
+2. 광선이 부딪치는 오브젝트들을 결정
+3. 광선이 부딪친 위치의 색을 계산
+
+이번에는 광선을 사용하여 배경색을 그리는 작업을 해보겠습니다. 원점 (0, 0, 0)에 카메라를 위치시키고 y축 방향은 위로, x축 방향은 오른쪽을 향합니다. z축 방향은 스크린을 뚫고 나오는 방향입니다. 스크린 왼쪽 하단을 시작으로 왼쪽에서 오른쪽으로 한 픽셀 씩, 스크린의 가장 위쪽까지 계산합니다. main.c을 수정하겠습니다.
+
+```c
+void  ft_camera_set(t_camera *cam, float aspect_ratio)
+{
+  cam->viewport_height = 2.0;
+  cam->viewport_width = aspect_ratio * cam->viewport_height;
+  cam->focal_length = 1.0;
+  ft_vec3_set_xyz(&cam->origin, 0.0, 0.0, 0.0);
+  ft_vec3_set_xyz(&cam->horizontal, cam->viewport_width, 0.0, 0.0);
+  ft_vec3_set_xyz(&cam->vertical, 0.0, cam->viewport_height, 0.0);
+  cam->lower_left_corner.x = cam->origin.x
+               - (cam->horizontal.x / 2)
+               - (cam->vertical.x / 2) - 0;
+  cam->lower_left_corner.y = cam->origin.y
+               - (cam->horizontal.y / 2)
+               - (cam->vertical.y / 2) - 0;
+  cam->lower_left_corner.z = cam->origin.z
+               - (cam->horizontal.z / 2)
+               - (cam->vertical.z / 2)
+               - cam->focal_length;
+}
+
+t_ray *ft_camera_cal_ray(t_ray *target, t_camera *cam,
+                             float u, float v)
+{
+  t_vec3 cal;
+
+  cal.x = cam->lower_left_corner.x
+          + u * cam->horizontal.x
+          + v * cam->vertical.x
+          - cam->origin.x;
+  cal.y = cam->lower_left_corner.y
+          + u * cam->horizontal.y
+          + v * cam->vertical.y
+          - cam->origin.y;
+  cal.z = cam->lower_left_corner.z
+          + u * cam->horizontal.z
+          + v * cam->vertical.z
+          - cam->origin.z;
+  return (ft_ray_set(target, &(cam->origin), &cal));
+}
+
+t_color *ft_ray_color(t_color *target, t_ray *r)
+{
+  t_vec3  unit_dir;
+  float t;
+  t_color cal1;
+  t_color cal2;
+
+  ft_vec3_unit_vec(&unit_dir, &(r->dir));
+  t = 0.5 * (unit_dir.y + 1.0);
+  ft_vec3_multi_float(&cal1, (1.0 - t),
+            ft_vec3_set_xyz(&cal1, 1.0, 1.0, 1.0));
+  ft_vec3_multi_float(&cal2, t, ft_vec3_set_xyz(&cal2, 0.5, 0.7, 1.0));
+  return (ft_vec3_add(target, &cal1, &cal2));
+}
+```
+`ft_camera_set()` 함수는 카메라의 초기값을 지정하는 함수입니다. `viewport_height`, `viewport_width`, `focal_length` 등의 값을 초기화하고 맨 처음으로 계산할 픽셀의 위치인 `lower_left_corner` 벡터를 구합니다.
+`ft_camera_cal_ray()` 함수는 `lower_left_corner`를 기준으로 매개변수 `u`, `v`의 값의 비율로 스크린 상의 해당 지점까지의 광선을 구합니다.
+`ft_ray_color()` 함수는 정규화시킨 광선의 y축 성분 크기의 비율로 배경의 색상을 구하는 함수입니다.
+최종적으로 다음과 같은 이미지를 얻을 수 있습니다.
+
+<p align="center"><img src="https://user-images.githubusercontent.com/19530862/100507259-abb98780-31b0-11eb-8085-f3b4255afcb3.png"></p>
+
+### 참고
+**Ray Tracing in One Weekend - Peter Shirley**
+https://raytracing.github.io/books/RayTracingInOneWeekend.html#rays,asimplecamera,andbackground
