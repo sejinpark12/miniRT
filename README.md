@@ -5,8 +5,11 @@
 ## 목차
 
 [1. miniLibX로 윈도우 생성과 간단한 도형 그리기](https://github.com/psj3205/miniRT#1-minilibx%EB%A1%9C-%EC%9C%88%EB%8F%84%EC%9A%B0-%EC%83%9D%EC%84%B1%EA%B3%BC-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%8F%84%ED%98%95-%EA%B7%B8%EB%A6%AC%EA%B8%B0)
+
 [2. 키보드 입력으로 도형 움직이기](https://github.com/psj3205/miniRT#2-%ED%82%A4%EB%B3%B4%EB%93%9C-%EC%9E%85%EB%A0%A5%EC%9C%BC%EB%A1%9C-%EB%8F%84%ED%98%95-%EC%9B%80%EC%A7%81%EC%9D%B4%EA%B8%B0)
+
 [3. 벡터 구조체 만들기](https://github.com/psj3205/miniRT#3-%EB%B2%A1%ED%84%B0-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0)
+
 [4. 광선 구조체 만들기](https://github.com/psj3205/miniRT#4-%EA%B4%91%EC%84%A0-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0)
 
 ## 1. miniLibX로 윈도우 생성과 간단한 도형 그리기
