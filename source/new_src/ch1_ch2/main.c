@@ -39,7 +39,7 @@ int				ft_move(t_data *data)
 		data->x -= 3;
 		printf("x = %d, y= %d\n", data->x, data->y);
 	}
-	if (data->right == 1 && data->x < data->width)
+	if (data->right == 1 && data->x + 100 < data->width)
 	{
 		data->x += 3;
 		printf("x = %d, y= %d\n", data->x, data->y);
@@ -49,7 +49,7 @@ int				ft_move(t_data *data)
 		data->y -= 3;
 		printf("x = %d, y= %d\n", data->x, data->y);
 	}
-	if (data->down == 1 && data->y < data->height)
+	if (data->down == 1 && data->y + 100 < data->height)
 	{
 		data->y += 3;
 		printf("x = %d, y= %d\n", data->x, data->y);
@@ -90,7 +90,7 @@ int				ft_key_release(int keycode, t_data *data)
 
 int				ft_draw(t_data *data)
 {
-	printf("ft_draw!\n");
+//	printf("ft_draw!\n");
 	int i;
 	int j;
 	int k;

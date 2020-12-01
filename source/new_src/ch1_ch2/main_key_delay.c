@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 18:14:22 by sejpark           #+#    #+#             */
-/*   Updated: 2020/11/23 18:49:44 by sejpark          ###   ########.fr       */
+/*   Updated: 2020/12/01 17:26:25 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define	UP		125
-#define	DOWN	126
+#define	UP		126
+#define	DOWN	125
 #define	LEFT	123
 #define	RIGHT	124
 #define ESC		53
@@ -50,24 +50,24 @@ int				ft_move(int keycode, t_data *data)
 		mlx_destroy_window(data->mlx, data->mlx_win);
 		exit(0);
 	}
-	else if (keycode == LEFT)
+	else if (keycode == LEFT && data->x > 0)
 	{
-		data->x -= 1;
+		data->x -= 3;
 		printf("key = %d, x = %d, y = %d\n", keycode, data->x, data->y);
 	}
-	else if (keycode == RIGHT)
+	else if (keycode == RIGHT && data->x + 100 < data->width)
 	{
-		data->x += 1;
+		data->x += 3;
 		printf("key = %d, x = %d, y = %d\n", keycode, data->x, data->y);
 	}
-	else if (keycode == UP)
+	else if (keycode == UP && data->y > 0)
 	{
-		data->y += 1;
+		data->y -= 3;
 		printf("key = %d, x = %d, y = %d\n", keycode, data->x, data->y);
 	}
-	else if (keycode == DOWN)
+	else if (keycode == DOWN && data->y + 100 < data->height)
 	{
-		data->y -= 1;
+		data->y += 3;
 		printf("key = %d, x = %d, y = %d\n", keycode, data->x, data->y);
 	}
 	return (0);
@@ -75,7 +75,7 @@ int				ft_move(int keycode, t_data *data)
 
 int				ft_draw(t_data *data)
 {
-	printf("ft_draw!\n");
+//	printf("ft_draw!\n");
 	int i;
 	int j;
 	int k;
