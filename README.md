@@ -2,6 +2,13 @@
 
 ---
 
+## 목차
+
+[1. miniLibX로 윈도우 생성과 간단한 도형 그리기](https://github.com/psj3205/miniRT#1-minilibx%EB%A1%9C-%EC%9C%88%EB%8F%84%EC%9A%B0-%EC%83%9D%EC%84%B1%EA%B3%BC-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%8F%84%ED%98%95-%EA%B7%B8%EB%A6%AC%EA%B8%B0)
+[2. 키보드 입력으로 도형 움직이기](https://github.com/psj3205/miniRT#2-%ED%82%A4%EB%B3%B4%EB%93%9C-%EC%9E%85%EB%A0%A5%EC%9C%BC%EB%A1%9C-%EB%8F%84%ED%98%95-%EC%9B%80%EC%A7%81%EC%9D%B4%EA%B8%B0)
+[3. 벡터 구조체 만들기](https://github.com/psj3205/miniRT#3-%EB%B2%A1%ED%84%B0-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0)
+[4. 광선 구조체 만들기](https://github.com/psj3205/miniRT#4-%EA%B4%91%EC%84%A0-%EA%B5%AC%EC%A1%B0%EC%B2%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0)
+
 ## 1. miniLibX로 윈도우 생성과 간단한 도형 그리기
 
 **miniRT/cub3d** 프로젝트는 **miniLibX** 그래픽 라이브러리를 사용하여 구현합니다.
@@ -92,7 +99,7 @@ char *mlx_get_data_addr(void *img_ptr, int *bits_per_pixel, int *size_line, int 
 
 ### 5. 픽셀 색상 지정하기
 
-**`mlx_get_data_addr()`** 함수로 생성한 이미지의 시작 주소를 가지고 있지만, 이 주소의 메모리는 색상 값이 없는 비어있는 상태입니다. 그러므로 이미지의 시작 주소를 이용하여 각 픽셀의 색상을 지정해 줍니다. 여기에서는 **miniLibX**의 **`mlx_pixel_put()`** 함수 대신에 동작을 모방하여 구현한 **`my_mlx_pixel_put()`** 함수를 사용했습니다. line_length는 이미지의 가로 한 줄의 바이트 수이므로 **(line_length * y좌표)** 로 해당 픽셀 좌표의 y좌표만큼의 메모리 주소로 일단 이동합니다. bits_per_pixel이 픽셀 당 비트의 수이므로 바이트 단위로 바꾸기 위해 8로 나누면 픽셀 당 바이트를 구할 수 있습니다. **(bits_per_pixel / 8 * y좌표)** 로 x좌표만큼의 메모리 주소를 이동하여 최종적으로 (x, y) 좌표의 픽셀의 메모리 주소를 구할 수 있습니다. ([writing pixel to a image](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#writing-pixels-to-a-image)을 참고하세요.)
+**`mlx_get_data_addr()`** 함수로 생성한 이미지의 시작 주소를 가지고 있지만, 이 주소의 메모리는 색상 값이 없는 비어있는 상태입니다. 그러므로 이미지의 시작 주소를 이용하여 각 픽셀의 색상을 지정해 줍니다. 여기에서는 **miniLibX**의 **`mlx_pixel_put()`** 함수 대신에 동작을 모방하여 구현한 **`my_mlx_pixel_put()`** 함수를 사용했습니다. line_length는 이미지의 가로 한 줄의 바이트 수이므로 **(line_length \* y좌표)** 로 해당 픽셀 좌표의 y좌표만큼의 메모리 주소로 일단 이동합니다. bits_per_pixel이 픽셀 당 비트의 수이므로 바이트 단위로 바꾸기 위해 8로 나누면 픽셀 당 바이트를 구할 수 있습니다. **(bits_per_pixel / 8 \* y좌표)** 로 x좌표만큼의 메모리 주소를 이동하여 최종적으로 (x, y) 좌표의 픽셀의 메모리 주소를 구할 수 있습니다. ([writing pixel to a image](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#writing-pixels-to-a-image)을 참고하세요.)
 
 ### 6. 이미지 그리기
 
@@ -111,6 +118,7 @@ int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, 
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/99638554-bfb30a00-2a89-11eb-900d-ca511d517360.png"></p>
 
 ### 참고
+
 **ft_libgfx AKA b_gfx overload**
 https://github.com/qst0/ft_libgfx#minilibx
 
@@ -122,7 +130,7 @@ https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html
 ## 2. 키보드 입력으로 도형 움직이기
 
 키보드 입력으로 위에서 생성한 삼각형을 움직여보도록 하겠습니다.
-miniLibX에서 키보드, 마우스 등으로부터 입력을 받기 위해서 **이벤트** 개념을 알아야 합니다. 이벤트는 프로그램에 의해 감지되고 처리될 수 있는 동작이나 사건을 말합니다([위키백과](https://ko.wikipedia.org/wiki/%EC%9D%B4%EB%B2%A4%ED%8A%B8_(%EC%BB%B4%ED%93%A8%ED%8C%85))). **miniLibX**는 이벤트를 처리하기 위해서 **`mlx_loop()`** 라는 루프문이 필요합니다. 이 함수는 이벤트의 수신을 기다리고 있다가, 해당 이벤트를 생성시킵니다.
+miniLibX에서 키보드, 마우스 등으로부터 입력을 받기 위해서 **이벤트** 개념을 알아야 합니다. 이벤트는 프로그램에 의해 감지되고 처리될 수 있는 동작이나 사건을 말합니다([위키백과](<https://ko.wikipedia.org/wiki/%EC%9D%B4%EB%B2%A4%ED%8A%B8_(%EC%BB%B4%ED%93%A8%ED%8C%85)>)). **miniLibX**는 이벤트를 처리하기 위해서 **`mlx_loop()`** 라는 루프문이 필요합니다. 이 함수는 이벤트의 수신을 기다리고 있다가, 해당 이벤트를 생성시킵니다.
 
 ```c
 #include "mlx/mlx.h"
@@ -139,34 +147,35 @@ miniLibX에서 키보드, 마우스 등으로부터 입력을 받기 위해서 *
 
 typedef struct 	s_data
 {
-  void  *mlx;
-  void  *mlx_win;
-  int   width, height;
-  int   x, y;
-  int   up, down, left, right;
-  void  *img;
-  char  *addr;
-  int   bits_per_pixel;
-  int   line_length;
-  int   endian;
+	void    *mlx;
+	void    *mlx_win;
+	int     width, height;
+	int     x, y;
+	int     up, down, left, right;
+	void    *img;
+	char    *addr;
+	int     bits_per_pixel;
+	int     line_length;
+	int     endian;
 }               t_data;
 
 void  my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    char *dst;
+  char    *dst;
 
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
+  dst = data->addr
+      + (y * data->line_length + x * (data->bits_per_pixel / 8));
+  *(unsigned int*)dst = color;
 }
 
-int   ft_move(t_data *data)
+int ft_move(t_data *data)
 {
   if (data->left == 1 && data->x > 0)
   {
     data->x -= 3;
     printf("x = %d, y= %d\n", data->x, data->y);
   }
-  if (data->right == 1 && data->x < data->width)
+  if (data->right == 1 && data->x + 100 < data->width)
   {
     data->x += 3;
     printf("x = %d, y= %d\n", data->x, data->y);
@@ -176,7 +185,7 @@ int   ft_move(t_data *data)
     data->y -= 3;
     printf("x = %d, y= %d\n", data->x, data->y);
   }
-  if (data->down == 1 && data->y < data->height)
+  if (data->down == 1 && data->y + 100 < data->height)
   {
     data->y += 3;
     printf("x = %d, y= %d\n", data->x, data->y);
@@ -184,7 +193,7 @@ int   ft_move(t_data *data)
   return (0);
 }
 
-int    ft_key_press(int keycode, t_data *data)
+int ft_key_press(int keycode, t_data *data)
 {
   if (keycode == ESC)
   {
@@ -202,7 +211,7 @@ int    ft_key_press(int keycode, t_data *data)
   return (0);
 }
 
-int     ft_key_release(int keycode, t_data *data)
+int ft_key_release(int keycode, t_data *data)
 {
   if (keycode == LEFT)
     data->left = 0;
@@ -215,8 +224,9 @@ int     ft_key_release(int keycode, t_data *data)
   return (0);
 }
 
-int     ft_draw(t_data *data)
+int ft_draw(t_data *data)
 {
+//	printf("ft_draw!\n");
   int i;
   int j;
   int k;
@@ -249,7 +259,7 @@ int main_loop(t_data *data)
   return (0);
 }
 
-int	main(void)
+int main(void)
 {
   t_data  data;
 
@@ -260,6 +270,7 @@ int	main(void)
   data.img = mlx_new_image(data.mlx, 600, 400);
   data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
 
+  mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
   data.x = 250;
   data.y = 150;
   mlx_hook(data.mlx_win, KeyPress, 1L<<0, ft_key_press, &data);
@@ -268,10 +279,10 @@ int	main(void)
   mlx_loop(data.mlx);
   return (0);
 }
-
 ```
 
 ### 1. 이벤트 생성하기
+
 **`mlx_hook()`** 함수로 이벤트를 생성할 수 있습니다. **`mlx_key_hook()`**, **`mlx_mouse_hook()`**, **`mlx_expose_hook()`** 의 각각 특정 이벤트에 대한 정의를 **`mlx_hook()`** 을 사용하여 모두 처리할 수 있습니다.
 
 ```c
@@ -281,9 +292,11 @@ int mlx_hook(void *win_ptr, int x_event, int x_mask, int (*funct_ptr)(), void *p
 이벤트를 생성하려는 윈도우의 식별자를 **`win_ptr`** 파리미터에 지정해 줍니다. **`x_event`**, **`x_mask`** 파라미터로 이벤트 상황을 지정해줍니다([X11/X.h 문서 참고](https://refspecs.linuxfoundation.org/LSB_3.2.0/LSB-Desktop-generic/LSB-Desktop-generic/libx11-ddefs.html)). **miniLibX**의 **`mlx_hook()`** 함수에서는 파라미터로 `x_mask`를 받지만 내부에서 사용을 하지 않으므로 0으로 값을 지정해도 무관합니다. **`funct_ptr`** 파라미터는 해당 이벤트가 발생할 때, 실행할 함수의 주소를 받는 함수 포인터 파라미터입니다. **`param`** 파라미터는 **`funct_ptr`** 로 호출한 함수에 필요한 파라미터 데이터를 보내주는 파라미터입니다.
 
 ### 2. 이벤트 수신하기
+
 생성한 이벤트를 수신하기 위해서는 **`mlx_loop()`** 함수가 필요합니다. **`mlx_loop()`** 함수는 이벤트를 수신하고 연동된 함수를 호출하는 동작을 반복적으로 수행합니다.
 
 ### 3. 프레임 업데이트하기
+
 이벤트를 수신하고 연동된 함수를 호출하여 키 입력에 대한 이미지의 x, y 좌표값 변경 작업을 성공적으로 수행했다 하더라도 화면에는 아직 반영이 되지 않았습니다. 다음 프레임에 변경된 사항을 업데이트 해주기 위해 필요한 함수가 바로 **`mlx_loop_hook()`** 함수입니다.
 
 ```c
@@ -296,6 +309,7 @@ int mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param);
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/99901744-5ab31a80-2cfc-11eb-8ea5-f050da4ff738.gif"></p>
 
 ### 참고
+
 **ft_libgfx AKA b_gfx overload**
 https://github.com/qst0/ft_libgfx#minilibx
 
@@ -308,11 +322,14 @@ https://github.com/l-yohai/cub3d/blob/master/mlx_example/05_sprite_raycast.c
 ---
 
 ## 3. 벡터 구조체 만들기
+
 그래픽 연산을 하기 위해 필요한 벡터 구조체와 벡터 함수들을 만들겠습니다. 이 벡터 구조체로 색상, 위치, 방향 등등의 많은 것들을 표현할 수 있습니다.
 먼저 벡터 구조체와 함수의 선언을 `vec3.h` 헤더 파일에 작성합니다.
 
 ### 1. 벡터 정의하기
+
 **벡터 구조체**
+
 ```c
 typedef struct s_vec3
 {
@@ -323,6 +340,7 @@ typedef struct s_vec3
 ```
 
 **벡터 사칙연산 함수**
+
 ```c
 t_vec3  *ft_vec3_add(t_vec3 *target, t_vec3 *u, t_vec3 *v);
 t_vec3  *ft_vec3_sub(t_vec3 *target, t_vec3 *u, t_vec3 *v);
@@ -333,12 +351,14 @@ t_vec3  *ft_vec3_div_float(t_vec3 *target, float t, t_vec3 *v);
 ```
 
 **벡터 내적, 외적 연산 함수**
+
 ```c
 float   ft_vec3_dot(t_vec3 *u, t_vec3 *v);
 t_vec3  *ft_vec3_cross(t_vec3 *target, t_vec3 *u, t_vec3 *v);
 ```
 
 **기타 함수**
+
 ```c
 float   ft_vec3_len(t_vec3 *target);
 float   ft_vec3_len_sqr(t_vec3 *target);
@@ -350,6 +370,7 @@ t_vec3  *ft_vec3_set_xyz(t_vec3 *target, float x, float y, float z);
 기본적으로 모든 함수는 함수 내에서 동적할당을 하지 않기 위해 매개변수로 `target`이라는 포인터 변수를 받아 함수 밖에서 동적할당한 변수에 접근하도록 작성했습니다.
 
 **벡터 사칙연산 함수 정의**
+
 ```c
 t_vec3  *ft_vec3_add(t_vec3 *target, t_vec3 *u, t_vec3 *v)
 {
@@ -482,16 +503,20 @@ int ft_draw(t_data *data)
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/100335935-e2f53080-3018-11eb-9cd8-eca44b0607cb.png"></p>
 
 ### 참고
+
 **Ray Tracing in One Weekend - Peter Shirley**
 https://raytracing.github.io/books/RayTracingInOneWeekend.html#thevec3class
 
 ---
 
 ## 4. 광선 구조체 만들기
+
 레이 트레이싱을 구현하기 위해서는 광선을 쏘아 픽셀에 어떤 색이 보이는지 계산하기 위한 광선 구조체가 필요합니다. 광선은 **`P(t) = A + tb`** 로 나타낼 수 있습니다. **A**는 광선의 원점이고 **b**는 광선의 방향입니다. **t**는 실수입니다. **t**값을 변경하면 광선 상의 어떠한 지점으로도 이동 가능합니다. 먼저 광선 구조체와 함수 선언을 `ray.h`에 작성하겠습니다.
 
 ### 1. 광선 정의하기
+
 **광선 구조체**
+
 ```c
 typedef struct  s_ray
 {
@@ -501,6 +526,7 @@ typedef struct  s_ray
 ```
 
 **광선 함수**
+
 ```c
 t_ray *ft_ray_set(t_ray *target, t_point3 *origin, t_vec3 *direction);
 t_point3 *ft_ray_at(t_point3 *target, t_ray *ray, float t);
@@ -511,6 +537,7 @@ t_point3 *ft_ray_at(t_point3 *target, t_ray *ray, float t);
 다음으로 광선 함수의 정의를 `ray.c`에 작성하겠습니다.
 
 **광선 함수 정의**
+
 ```c
 t_ray *ft_ray_set(t_ray *target, t_point3 *origin, t_vec3 *direction)
 {
@@ -529,7 +556,9 @@ t_point3  *ft_ray_at(t_point3 *target, t_ray *ray, float t)
 ```
 
 ### 2. 광선을 스크린으로 쏘기
+
 레이 트레이싱을 구현하기 위해서는 다음의 연산이 필요합니다.
+
 1. 카메라에서 픽셀까지의 광선을 계산
 2. 광선이 부딪치는 오브젝트들을 결정
 3. 광선이 부딪친 위치의 색을 계산
@@ -592,6 +621,7 @@ t_color *ft_ray_color(t_color *target, t_ray *r)
   return (ft_vec3_add(target, &cal1, &cal2));
 }
 ```
+
 `ft_camera_set()` 함수는 카메라의 초기값을 지정하는 함수입니다. `viewport_height`, `viewport_width`, `focal_length` 등의 값을 초기화하고 맨 처음으로 계산할 픽셀의 위치인 `lower_left_corner` 벡터를 구합니다.
 `ft_camera_cal_ray()` 함수는 `lower_left_corner`를 기준으로 매개변수 `u`, `v`의 값의 비율로 스크린 상의 해당 지점까지의 광선을 구합니다.
 `ft_ray_color()` 함수는 정규화시킨 광선의 y축 성분 크기의 비율로 배경의 색상을 구하는 함수입니다.
@@ -600,5 +630,6 @@ t_color *ft_ray_color(t_color *target, t_ray *r)
 <p align="center"><img src="https://user-images.githubusercontent.com/19530862/100507259-abb98780-31b0-11eb-8085-f3b4255afcb3.png"></p>
 
 ### 참고
+
 **Ray Tracing in One Weekend - Peter Shirley**
 https://raytracing.github.io/books/RayTracingInOneWeekend.html#rays,asimplecamera,andbackground

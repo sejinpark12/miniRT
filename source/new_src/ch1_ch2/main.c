@@ -137,8 +137,8 @@ int	main(void)
 	mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
 	data.x = 250;
 	data.y = 150;
-	mlx_hook(data.mlx_win, 2, 1L<<0, ft_key_press, &data);
-	mlx_hook(data.mlx_win, 3, 1L<<1, ft_key_release, &data);
+	mlx_hook(data.mlx_win, KeyPress, 1L<<0, ft_key_press, &data);
+	mlx_hook(data.mlx_win, KeyRelease, 1L<<1, ft_key_release, &data);
 	mlx_loop_hook(data.mlx, main_loop, &data);
 	mlx_loop(data.mlx);
 	return (0);
