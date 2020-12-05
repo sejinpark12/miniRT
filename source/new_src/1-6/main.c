@@ -6,12 +6,10 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2020/12/02 18:23:30 by sejpark          ###   ########.fr       */
+/*   Updated: 2020/12/05 20:59:55 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* *********************************** 수정 ********************************* */
-/* ************************************************************************** */
 #include "mlx.h"
 #include "libft.h"
 #include "vec3.h"
@@ -78,25 +76,7 @@ int				ft_key_press(int keycode, t_data *data)
 	return (0);
 }
 
-float			ft_hit_sphere(t_point3 *center, float radius, t_ray *r)
-{
-	t_vec3	oc;
-	float	a;
-	float	b;
-	float	c;
-	float	discriminant;
-
-	ft_vec3_sub(&oc, &(r->orig), center);
-	a = ft_vec3_dot(&(r->dir), &(r->dir));
-	b = 2.0 * ft_vec3_dot(&oc, &(r->dir));
-	c = ft_vec3_dot(&oc, &oc) - radius * radius;
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return (-1.0);
-	else
-		return ((-b - sqrt(discriminant)) / (2.0 * a));
-}
-
+/* *********************************** 수정 ********************************* */
 t_color			*ft_ray_color(t_color *target, t_ray *r, t_obj **obj_lst)
 {
 	t_vec3		unit_dir;
@@ -121,6 +101,7 @@ t_color			*ft_ray_color(t_color *target, t_ray *r, t_obj **obj_lst)
 	ft_vec3_multi_float(&cal2, t, ft_vec3_set_xyz(&cal2, 0.5, 0.7, 1.0));
 	return (ft_vec3_add(target, &cal1, &cal2));
 }
+/* ************************************************************************** */
 
 void			ft_camera_set(t_camera *cam, float aspect_ratio)
 {
@@ -195,7 +176,9 @@ int	main(void)
 {
 	t_data		data;
 	t_camera	cam;
+/* *********************************** 추가 ********************************* */
 	t_obj		*world;
+/* ************************************************************************** */
 	t_point3	center;
 	t_sphere	*sp;
 
@@ -203,6 +186,7 @@ int	main(void)
 	data.width = 600;
 	data.height = (int)(data.width / data.aspect_ratio);
 	ft_camera_set(&cam, data.aspect_ratio);
+/* *********************************** 추가 ********************************* */
 	world = NULL;
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
 	ft_vec3_set_xyz(&center, 0, 0, -1);
@@ -212,6 +196,7 @@ int	main(void)
 	ft_vec3_set_xyz(&center, 0, -100.5, -1);
 	ft_sphere_set(sp, &center, 100);
 	ft_hit_lst_add(&world, ft_hit_lst_newnode(sp));
+/* ************************************************************************** */
 
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, data.width, data.height, "miniRT");
