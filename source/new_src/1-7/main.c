@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2020/12/05 23:31:51 by sejpark          ###   ########.fr       */
+/*   Updated: 2020/12/06 00:05:20 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int	main(void)
 	data.width = 600;
 	data.height = (int)(data.width / data.aspect_ratio);
 /* *********************************** 추가 ********************************* */
-	data.samples_per_pixel = 100;
+	data.samples_per_pixel = 1;
 /* ************************************************************************** */
 	// World
 	world = NULL;

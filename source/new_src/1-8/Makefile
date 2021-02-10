@@ -6,12 +6,12 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2020/12/06 17:36:07 by sejpark          ###   ########.fr        #
+#    Updated: 2021/02/11 00:35:19 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC			= main.c vec3.c ray.c hittable.c hittable_list.c sphere.c \
-			  ft_random.c ft_camera.c
+SRC			= main_test.c vec3.c ray.c hittable.c hittable_list.c sphere.c \
+			  plane.c cylinder.c ft_random.c ft_camera.c
 OBJS 		= ${SRC:.c=.o}
 
 NAME 		= miniRT

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 22:41:59 by sejpark           #+#    #+#             */
-/*   Updated: 2020/12/05 23:34:55 by sejpark          ###   ########.fr       */
+/*   Updated: 2020/12/06 01:02:11 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_camera *ft_camera_set(t_camera *target)
 	viewport_height = 2.0;
 	viewport_width = aspect_ratio * viewport_height;
 	focal_length = 1.0;
-	ft_vec3_set_xyz(&target->origin, 0, 0, 0);
+//	아래 코드를 주석처리해야 카메라가 움직일 수 있다.
+//	ft_vec3_set_xyz(&target->origin, 0, 0, 0);
 	ft_vec3_set_xyz(&target->horizontal, viewport_width, 0.0, 0.0);
 	ft_vec3_set_xyz(&target->vertical, 0.0, viewport_height, 0.0);
 	target->lower_left_corner.x = target->origin.x - target->horizontal.x / 2
