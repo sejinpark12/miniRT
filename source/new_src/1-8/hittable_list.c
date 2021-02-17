@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:59:14 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/11 00:40:37 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:07:10 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,17 @@ int		ft_hit_lst_hit(t_obj_lst *obj_lst, t_ray *r, t_t t, t_hit_rec *rec)
 		tmp = tmp->next;
 	}
 //////////////////////////////////////////////////
+	tmp = obj_lst->sq_world;
+	while (tmp)
+	{
+		if (ft_square_hit(tmp->content, r, t, &tmp_rec))
+		{
+			hit_anything = 1;
+			t.max = tmp_rec.t;
+			*rec = tmp_rec;
+		}
+		tmp = tmp->next;
+	}
 	tmp = obj_lst->cy_world;
 	while (tmp)
 	{

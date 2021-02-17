@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/11 00:51:51 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:33:15 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "sphere.h"
 // 21.02.08 plane.h 추가
 #include "plane.h"
+#include "square.h"
 #include "cylinder.h"
 #include "ft_random.h"
 #include "ft_camera.h"
@@ -389,12 +390,13 @@ int	main(void)
 	t_sphere	*sp;
 // 21.02.08 pl 변수 추가
 	t_plane		*pl;
+	t_square	*sq;
 ///////////////////////
-	t_cylinder	*cy;
+//	t_cylinder	*cy;
 
 	// Image
 	engine.data.aspect_ratio = 16.0 / 9.0;
-	engine.data.width = 600;
+	engine.data.width = 200;
 	engine.data.height = (int)(engine.data.width / engine.data.aspect_ratio);
 	engine.data.right = 0;
 	engine.data.left = 0;
@@ -416,31 +418,67 @@ int	main(void)
 	// World
 	engine.obj_lst.sp_world = NULL;
 	engine.obj_lst.pl_world = NULL;
+	engine.obj_lst.sq_world = NULL;
 	engine.obj_lst.cy_world = NULL;
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
-	*sp = ft_sphere_set(ft_vec3_set_xyz(15, 0, -1), 4);
+	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 1, -1), 8);
 	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
 // 21.02.08 pl 생성 코드 추가
 	pl = (t_plane*)malloc(sizeof(t_plane));
-	*pl = ft_plane_set(ft_vec3_set_xyz(0, -4, -1),
+	*pl = ft_plane_set(ft_vec3_set_xyz(0, -3, 0),
 						ft_vec3_set_xyz(0, 1, 0),
 						ft_vec3_set_xyz(1, 1, 1));
 	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
 	pl = (t_plane*)malloc(sizeof(t_plane));
-	*pl = ft_plane_set(ft_vec3_set_xyz(-4, 0, -1),
+	*pl = ft_plane_set(ft_vec3_set_xyz(0, 0, -100),
+						ft_vec3_set_xyz(0, 0, 1),
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	pl = (t_plane*)malloc(sizeof(t_plane));
+	*pl = ft_plane_set(ft_vec3_set_xyz(-100, 0, 0),
 						ft_vec3_set_xyz(1, 0, 0),
 						ft_vec3_set_xyz(1, 1, 1));
 	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
 	pl = (t_plane*)malloc(sizeof(t_plane));
-	*pl = ft_plane_set(ft_vec3_set_xyz(0, 0, -1),
-						ft_vec3_set_xyz(1, 1, 0),
+	*pl = ft_plane_set(ft_vec3_set_xyz(100, 0, 0),
+						ft_vec3_set_xyz(-1, 0, 0),
 						ft_vec3_set_xyz(1, 1, 1));
 	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
-	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
-	*cy = ft_cylinder_set(ft_vec3_set_xyz(0, 0, 0),
-							ft_vec3_set_xyz(1, 0, 0),
-							3, 10, ft_vec3_set_xyz(1, 1, 1));
-	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
+	pl = (t_plane*)malloc(sizeof(t_plane));
+	*pl = ft_plane_set(ft_vec3_set_xyz(0, 100, 0),
+						ft_vec3_set_xyz(0, -1, 0),
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(0, 0, 1), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(0, 1, 0), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(1, 0, 0), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(1, 1, 1), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(1, -1, 1), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+//	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
+//	*cy = ft_cylinder_set(ft_vec3_set_xyz(0, 0, 0),
+//							ft_vec3_set_xyz(1, 0, 0),
+//							3, 10, ft_vec3_set_xyz(1, 1, 1));
+//	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
 ///////////////////////////////////////////////
 	// Camera
 	engine.cam.lookfrom = ft_vec3_set_xyz(0, 0, 10);
@@ -466,8 +504,10 @@ int	main(void)
 
 	mlx_hook(engine.data.mlx_win, 2, 1L<<0, ft_key_press, &engine.data);
 	mlx_hook(engine.data.mlx_win, 3, 1L<<0, ft_key_release, &engine.data);
-	//mlx_loop_hook(engine.data.mlx, main_loop, &engine);
-	ft_draw(&engine.data, &engine.cam, &engine.obj_lst);
+/************ 실시간 *************/
+	mlx_loop_hook(engine.data.mlx, main_loop, &engine);
+/************ 한 프레임 *************/
+	//ft_draw(&engine.data, &engine.cam, &engine.obj_lst);
 	mlx_loop(engine.data.mlx);
 	return (0);
 }

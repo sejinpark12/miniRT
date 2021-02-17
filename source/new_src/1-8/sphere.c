@@ -6,19 +6,19 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:29:38 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/10 15:00:21 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:11:44 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sphere.h"
 #include <math.h>
 
-t_sphere	ft_sphere_set(t_point3 cen, float r)
+t_sphere	ft_sphere_set(t_point3 cen, float diameter)
 {
 	t_sphere sp;
 
 	sp.center = cen;
-	sp.radius = r;
+	sp.radius = diameter / 2;
 	return (sp);
 }
 

@@ -6,12 +6,12 @@
 /*   By: sejpark <sejpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:48:09 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/10 15:10:40 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/17 00:34:43 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec3.h"
-#include "math.h"
+#include <math.h>
 
 t_vec3	ft_vec3_add(const t_vec3 u, const t_vec3 v)
 {

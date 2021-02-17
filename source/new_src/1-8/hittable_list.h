@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:47:39 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/11 00:39:53 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:05:41 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "sphere.h"
 // 21.02.8 plane.h 추가
 # include "plane.h"
+# include "square.h"
 # include "cylinder.h"
 # include "libft/libft.h"
 
@@ -25,6 +26,7 @@ typedef struct	s_obj_lst
 {
 	t_obj		*sp_world;
 	t_obj		*pl_world;
+	t_obj		*sq_world;
 	t_obj		*cy_world;
 }				t_obj_lst;
 /////////////////////////////////////////////////////////////////////

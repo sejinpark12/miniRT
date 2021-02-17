@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 22:41:59 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/10 14:56:38 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/17 00:32:56 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdio.h>
 
 const float	g_pi = 3.1415926535897932385;
-
 /* *********************************** 수정 ********************************* */
 t_camera	*ft_camera_set(t_camera *cam, t_point3 lookfrom, t_point3 lookat,
 							t_vec3 vup, float vfov, float aspect_ratio)
