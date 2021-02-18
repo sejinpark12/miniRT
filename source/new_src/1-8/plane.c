@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:28:19 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/17 21:54:16 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/18 23:46:53 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ float	ft_plane_solve_t(t_plane *pl, t_ray *r)
 
 int		ft_plane_hit(t_plane *pl, t_ray *r, t_t t_range, t_hit_rec *rec)
 {
-	t_vec3	ip;
+//	t_vec3	ip;
 	float	t;
 
 	t = ft_plane_solve_t(pl, r);
 	if (t < t_range.min || t_range.max < t)
 		return (0);
 	rec->t = t;
-	ip = ft_vec3_add(r->orig, ft_vec3_mul_f(rec->t, r->dir));
+//	ip = ft_vec3_add(r->orig, ft_vec3_mul_f(rec->t, r->dir));
 	rec->p = ft_ray_at(*r, rec->t);
 	ft_set_face_normal(rec, r, &pl->norm);
 	return (1);

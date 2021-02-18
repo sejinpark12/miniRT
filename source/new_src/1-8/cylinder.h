@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:50:28 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/10 22:55:36 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/19 00:20:21 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ typedef struct	s_cylinder
 	float		radius;
 	float		height;
 	t_color		color;
+	t_point3	top_center;
+	t_point3	bottom_center;
 }				t_cylinder;
-t_cylinder		ft_cylinder_set(t_point3 cen, t_vec3 dir, float r, float h,
-								t_color color);
+t_cylinder		ft_cylinder_set(t_point3 cen, t_vec3 dir, float diameter,
+								float h, t_color color);
+float			ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t t_range);
+float			ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t t_range);
 int				ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t t, t_hit_rec *rec);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/17 22:33:15 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/19 00:51:40 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,11 +392,11 @@ int	main(void)
 	t_plane		*pl;
 	t_square	*sq;
 ///////////////////////
-//	t_cylinder	*cy;
+	t_cylinder	*cy;
 
 	// Image
 	engine.data.aspect_ratio = 16.0 / 9.0;
-	engine.data.width = 200;
+	engine.data.width = 600;
 	engine.data.height = (int)(engine.data.width / engine.data.aspect_ratio);
 	engine.data.right = 0;
 	engine.data.left = 0;
@@ -423,7 +423,16 @@ int	main(void)
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
 	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 1, -1), 8);
 	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
-// 21.02.08 pl 생성 코드 추가
+	sp = (t_sphere*)malloc(sizeof(t_sphere));
+	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 30, -1), 20);
+	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	sp = (t_sphere*)malloc(sizeof(t_sphere));
+	*sp = ft_sphere_set(ft_vec3_set_xyz(-40, 1, -1), 4);
+	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	sp = (t_sphere*)malloc(sizeof(t_sphere));
+	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 70, -50), 15);
+	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+ // 21.02.08 pl 생성 코드 추가
 	pl = (t_plane*)malloc(sizeof(t_plane));
 	*pl = ft_plane_set(ft_vec3_set_xyz(0, -3, 0),
 						ft_vec3_set_xyz(0, 1, 0),
@@ -474,14 +483,22 @@ int	main(void)
 						ft_vec3_set_xyz(1, -1, 1), 8,
 						ft_vec3_set_xyz(1, 1, 1));
 	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
-//	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
-//	*cy = ft_cylinder_set(ft_vec3_set_xyz(0, 0, 0),
-//							ft_vec3_set_xyz(1, 0, 0),
-//							3, 10, ft_vec3_set_xyz(1, 1, 1));
-//	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
+	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
+	*cy = ft_cylinder_set(ft_vec3_set_xyz(0, 10, -1),
+							ft_vec3_set_xyz(1, 0, 0),
+							3, 10, ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
+	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
+	*cy = ft_cylinder_set(ft_vec3_set_xyz(15, 10, -1),
+							ft_vec3_set_xyz(0, 0, 1),
+							10, 15, ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
+	printf("dir_x = %f, y = %f, z = %f \n", cy->dir.x, cy->dir.y, cy->dir.z);
+	printf("top_x = %f, y = %f, z = %f \n", cy->top_center.x, cy->top_center.y, cy->top_center.z);
+	printf("bottom_x = %f, y = %f, z = %f \n", cy->bottom_center.x, cy->bottom_center.y, cy->bottom_center.z);
 ///////////////////////////////////////////////
 	// Camera
-	engine.cam.lookfrom = ft_vec3_set_xyz(0, 0, 10);
+	engine.cam.lookfrom = ft_vec3_set_xyz(-30, 0, 20);
 	engine.cam.lookat = ft_vec3_set_xyz(0, 0, 0);
 	engine.cam.vup = ft_vec3_set_xyz(0, 1, 0);
 // 21.01.30 코드 추가
@@ -505,9 +522,9 @@ int	main(void)
 	mlx_hook(engine.data.mlx_win, 2, 1L<<0, ft_key_press, &engine.data);
 	mlx_hook(engine.data.mlx_win, 3, 1L<<0, ft_key_release, &engine.data);
 /************ 실시간 *************/
-	mlx_loop_hook(engine.data.mlx, main_loop, &engine);
+	//mlx_loop_hook(engine.data.mlx, main_loop, &engine);
 /************ 한 프레임 *************/
-	//ft_draw(&engine.data, &engine.cam, &engine.obj_lst);
+	ft_draw(&engine.data, &engine.cam, &engine.obj_lst);
 	mlx_loop(engine.data.mlx);
 	return (0);
 }
