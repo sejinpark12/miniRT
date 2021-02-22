@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:28:19 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/18 23:46:53 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/22 23:04:33 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_plane	ft_plane_set(t_point3 cen, t_vec3 norm, t_color color)
 	t_plane pl;
 
 	pl.center = cen;
-	pl.norm = norm;
+	pl.norm = ft_vec3_unit_vec(norm);
 	pl.color = color;
 	return (pl);
 }

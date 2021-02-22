@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 22:41:59 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/17 00:32:56 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/22 23:02:16 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_ray		ft_camera_get_ray(t_camera cam, float u, float v)
 			+ v * cam.vertical.y - cam.origin.y;
 	dir.z = cam.lower_left_corner.z + u * cam.horizontal.z
 			+ v * cam.vertical.z - cam.origin.z;
-	return (ft_ray_set(cam.origin, dir));
+	return (ft_ray_set(cam.origin, ft_vec3_unit_vec(dir)));
 }
 
 float		ft_degrees_to_radians(float degrees)

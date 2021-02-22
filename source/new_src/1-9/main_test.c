@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/22 01:24:42 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/22 22:43:48 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,13 +314,18 @@ t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst)
 	float		t;
 	t_hit_rec	rec;
 	t_t			t_minmax;
+	float		tmpcolor;
 
 	t_minmax.min = 0;
 	t_minmax.max = FLT_MAX;
 	if (ft_hit_lst_hit(obj_lst, r, t_minmax, &rec))
 	{
-		color = ft_vec3_mul_f(
-					0.5, ft_vec3_add(rec.normal, ft_vec3_set_xyz(1, 1, 1)));
+//		color = ft_vec3_mul_f(
+//					0.5, ft_vec3_add(rec.normal, ft_vec3_set_xyz(1, 1, 1)));
+		tmpcolor = ft_vec3_dot(rec.normal, ft_vec3_mul_f(-1, r->dir));
+		if (tmpcolor < 0)
+			tmpcolor = 0;
+		color = ft_vec3_set_xyz(tmpcolor, tmpcolor, tmpcolor);
 		return (color);
 	}
 	t = 0.5 * (ft_vec3_unit_vec(r->dir).y + 1.0);
@@ -388,12 +393,12 @@ int main_loop(t_engine *engine)
 int	main(void)
 {
 	t_engine	engine;
-//	t_sphere	*sp;
+	t_sphere	*sp;
 // 21.02.08 pl 변수 추가
 	t_plane		*pl;
-//	t_square	*sq;
+	t_square	*sq;
 ///////////////////////
-//	t_cylinder	*cy;
+	t_cylinder	*cy;
 	t_triangle	*tr;
 
 	// Image
@@ -418,23 +423,23 @@ int	main(void)
 	engine.data.samples_per_pixel = 1;
 /* ************************************************************************** */
 	// World
-//	engine.obj_lst.sp_world = NULL;
+	engine.obj_lst.sp_world = NULL;
 	engine.obj_lst.pl_world = NULL;
-//	engine.obj_lst.sq_world = NULL;
-//	engine.obj_lst.cy_world = NULL;
+	engine.obj_lst.sq_world = NULL;
+	engine.obj_lst.cy_world = NULL;
 	engine.obj_lst.tr_world = NULL;
-//	sp = (t_sphere*)malloc(sizeof(t_sphere));
-//	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 1, -1), 8);
-//	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
-//	sp = (t_sphere*)malloc(sizeof(t_sphere));
-//	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 30, -1), 20);
-//	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
-//	sp = (t_sphere*)malloc(sizeof(t_sphere));
-//	*sp = ft_sphere_set(ft_vec3_set_xyz(-40, 1, -1), 4);
-//	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
-//	sp = (t_sphere*)malloc(sizeof(t_sphere));
-//	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 70, -50), 15);
-//	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	sp = (t_sphere*)malloc(sizeof(t_sphere));
+	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 1, -1), 8);
+	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	sp = (t_sphere*)malloc(sizeof(t_sphere));
+	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 30, -1), 20);
+	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	sp = (t_sphere*)malloc(sizeof(t_sphere));
+	*sp = ft_sphere_set(ft_vec3_set_xyz(-40, 1, -1), 4);
+	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	sp = (t_sphere*)malloc(sizeof(t_sphere));
+	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 70, -50), 15);
+	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
  // 21.02.08 pl 생성 코드 추가
 	pl = (t_plane*)malloc(sizeof(t_plane));
 	*pl = ft_plane_set(ft_vec3_set_xyz(0, -3, 0),
@@ -461,41 +466,41 @@ int	main(void)
 						ft_vec3_set_xyz(0, -1, 0),
 						ft_vec3_set_xyz(1, 1, 1));
 	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
-//	sq = (t_square*)malloc(sizeof(t_square));
-//	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
-//						ft_vec3_set_xyz(0, 0, 1), 8,
-//						ft_vec3_set_xyz(1, 1, 1));
-//	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
-//	sq = (t_square*)malloc(sizeof(t_square));
-//	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
-//						ft_vec3_set_xyz(0, 1, 0), 8,
-//						ft_vec3_set_xyz(1, 1, 1));
-//	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
-//	sq = (t_square*)malloc(sizeof(t_square));
-//	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
-//						ft_vec3_set_xyz(1, 0, 0), 8,
-//						ft_vec3_set_xyz(1, 1, 1));
-//	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
-//	sq = (t_square*)malloc(sizeof(t_square));
-//	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
-//						ft_vec3_set_xyz(1, 1, 1), 8,
-//						ft_vec3_set_xyz(1, 1, 1));
-//	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
-//	sq = (t_square*)malloc(sizeof(t_square));
-//	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
-//						ft_vec3_set_xyz(1, -1, 1), 8,
-//						ft_vec3_set_xyz(1, 1, 1));
-//	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
-//	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
-//	*cy = ft_cylinder_set(ft_vec3_set_xyz(0, 10, -1),
-//							ft_vec3_set_xyz(1, 0, 0),
-//							3, 10, ft_vec3_set_xyz(1, 1, 1));
-//	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
-//	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
-//	*cy = ft_cylinder_set(ft_vec3_set_xyz(15, 10, -1),
-//							ft_vec3_set_xyz(0, 0, 1),
-//							10, 15, ft_vec3_set_xyz(1, 1, 1));
-//	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(0, 0, 1), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(0, 1, 0), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(1, 0, 0), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(1, 1, 1), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	sq = (t_square*)malloc(sizeof(t_square));
+	*sq = ft_square_set(ft_vec3_set_xyz(0, 1, -1),
+						ft_vec3_set_xyz(1, -1, 1), 8,
+						ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
+	*cy = ft_cylinder_set(ft_vec3_set_xyz(0, 10, -1),
+							ft_vec3_set_xyz(1, 0, 0),
+							3, 10, ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
+	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
+	*cy = ft_cylinder_set(ft_vec3_set_xyz(15, 10, -1),
+							ft_vec3_set_xyz(0, 0, 1),
+							10, 15, ft_vec3_set_xyz(1, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
 //	printf("dir_x = %f, y = %f, z = %f \n", cy->dir.x, cy->dir.y, cy->dir.z);
 //	printf("top_x = %f, y = %f, z = %f \n", cy->top_center.x, cy->top_center.y, cy->top_center.z);
 //	printf("bottom_x = %f, y = %f, z = %f \n", cy->bottom_center.x, cy->bottom_center.y, cy->bottom_center.z);

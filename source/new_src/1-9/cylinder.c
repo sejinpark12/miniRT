@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:57:16 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/19 00:45:25 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/22 23:03:18 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_cylinder	ft_cylinder_set(t_point3 cen, t_vec3 dir, float diameter, float h,
 	t_cylinder	cy;
 
 	cy.center = cen;
-	cy.dir = dir;
+	cy.dir = ft_vec3_unit_vec(dir);
 	cy.radius = diameter / 2;
 	cy.height = h;
 	cy.color = color;
@@ -132,7 +132,7 @@ int			ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t t_range,
 		circle_center = ft_vec3_add(circle_center, cy->center);
 //		if (ft_vec3_len(ft_vec3_sub(circle_center, cy->center)) > cy->height / 2)
 //			return (0);
-		outward_normal = ft_vec3_sub(rec->p, circle_center);
+		outward_normal = ft_vec3_unit_vec(ft_vec3_sub(rec->p, circle_center));
 		ft_set_face_normal(rec, r, &outward_normal);
 		return (1);
 	}

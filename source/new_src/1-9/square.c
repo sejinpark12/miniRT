@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 20:44:05 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/17 23:13:31 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/22 23:07:55 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_square	ft_square_set(t_point3 cen, t_vec3 norm, float side_size, t_color color
 	t_square sq;
 
 	sq.center = cen;
-	sq.norm = norm;
+	sq.norm = ft_vec3_unit_vec(norm);
 	sq.side_size = side_size;
 	sq.color = color;
 	return (sq);
