@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:19:36 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/23 02:16:18 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/23 12:30:56 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ typedef struct	s_hit_rec
 void			ft_set_face_normal(t_hit_rec *rec, t_ray *r,
 														t_vec3 *outward_normal);
 void			ft_set_hit_rec_color(t_hit_rec *rec, t_color color);
-
+void			ft_reset_hit_rec(t_hit_rec *rec);
 #endif

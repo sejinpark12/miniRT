@@ -6,19 +6,20 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:29:38 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/18 14:26:48 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/23 14:51:16 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sphere.h"
 #include <math.h>
 
-t_sphere	ft_sphere_set(t_point3 cen, float diameter)
+t_sphere	ft_sphere_set(t_point3 cen, float diameter, t_color color)
 {
 	t_sphere sp;
 
 	sp.center = cen;
 	sp.radius = diameter / 2;
+	sp.color = color;
 	return (sp);
 }
 
@@ -36,10 +37,10 @@ float		ft_sphere_solve_t(t_sphere *sp, t_ray *r, t_t t_range)
 	if ((discriminant = pow(coef.half_b, 2.0) - coef.a * coef.c) < 0)
 		return (INFINITY);
 	t = (-coef.half_b - sqrt(discriminant)) / coef.a;
-	if (t < t_range.min || t_range.max < t)
+	if (t <= t_range.min || t_range.max < t)
 	{
 		t = (-coef.half_b + sqrt(discriminant)) / coef.a;
-		if (t < t_range.min || t_range.max < t)
+		if (t <= t_range.min || t_range.max < t)
 			return (INFINITY);
 	}
 	return (t);
@@ -58,6 +59,7 @@ int			ft_sphere_hit(t_sphere *sp, t_ray *r, t_t t_range, t_hit_rec *rec)
 		outward_normal = ft_vec3_div_f(sp->radius,
 											ft_vec3_sub(rec->p, sp->center));
 		ft_set_face_normal(rec, r, &outward_normal);
+		ft_set_hit_rec_color(rec, sp->color);
 		return (1);
 	}
 	return (0);

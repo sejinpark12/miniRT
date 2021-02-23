@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 20:45:01 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/22 22:53:04 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/23 15:07:31 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				ft_triangle_hit(t_triangle *tr, t_ray *r, t_t t_range,
 	float	t;
 
 	t = ft_triangle_solve_t(tr, r);
-	if (t < t_range.min || t_range.max < t)
+	if (t <= t_range.min || t_range.max < t)
 		return (0);
 	ft_triangle_set_c(tr, ft_ray_at(*r, t));
 	if (ft_vec3_dot(tr->tr_plane.norm, ft_vec3_cross(tr->edge0, tr->c0)) > 0 &&
@@ -60,6 +60,9 @@ int				ft_triangle_hit(t_triangle *tr, t_ray *r, t_t t_range,
 		rec->t = t;
 		rec->p = ft_ray_at(*r, rec->t);
 		ft_set_face_normal(rec, r, &tr->tr_plane.norm);
+//		printf("tir normal  x = %f, y = %f, z = %f\n", tr->tr_plane.norm.x,tr->tr_plane.norm.y,tr->tr_plane.norm.z);
+		ft_set_hit_rec_color(rec, tr->tr_plane.color);
+//		printf("tir color x = %f, y = %f, z = %f\n", tr->tr_plane.color.x,tr->tr_plane.color.y,tr->tr_plane.color.z);
 		return (1);
 	}
 	return (0);	

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:47:39 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/22 01:00:16 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/23 12:44:39 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void			ft_hit_lst_delone(t_obj **obj_lst);
 void			ft_hit_lst_clear(t_obj **obj_lst);
 int				ft_hit_lst_hit(t_obj_lst *obj_lst, t_ray *r,
 								t_t t, t_hit_rec *rec);
-
+int				ft_sha_hit_lst_hit(t_obj_lst *obj_lst, t_ray *r,
+								t_t t, t_hit_rec *rec);
 #endif

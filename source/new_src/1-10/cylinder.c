@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:57:16 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/23 02:27:21 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/23 15:08:26 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ float		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t t_range)
 		return (INFINITY);
 	if (ft_vec3_dot(cy->dir, ft_vec3_sub(ip, cy->bottom_center)) < 0)
 		return (INFINITY);
-	if (t < t_range.min || t_range.max < t)
+	if (t <= t_range.min || t_range.max < t)
 	{
 		t = (-coef.half_b + sqrt(discriminant)) / coef.a;
 		ip = ft_ray_at(*r, t);
-		if (t < t_range.min || t_range.max < t)
+		if (t <= t_range.min || t_range.max < t)
 			return (INFINITY);
 	}
 	return (t);
@@ -105,9 +105,9 @@ float	ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t t_range)
 	if (ft_vec3_sqr_len(ft_vec3_sub(ft_ray_at(*r, bottom_center_t), cy->bottom_center))
 																> pow(cy->radius, 2.0))
 		bottom_center_t = INFINITY;
-	if (top_center_t < t_range.min || t_range.max < top_center_t)
+	if (top_center_t <= t_range.min || t_range.max < top_center_t)
 		top_center_t = INFINITY;
-	if (bottom_center_t < t_range.min || t_range.max < bottom_center_t)
+	if (bottom_center_t <= t_range.min || t_range.max < bottom_center_t)
 		bottom_center_t = INFINITY;
 	return (top_center_t < bottom_center_t ? top_center_t : bottom_center_t);
 }

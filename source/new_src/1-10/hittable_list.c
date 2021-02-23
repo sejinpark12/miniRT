@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:59:14 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/22 01:08:48 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/23 15:44:17 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,69 @@ int		ft_hit_lst_hit(t_obj_lst *obj_lst, t_ray *r, t_t t, t_hit_rec *rec)
 		tmp = tmp->next;
 	}
 	return (hit_anything);
+}
+
+int		ft_sha_hit_lst_hit(t_obj_lst *obj_lst, t_ray *r, t_t t, t_hit_rec *rec)
+{
+	t_hit_rec	tmp_rec;
+	t_obj		*tmp;
+
+	tmp = obj_lst->sp_world;
+	while (tmp)
+	{
+		if (ft_sphere_hit(tmp->content, r, t, &tmp_rec))
+		{
+			return (1);
+			t.max = tmp_rec.t;
+			*rec = tmp_rec;
+		}
+		tmp = tmp->next;
+	}
+// 21.02.08 평면을 추가 하기 위해 코드추가
+	tmp = obj_lst->pl_world;
+	while (tmp)
+	{
+		if (ft_plane_hit(tmp->content, r, t, &tmp_rec))
+		{
+			return (1);
+			t.max = tmp_rec.t;
+			*rec = tmp_rec;
+		}
+		tmp = tmp->next;
+	}
+//////////////////////////////////////////////////
+	tmp = obj_lst->sq_world;
+	while (tmp)
+	{
+		if (ft_square_hit(tmp->content, r, t, &tmp_rec))
+		{
+			return (1);
+			t.max = tmp_rec.t;
+			*rec = tmp_rec;
+		}
+		tmp = tmp->next;
+	}
+	tmp = obj_lst->cy_world;
+	while (tmp)
+	{
+		if (ft_cylinder_hit(tmp->content, r, t, &tmp_rec))
+		{
+			return (1);
+			t.max = tmp_rec.t;
+			*rec = tmp_rec;
+		}
+		tmp = tmp->next;
+	}
+	tmp = obj_lst->tr_world;
+	while (tmp)
+	{
+		if (ft_triangle_hit(tmp->content, r, t, &tmp_rec))
+		{
+			return (1);
+			t.max = tmp_rec.t;
+			*rec = tmp_rec;
+		}
+		tmp = tmp->next;
+	}
+	return (0);
 }

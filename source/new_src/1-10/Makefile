@@ -6,7 +6,7 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2021/02/23 00:12:48 by sejpark          ###   ########.fr        #
+#    Updated: 2021/02/23 17:38:02 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ MLX 		= libmlx.dylib
 MLXPATH 	= ./
 CC 			= gcc
 RM 			= rm -f
+#CFLAGS 		= -Wall -Wextra -Werror -g3 -fsanitize=address
 CFLAGS 		= -Wall -Wextra -Werror
 FRAMEWORK 	= -framework OpenGL -framework Appkit
 

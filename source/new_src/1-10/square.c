@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 20:44:05 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/22 23:07:55 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/23 15:07:13 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			ft_square_hit(t_square *sq, t_ray *r, t_t t_range, t_hit_rec *rec)
 	float	limit;
 
 	t = ft_square_solve_t(sq, r);
-	if (t < t_range.min || t_range.max < t)
+	if (t <= t_range.min || t_range.max < t)
 		return (0);
 	rec->t = t;
 	ip = ft_vec3_add(r->orig, ft_vec3_mul_f(rec->t, r->dir));
@@ -64,6 +64,7 @@ int			ft_square_hit(t_square *sq, t_ray *r, t_t t_range, t_hit_rec *rec)
 	{
 		rec->p = ft_ray_at(*r, rec->t);
 		ft_set_face_normal(rec, r, &sq->norm);
+		ft_set_hit_rec_color(rec, sq->color);
 		return (1);
 	}
 	return (0);
