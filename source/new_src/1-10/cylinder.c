@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:57:16 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/23 15:08:26 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/24 17:31:56 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,24 @@
 #include <math.h>
 #include <stdio.h>
 
-t_cylinder	ft_cylinder_set(t_point3 cen, t_vec3 dir, float diameter, float h,
-								t_color color)
-{
-	t_cylinder	cy;
+//t_cylinder	ft_cylinder_set(t_point3 cen, t_vec3 dir, float diameter, float h,
+//								t_color color)
+//{
+//	t_cylinder	cy;
+//
+//	cy.center = cen;
+//	cy.dir = ft_vec3_unit_vec(dir);
+//	cy.radius = diameter / 2;
+//	cy.height = h;
+//	cy.color = color;
+//	cy.top_center = ft_vec3_add(cy.center, ft_vec3_mul_f(cy.height / 2, cy.dir));
+//	cy.bottom_center = ft_vec3_sub(cy.center, ft_vec3_mul_f(cy.height / 2, cy.dir));
+//	return (cy);
+//}
 
-	cy.center = cen;
-	cy.dir = ft_vec3_unit_vec(dir);
-	cy.radius = diameter / 2;
-	cy.height = h;
-	cy.color = color;
-	cy.top_center = ft_vec3_add(cy.center, ft_vec3_mul_f(cy.height / 2, cy.dir));
-	cy.bottom_center = ft_vec3_sub(cy.center, ft_vec3_mul_f(cy.height / 2, cy.dir));
-	return (cy);
+t_cylinder		ft_cylinder_set(const t_cyclinder *cy)
+{
+	return (*cy);
 }
 
 float		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t t_range)

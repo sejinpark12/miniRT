@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:47:39 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/23 12:44:39 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/24 14:51:40 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ typedef struct	s_obj_lst
 	t_obj		*tr_world;
 }				t_obj_lst;
 /////////////////////////////////////////////////////////////////////
+typedef struct	s_light_lst
+{
+	t_obj		*splight_lst;
+}				t_light_lst;
 void			ft_obj_del(void *node);
 t_obj			*ft_hit_lst_newnode(void *newnode);
 void			ft_hit_lst_add(t_obj **obj_lst, t_obj *node);
