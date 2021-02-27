@@ -6,14 +6,13 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:50:28 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/26 23:58:46 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/27 17:29:14 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CYLINDER_H
 # define CYLINDER_H
 # include "hittable.h"
-# include "vec3.h"
 
 //typedef struct		s_cy_info
 //{

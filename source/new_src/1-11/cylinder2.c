@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:59:26 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 00:01:43 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/27 17:40:42 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void		ft_cylinder_set_rec(t_cylinder *cy, t_ray *r, t_hit_rec *rec,
 	{
 		rec->t = cy_ts.cy_t;
 		rec->p = ft_ray_at(*r, rec->t);
-		circle_center = ft_vec3_mul_f(
-				ft_vec3_dot(cy->dir, ft_vec3_sub(rec->p, cy->center)), cy->dir);
+		circle_center = ft_vec_mul_f(
+				ft_vec_dot(cy->dir, ft_vec_sub(rec->p, cy->center)), cy->dir);
 		//circle_center는 원기둥의 중심점에서 출발하는 벡터이므로 원기둥의 중심점과 더한다.
-		circle_center = ft_vec3_add(circle_center, cy->center);
-		outward_normal = ft_vec3_unit_vec(ft_vec3_sub(rec->p, circle_center));
+		circle_center = ft_vec_add(circle_center, cy->center);
+		outward_normal = ft_vec_unit_vec(ft_vec_sub(rec->p, circle_center));
 		ft_set_face_normal(rec, r, &outward_normal);
 	}
 	else

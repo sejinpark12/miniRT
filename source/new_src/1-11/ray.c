@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:36:34 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/09 22:09:15 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/27 17:35:10 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_point3	ft_ray_at(t_ray ray, float t)
 {
 	t_point3 target;
 
-	target = ft_vec3_set_xyz(
+	target = ft_vec_set_xyz(
 			ray.orig.x + t * ray.dir.x,
 			ray.orig.y + t * ray.dir.y,
 			ray.orig.z + t * ray.dir.z);

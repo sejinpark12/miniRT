@@ -6,14 +6,13 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:22:40 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/23 10:27:01 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/27 17:30:00 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPHERE_H
 # define SPHERE_H
 # include "hittable.h"
-# include "vec3.h"
 
 typedef struct	s_sphere
 {

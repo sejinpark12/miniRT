@@ -6,13 +6,13 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:29:52 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/09 19:38:54 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/27 17:28:30 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_H
 # define RAY_H
-# include "vec3.h"
+# include "vec.h"
 
 typedef struct	s_ray
 {

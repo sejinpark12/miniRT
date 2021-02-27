@@ -6,13 +6,13 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/24 16:14:58 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/27 17:34:25 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "libft.h"
-#include "vec3.h"
+#include "vec.h"
 #include "ray.h"
 #include "hittable_list.h"
 #include "sphere.h"
@@ -22,8 +22,8 @@
 #include "cylinder.h"
 #include "triangle.h"
 #include "light.h"
-#include "ft_random.h"
-#include "ft_camera.h"
+#include "random.h"
+#include "camera.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -118,114 +118,84 @@ int				ft_move(t_data *data, t_camera *cam)
 	t_vec3 pos_ud;
 
 	// 원래 단위 벡터로 설정했는데 이동 속도가 너무 빨라서 일단 벡터 크기를 줄임
-	x_axis = ft_vec3_set_xyz(0.3, 0, 0);
-	y_axis = ft_vec3_set_xyz(0, 0.3, 0);
-	z_axis = ft_vec3_set_xyz(0, 0, 0.3);
+	x_axis = ft_vec_set_xyz(0.3, 0, 0);
+	y_axis = ft_vec_set_xyz(0, 0.3, 0);
+	z_axis = ft_vec_set_xyz(0, 0, 0.3);
 	
-	pos_fb.x = ft_vec3_dot(x_axis, cam->w);
-	pos_fb.y = ft_vec3_dot(y_axis, cam->w);
-	pos_fb.z = ft_vec3_dot(z_axis, cam->w);
-	pos_rl.x = ft_vec3_dot(x_axis, cam->u);
-	pos_rl.y = ft_vec3_dot(y_axis, cam->u);
-	pos_rl.z = ft_vec3_dot(z_axis, cam->u);
-	pos_ud.x = ft_vec3_dot(x_axis, cam->v);
-	pos_ud.y = ft_vec3_dot(y_axis, cam->v);
-	pos_ud.z = ft_vec3_dot(z_axis, cam->v);
+	pos_fb.x = ft_vec_dot(x_axis, cam->w);
+	pos_fb.y = ft_vec_dot(y_axis, cam->w);
+	pos_fb.z = ft_vec_dot(z_axis, cam->w);
+	pos_rl.x = ft_vec_dot(x_axis, cam->u);
+	pos_rl.y = ft_vec_dot(y_axis, cam->u);
+	pos_rl.z = ft_vec_dot(z_axis, cam->u);
+	pos_ud.x = ft_vec_dot(x_axis, cam->v);
+	pos_ud.y = ft_vec_dot(y_axis, cam->v);
+	pos_ud.z = ft_vec_dot(z_axis, cam->v);
 
 	if (data->left == 1)
 	{
-		cam->lookfrom.x -= pos_rl.x;
-		cam->lookfrom.y -= pos_rl.y;
-		cam->lookfrom.z -= pos_rl.z;
-		cam->lookat.x -= pos_rl.x;
-		cam->lookat.y -= pos_rl.y;
-		cam->lookat.z -= pos_rl.z;
-//		cam->lookfrom.x -= 0.1;
-//		cam->lookat.x -= 0.1;
+		cam->origin.x -= pos_rl.x;
+		cam->origin.y -= pos_rl.y;
+		cam->origin.z -= pos_rl.z;
 	}
 	if (data->right == 1)
 	{
-		cam->lookfrom.x += pos_rl.x;
-		cam->lookfrom.y += pos_rl.y;
-		cam->lookfrom.z += pos_rl.z;
-		cam->lookat.x += pos_rl.x;
-		cam->lookat.y += pos_rl.y;
-		cam->lookat.z += pos_rl.z;
-//		cam->lookfrom.x += 0.1;
-//		cam->lookat.x += 0.1;
+		cam->origin.x += pos_rl.x;
+		cam->origin.y += pos_rl.y;
+		cam->origin.z += pos_rl.z;
 	}
 	if (data->up == 1)
 	{
-		cam->lookfrom.x += pos_ud.x;
-		cam->lookfrom.y += pos_ud.y;
-		cam->lookfrom.z += pos_ud.z;
-		cam->lookat.x += pos_ud.x;
-		cam->lookat.y += pos_ud.y;
-		cam->lookat.z += pos_ud.z;
-//		cam->lookfrom.y += 0.1;
-//		cam->lookat.y += 0.1;
+		cam->origin.x += pos_ud.x;
+		cam->origin.y += pos_ud.y;
+		cam->origin.z += pos_ud.z;
 	}
 	if (data->down == 1)
 	{
-		cam->lookfrom.x -= pos_ud.x;
-		cam->lookfrom.y -= pos_ud.y;
-		cam->lookfrom.z -= pos_ud.z;
-		cam->lookat.x -= pos_ud.x;
-		cam->lookat.y -= pos_ud.y;
-		cam->lookat.z -= pos_ud.z;
-//		cam->lookfrom.y -= 0.1;
-//		cam->lookat.y -= 0.1;
+		cam->origin.x -= pos_ud.x;
+		cam->origin.y -= pos_ud.y;
+		cam->origin.z -= pos_ud.z;
 	}
 	if (data->forward == 1)
 	{
-		cam->lookfrom.x -= pos_fb.x;
-		cam->lookfrom.y -= pos_fb.y;
-		cam->lookfrom.z -= pos_fb.z;
-		cam->lookat.x -= pos_fb.x;
-		cam->lookat.y -= pos_fb.y;
-		cam->lookat.z -= pos_fb.z;
-//		cam->lookfrom.z -= 0.1;
-//		cam->lookat.z -= 0.1;
+		cam->origin.x -= pos_fb.x;
+		cam->origin.y -= pos_fb.y;
+		cam->origin.z -= pos_fb.z;
 	}
 	if (data->backward == 1)
 	{
-		cam->lookfrom.x += pos_fb.x;
-		cam->lookfrom.y += pos_fb.y;
-		cam->lookfrom.z += pos_fb.z;
-		cam->lookat.x += pos_fb.x;
-		cam->lookat.y += pos_fb.y;
-		cam->lookat.z += pos_fb.z;
-//		cam->lookfrom.z += 0.1;
-//		cam->lookat.z += 0.1;
+		cam->origin.x += pos_fb.x;
+		cam->origin.y += pos_fb.y;
+		cam->origin.z += pos_fb.z;
 	}
 // 21.01.30 코드 추가
 	if (data->r_rotate == 1 && cam->cam_phi < -1)
 	{
 		cam->cam_phi += 1;
-		cam->lookat.x = cam->lookfrom.x + sin(ft_degrees_to_radians(cam->cam_theta)) * cos(ft_degrees_to_radians(cam->cam_phi));
-		cam->lookat.y = cam->lookfrom.y + cos(ft_degrees_to_radians(cam->cam_theta));
-		cam->lookat.z = cam->lookfrom.z + sin(ft_degrees_to_radians(cam->cam_theta)) * sin(ft_degrees_to_radians(cam->cam_phi));
+		cam->dir.x = sin(ft_degrees_to_radians(cam->cam_theta)) * cos(ft_degrees_to_radians(cam->cam_phi));
+		cam->dir.y = cos(ft_degrees_to_radians(cam->cam_theta));
+		cam->dir.z = sin(ft_degrees_to_radians(cam->cam_theta)) * sin(ft_degrees_to_radians(cam->cam_phi));
 	}
 	if (data->l_rotate == 1 && cam->cam_phi > -179)
 	{
 		cam->cam_phi -= 1;
-		cam->lookat.x = cam->lookfrom.x + sin(ft_degrees_to_radians(cam->cam_theta)) * cos(ft_degrees_to_radians(cam->cam_phi));
-		cam->lookat.y = cam->lookfrom.y + cos(ft_degrees_to_radians(cam->cam_theta));
-		cam->lookat.z = cam->lookfrom.z + sin(ft_degrees_to_radians(cam->cam_theta)) * sin(ft_degrees_to_radians(cam->cam_phi));
+		cam->dir.x = sin(ft_degrees_to_radians(cam->cam_theta)) * cos(ft_degrees_to_radians(cam->cam_phi));
+		cam->dir.y = cos(ft_degrees_to_radians(cam->cam_theta));
+		cam->dir.z = sin(ft_degrees_to_radians(cam->cam_theta)) * sin(ft_degrees_to_radians(cam->cam_phi));
 	}
 	if (data->up_rotate == 1 && cam->cam_theta > 1)
 	{
 		cam->cam_theta -= 1;
-		cam->lookat.x = cam->lookfrom.x + sin(ft_degrees_to_radians(cam->cam_theta)) * cos(ft_degrees_to_radians(cam->cam_phi));
-		cam->lookat.y = cam->lookfrom.y + cos(ft_degrees_to_radians(cam->cam_theta));
-		cam->lookat.z = cam->lookfrom.z + sin(ft_degrees_to_radians(cam->cam_theta)) * sin(ft_degrees_to_radians(cam->cam_phi));
+		cam->dir.x = sin(ft_degrees_to_radians(cam->cam_theta)) * cos(ft_degrees_to_radians(cam->cam_phi));
+		cam->dir.y = cos(ft_degrees_to_radians(cam->cam_theta));
+		cam->dir.z = sin(ft_degrees_to_radians(cam->cam_theta)) * sin(ft_degrees_to_radians(cam->cam_phi));
 	}
 	if (data->down_rotate == 1 && cam->cam_theta < 179)
 	{
 		cam->cam_theta += 1;
-		cam->lookat.x = cam->lookfrom.x + sin(ft_degrees_to_radians(cam->cam_theta)) * cos(ft_degrees_to_radians(cam->cam_phi));
-		cam->lookat.y = cam->lookfrom.y + cos(ft_degrees_to_radians(cam->cam_theta));
-		cam->lookat.z = cam->lookfrom.z + sin(ft_degrees_to_radians(cam->cam_theta)) * sin(ft_degrees_to_radians(cam->cam_phi));
+		cam->dir.x = sin(ft_degrees_to_radians(cam->cam_theta)) * cos(ft_degrees_to_radians(cam->cam_phi));
+		cam->dir.y = cos(ft_degrees_to_radians(cam->cam_theta));
+		cam->dir.z = sin(ft_degrees_to_radians(cam->cam_theta)) * sin(ft_degrees_to_radians(cam->cam_phi));
 	}
 	if (cam->cam_phi < -360)
 	{
@@ -243,9 +213,6 @@ int				ft_move(t_data *data, t_camera *cam)
 	{
 		cam->cam_theta = 0;
 	}
-//	printf("lookfrom : x = %f, y= %f z = %f\n", cam->lookfrom.x, cam->lookfrom.y, cam->lookfrom.z);
-//	printf("lookat : x = %f, y = %f z = %f\n", cam->lookat.x, cam->lookat.y, cam->lookat.z);
-//	printf("phi = %f, theta %f\n", cam->cam_phi, cam->cam_theta);
 //////////////////////////////////////////////
 	return (0);
 }
@@ -354,18 +321,18 @@ t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_light_lst *light_lst)
 // 네 번째 버전 - 다중 포인트 조명
 		cur_splight_lst = light_lst->splight_lst;
 		ft_reset_hit_rec(&shadowrec);
-		color = ft_vec3_set_xyz(0, 0, 0);
+		color = ft_vec_set_xyz(0, 0, 0);
 		while(cur_splight_lst)
 		{
 			spli_info = ft_splight_get_info(cur_splight_lst->content, &rec.p);
 			t_minmax.max = spli_info.distance;
-			sha_ray = ft_ray_set(ft_vec3_add(rec.p,
-						ft_vec3_mul_f(1e-4, rec.normal)),
-						ft_vec3_mul_f(-1, spli_info.lightdir));
+			sha_ray = ft_ray_set(ft_vec_add(rec.p,
+						ft_vec_mul_f(1e-4, rec.normal)),
+						ft_vec_mul_f(-1, spli_info.lightdir));
 			vis = (0 == ft_sha_hit_lst_hit(
 						obj_lst, &sha_ray, t_minmax, &shadowrec)) ? 1 : 0;
-			tmpcolor = ft_vec3_dot(rec.normal,
-						ft_vec3_mul_f(-1, spli_info.lightdir));
+			tmpcolor = ft_vec_dot(rec.normal,
+						ft_vec_mul_f(-1, spli_info.lightdir));
 			if (tmpcolor < 0)
 				tmpcolor = 0;
 			color.x += vis * rec.color.x * 0.18 / M_PI *
@@ -380,10 +347,10 @@ t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_light_lst *light_lst)
 		}
 		return (color);
 	}
-	t = 0.5 * (ft_vec3_unit_vec(r->dir).y + 1.0);
-	color = ft_vec3_add(
-				ft_vec3_mul_f((1.0 - t), ft_vec3_set_xyz(1.0, 1.0, 1.0)),
-				ft_vec3_mul_f(t, ft_vec3_set_xyz(0.5, 0.7, 1.0)));
+	t = 0.5 * (ft_vec_unit_vec(r->dir).y + 1.0);
+	color = ft_vec_add(
+				ft_vec_mul_f((1.0 - t), ft_vec_set_xyz(1.0, 1.0, 1.0)),
+				ft_vec_mul_f(t, ft_vec_set_xyz(0.5, 0.7, 1.0)));
 	return (color);
 }
 
@@ -412,7 +379,7 @@ int				ft_draw(t_data *data, t_camera *cam, t_obj_lst *obj_lst, t_light_lst *lig
 		{
 /* *********************************** 수정 ********************************* */
 			k = 0;
-			color = ft_vec3_set_xyz(0, 0, 0);
+			color = ft_vec_set_xyz(0, 0, 0);
 			while (k < data->samples_per_pixel)
 			{
 				r = ft_camera_get_ray(*cam,
@@ -420,7 +387,7 @@ int				ft_draw(t_data *data, t_camera *cam, t_obj_lst *obj_lst, t_light_lst *lig
 							((float)j + ft_random_float()) / (data->height - 1));
 // 21.02.08 sp, pl 리스트를 한번에 처리하기 까다로워서 일단 분리
 				//color = ft_vec3_add(color, ft_ray_color(&r, obj_lst, dili));
-				color = ft_vec3_add(color, ft_ray_color(&r, obj_lst, light_lst));
+				color = ft_vec_add(color, ft_ray_color(&r, obj_lst, light_lst));
 /////////////////////////////////////////////////////////////////
 				k++;
 			}
@@ -436,8 +403,11 @@ int				ft_draw(t_data *data, t_camera *cam, t_obj_lst *obj_lst, t_light_lst *lig
 
 int main_loop(t_engine *engine)
 {
-	ft_camera_set(&engine->cam, engine->cam.lookfrom, engine->cam.lookat,
-							engine->cam.vup, 90.0, engine->data.aspect_ratio);
+//	ft_camera_set(&engine->cam, engine->cam.lookfrom, engine->cam.lookat,
+//							engine->cam.vup, 90.0, engine->data.aspect_ratio);
+//	printf("origin x = %f, y = %f, z = %f\n", engine->cam.origin.x, engine->cam.origin.y, engine->cam.origin.z);
+//	printf("dir x = %f, y = %f, z = %f\n", engine->cam.dir.x, engine->cam.dir.y, engine->cam.dir.z);
+	ft_camera_set(&engine->cam, engine->cam.origin, engine->cam.dir, 90.0);
 // 21.02.08 sp, pl 리스트를 한번에 처리하기 까다로워서 일단 분리
 //	ft_draw(&engine->data, &engine->cam, &engine->obj_lst, engine->dili);
 //	ft_draw(&engine->data, &engine->cam, &engine->obj_lst, engine->spli);
@@ -462,7 +432,7 @@ int	main(void)
 
 	// Image
 	engine.data.aspect_ratio = 16.0 / 9.0;
-	engine.data.width = 1000;
+	engine.data.width = 400;
 	engine.data.height = (int)(engine.data.width / engine.data.aspect_ratio);
 	engine.data.right = 0;
 	engine.data.left = 0;
@@ -499,12 +469,12 @@ int	main(void)
 //											500000, ft_vec3_set_xyz(1, 1, 1));
 //	다중 구형 조명
 	spli = (t_splight*)malloc(sizeof(t_splight));
-	*(spli) = ft_splight_set(ft_vec3_set_xyz(-20, 50, -20),
-											500000, ft_vec3_set_xyz(0.5, 0.5, 1));
+	*(spli) = ft_splight_set(ft_vec_set_xyz(-20, 50, -20),
+											500000, ft_vec_set_xyz(0.5, 0.5, 1));
 	ft_hit_lst_add(&engine.light_lst.splight_lst, ft_hit_lst_newnode(spli));
 	spli = (t_splight*)malloc(sizeof(t_splight));
-	*(spli) = ft_splight_set(ft_vec3_set_xyz(20, 50, 20),
-											500000, ft_vec3_set_xyz(1, 0.5, 0.5));
+	*(spli) = ft_splight_set(ft_vec_set_xyz(20, 50, 20),
+											500000, ft_vec_set_xyz(1, 0.5, 0.5));
 	ft_hit_lst_add(&engine.light_lst.splight_lst, ft_hit_lst_newnode(spli));
 //	spli = (t_splight*)malloc(sizeof(t_splight));
 //	*(spli) = ft_splight_set(ft_vec3_set_xyz(0, 5, 0),
@@ -512,94 +482,94 @@ int	main(void)
 //	ft_hit_lst_add(&engine.light_lst.splight_lst, ft_hit_lst_newnode(spli));
 // 도형 ///////////////////////////////////////////
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
-	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 1, -5), 8, ft_vec3_set_xyz(1, 0, 0));
+	*sp = ft_sphere_set(ft_vec_set_xyz(0, 1, -5), 8, ft_vec_set_xyz(1, 0, 0));
 	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
-	*sp = ft_sphere_set(ft_vec3_set_xyz(12, 25, 13), 10, ft_vec3_set_xyz(0, 1, 0));
+	*sp = ft_sphere_set(ft_vec_set_xyz(12, 25, 13), 10, ft_vec_set_xyz(0, 1, 0));
 	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
-	*sp = ft_sphere_set(ft_vec3_set_xyz(-10, 1, -1), 4, ft_vec3_set_xyz(0, 0, 1));
+	*sp = ft_sphere_set(ft_vec_set_xyz(-10, 1, -1), 4, ft_vec_set_xyz(0, 0, 1));
 	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
-	*sp = ft_sphere_set(ft_vec3_set_xyz(0, 20, -50), 15, ft_vec3_set_xyz(1, 0, 1));
+	*sp = ft_sphere_set(ft_vec_set_xyz(0, 20, -50), 15, ft_vec_set_xyz(1, 0, 1));
 	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
  // 21.02.08 pl 생성 코드 추가
 	pl = (t_plane*)malloc(sizeof(t_plane));
-	*pl = ft_plane_set(ft_vec3_set_xyz(0, -3, 0),
-						ft_vec3_set_xyz(0, 1, 0),
-						ft_vec3_set_xyz(0.8, 0.8, 0.8));
+	*pl = ft_plane_set(ft_vec_set_xyz(0, -3, 0),
+						ft_vec_set_xyz(0, 1, 0),
+						ft_vec_set_xyz(0.8, 0.8, 0.8));
 	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
-//	pl = (t_plane*)malloc(sizeof(t_plane));
-//	*pl = ft_plane_set(ft_vec3_set_xyz(0, 0, -100),
-//						ft_vec3_set_xyz(0, 0, 1),
-//						ft_vec3_set_xyz(0, 1, 1));
-//	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
-//	pl = (t_plane*)malloc(sizeof(t_plane));
-//	*pl = ft_plane_set(ft_vec3_set_xyz(-100, 0, 0),
-//						ft_vec3_set_xyz(1, 0, 0),
-//						ft_vec3_set_xyz(1, 0, 0));
-//	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
-//	pl = (t_plane*)malloc(sizeof(t_plane));
-//	*pl = ft_plane_set(ft_vec3_set_xyz(100, 0, 0),
-//						ft_vec3_set_xyz(-1, 0, 0),
-//						ft_vec3_set_xyz(0, 0, 1));
-//	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
-//	pl = (t_plane*)malloc(sizeof(t_plane));
-//	*pl = ft_plane_set(ft_vec3_set_xyz(0, 100, 0),
-//						ft_vec3_set_xyz(0, -1, 0),
-//						ft_vec3_set_xyz(1, 0, 1));
-//	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
-//	pl = (t_plane*)malloc(sizeof(t_plane));
-//	*pl = ft_plane_set(ft_vec3_set_xyz(0, 0, 100),
-//						ft_vec3_set_xyz(0, 0, -1),
-//						ft_vec3_set_xyz(1, 1, 0));
-//	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	pl = (t_plane*)malloc(sizeof(t_plane));
+	*pl = ft_plane_set(ft_vec_set_xyz(0, 0, -100),
+						ft_vec_set_xyz(0, 0, 1),
+						ft_vec_set_xyz(0, 1, 1));
+	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	pl = (t_plane*)malloc(sizeof(t_plane));
+	*pl = ft_plane_set(ft_vec_set_xyz(-100, 0, 0),
+						ft_vec_set_xyz(1, 0, 0),
+						ft_vec_set_xyz(1, 0, 0));
+	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	pl = (t_plane*)malloc(sizeof(t_plane));
+	*pl = ft_plane_set(ft_vec_set_xyz(100, 0, 0),
+						ft_vec_set_xyz(-1, 0, 0),
+						ft_vec_set_xyz(0, 0, 1));
+	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	pl = (t_plane*)malloc(sizeof(t_plane));
+	*pl = ft_plane_set(ft_vec_set_xyz(0, 100, 0),
+						ft_vec_set_xyz(0, -1, 0),
+						ft_vec_set_xyz(1, 0, 1));
+	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	pl = (t_plane*)malloc(sizeof(t_plane));
+	*pl = ft_plane_set(ft_vec_set_xyz(0, 0, 100),
+						ft_vec_set_xyz(0, 0, -1),
+						ft_vec_set_xyz(1, 1, 0));
+	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
 	sq = (t_square*)malloc(sizeof(t_square));
-	*sq = ft_square_set(ft_vec3_set_xyz(0, 15, 20),
-						ft_vec3_set_xyz(0, 1, 0), 5,
-						ft_vec3_set_xyz(0, 1, 0));
+	*sq = ft_square_set(ft_vec_set_xyz(0, 15, 20),
+						ft_vec_set_xyz(0, 1, 0), 5,
+						ft_vec_set_xyz(0, 1, 0));
 	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
 	sq = (t_square*)malloc(sizeof(t_square));
-	*sq = ft_square_set(ft_vec3_set_xyz(-15, 10, 1),
-						ft_vec3_set_xyz(-1, -1, 1), 10,
-						ft_vec3_set_xyz(0.3, 0.5, 1));
+	*sq = ft_square_set(ft_vec_set_xyz(-15, 10, 1),
+						ft_vec_set_xyz(-1, -1, 1), 10,
+						ft_vec_set_xyz(0.3, 0.5, 1));
 	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
 	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
-	*cy = ft_cylinder_set(ft_vec3_set_xyz(0, 10, -1),
-							ft_vec3_set_xyz(1, 0, 0),
-							3, 10, ft_vec3_set_xyz(0, 0, 1));
+	*cy = ft_cylinder_set(ft_vec_set_xyz(0, 10, -1),
+							ft_vec_set_xyz(1, 0, 0),
+							3, 10, ft_vec_set_xyz(0, 0, 1));
 	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
 	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
-	*cy = ft_cylinder_set(ft_vec3_set_xyz(15, 10, 10),
-							ft_vec3_set_xyz(0, 0, 1),
-							10, 15, ft_vec3_set_xyz(1, 0.8, 0.5));
+	*cy = ft_cylinder_set(ft_vec_set_xyz(15, 10, 10),
+							ft_vec_set_xyz(0, 0, 1),
+							10, 15, ft_vec_set_xyz(1, 0.8, 0.5));
 	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
 	tr = (t_triangle*)malloc(sizeof(t_triangle));
-	*tr = ft_triangle_set(ft_vec3_set_xyz(-10, 0, 20),
-							ft_vec3_set_xyz(10, 0, 20),
-							ft_vec3_set_xyz(0, 10, 10), ft_vec3_set_xyz(0.5, 0.5, 1));
+	*tr = ft_triangle_set(ft_vec_set_xyz(-10, 0, 20),
+							ft_vec_set_xyz(10, 0, 20),
+							ft_vec_set_xyz(0, 10, 10), ft_vec_set_xyz(0.5, 0.5, 1));
 	ft_hit_lst_add(&engine.obj_lst.tr_world, ft_hit_lst_newnode(tr));
 	tr = (t_triangle*)malloc(sizeof(t_triangle));
-	*tr = ft_triangle_set(ft_vec3_set_xyz(-10, -10, 10),
-							ft_vec3_set_xyz(10, -10, 0),
-							ft_vec3_set_xyz(0, 0, 0), ft_vec3_set_xyz(1, 0, 0));
+	*tr = ft_triangle_set(ft_vec_set_xyz(-10, -10, 10),
+							ft_vec_set_xyz(10, -10, 0),
+							ft_vec_set_xyz(0, 0, 0), ft_vec_set_xyz(1, 0, 0));
 	ft_hit_lst_add(&engine.obj_lst.tr_world, ft_hit_lst_newnode(tr));
 	tr = (t_triangle*)malloc(sizeof(t_triangle));
-	*tr = ft_triangle_set(ft_vec3_set_xyz(20, 40, 0),
-							ft_vec3_set_xyz(15, 4, -40),
-							ft_vec3_set_xyz(0, 10, -70), ft_vec3_set_xyz(0, 1, 0.3));
+	*tr = ft_triangle_set(ft_vec_set_xyz(20, 40, 0),
+							ft_vec_set_xyz(15, 4, -40),
+							ft_vec_set_xyz(0, 10, -70), ft_vec_set_xyz(0, 1, 0.3));
 	ft_hit_lst_add(&engine.obj_lst.tr_world, ft_hit_lst_newnode(tr));
 ///////////////////////////////////////////////
 	// Camera
-	engine.cam.lookfrom = ft_vec3_set_xyz(-20, 20, 20);
-	engine.cam.lookat = ft_vec3_set_xyz(0, 10, 0);
-	engine.cam.vup = ft_vec3_set_xyz(0, 1, 0);
+	engine.cam.origin = ft_vec_set_xyz(-20, 20, 20);
+	engine.cam.dir = ft_vec_set_xyz(20, -10, -20);
 // 21.01.30 코드 추가
 	engine.cam.cam_theta = 90;
 	engine.cam.cam_phi = -90;
 ////////////////////////////////////	
-	ft_camera_set(&engine.cam, engine.cam.lookfrom, engine.cam.lookat,
-								engine.cam.vup, 90.0, engine.data.aspect_ratio);
+//	ft_camera_set(&engine.cam, engine.cam.lookfrom, engine.cam.lookat,
+//								engine.cam.vup, 90.0, engine.data.aspect_ratio);
+	ft_camera_set(&engine.cam, ft_vec_set_xyz(-20, 20, 20), ft_vec_set_xyz(20, -10, -20), 90.0);
 
 	// Render
 	engine.data.mlx = mlx_init();

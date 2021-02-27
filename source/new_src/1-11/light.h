@@ -6,14 +6,13 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:58:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/23 21:56:12 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/02/27 17:29:38 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIGHT_H
 # define LIGHT_H
-# include "vec3.h"
-# include <math.h>
+# include "vec.h"
 
 typedef struct	s_splight
 {
