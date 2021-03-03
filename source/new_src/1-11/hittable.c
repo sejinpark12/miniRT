@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hittable.c                                         :+:      :+:    :+:   */
+/*   hittable1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:23:19 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:35:32 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/02 16:39:45 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hittable.h"
-#include <stdio.h>
 
 void	ft_set_face_normal(t_hit_rec *rec, t_ray *r, t_vec3 *outward_normal)
 {

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:34:25 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/02 21:51:26 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ typedef	struct	s_engine
 	t_data		data;
 	t_camera	cam;
 // 21.02.08 sp, pl 리스트를 한번에 처리하기 까다로워서 일단 분리
-	t_obj_lst	obj_lst;
+	t_obj_lst	*obj_lst;
 //////////////////////////////////////////////////////////////
-	t_light_lst	light_lst;
+	t_obj_lst	*light_lst;
 //	t_dilight	*dili;
 //	t_splight	*spli;
 }				t_engine;
@@ -281,22 +281,22 @@ int				ft_key_release(int keycode, t_data *data)
 
 //t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_dilight *dili)
 //t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_splight *spli)
-t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_light_lst *light_lst)
+//t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_light_lst *light_lst)
+t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_obj_lst *light_lst)
 {
 	t_color		color;
 	float		t;
 	t_hit_rec	rec;
-	t_hit_rec	shadowrec;
 	t_ray		sha_ray;
 	t_t			t_minmax;
 	t_spli_info spli_info;
 	float		tmpcolor;
 	int			vis;
-	t_obj		*cur_splight_lst;
+	t_obj_lst	*cur_splight_lst;
 
 	t_minmax.min = 0;
 	t_minmax.max = FLT_MAX;
-	if (ft_hit_lst_hit(obj_lst, r, t_minmax, &rec))
+	if (ft_hit_lst_obj_hit(obj_lst, r, &t_minmax, &rec))
 	{
 // 첫번째 버전
 //		color = ft_vec3_mul_f(
@@ -319,8 +319,7 @@ t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_light_lst *light_lst)
 //		printf("color x = %f, y = %f, z = %f \n", color.x, color.y, color.z);
 //
 // 네 번째 버전 - 다중 포인트 조명
-		cur_splight_lst = light_lst->splight_lst;
-		ft_reset_hit_rec(&shadowrec);
+		cur_splight_lst = light_lst;
 		color = ft_vec_set_xyz(0, 0, 0);
 		while(cur_splight_lst)
 		{
@@ -329,8 +328,7 @@ t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_light_lst *light_lst)
 			sha_ray = ft_ray_set(ft_vec_add(rec.p,
 						ft_vec_mul_f(1e-4, rec.normal)),
 						ft_vec_mul_f(-1, spli_info.lightdir));
-			vis = (0 == ft_sha_hit_lst_hit(
-						obj_lst, &sha_ray, t_minmax, &shadowrec)) ? 1 : 0;
+			vis = (0 == ft_hit_lst_sha_hit(obj_lst, &sha_ray, &t_minmax)) ? 1 : 0;
 			tmpcolor = ft_vec_dot(rec.normal,
 						ft_vec_mul_f(-1, spli_info.lightdir));
 			if (tmpcolor < 0)
@@ -357,7 +355,8 @@ t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_light_lst *light_lst)
 // 21.02.08 sp, pl 리스트를 한번에 처리하기 까다로워서 일단 분리
 //int				ft_draw(t_data *data, t_camera *cam, t_obj_lst *obj_lst, t_dilight *dili)
 //int				ft_draw(t_data *data, t_camera *cam, t_obj_lst *obj_lst, t_splight *spli)
-int				ft_draw(t_data *data, t_camera *cam, t_obj_lst *obj_lst, t_light_lst *light_lst)
+//int				ft_draw(t_data *data, t_camera *cam, t_obj_lst *obj_lst, t_light_lst *light_lst)
+int				ft_draw(t_data *data, t_camera *cam, t_obj_lst *obj_lst, t_obj_lst *light_lst)
 /////////////////////////////////////////////////////////////////
 {
 	int		i;
@@ -387,6 +386,7 @@ int				ft_draw(t_data *data, t_camera *cam, t_obj_lst *obj_lst, t_light_lst *lig
 							((float)j + ft_random_float()) / (data->height - 1));
 // 21.02.08 sp, pl 리스트를 한번에 처리하기 까다로워서 일단 분리
 				//color = ft_vec3_add(color, ft_ray_color(&r, obj_lst, dili));
+				//color = ft_vec_add(color, ft_ray_color(&r, obj_lst, light_lst));
 				color = ft_vec_add(color, ft_ray_color(&r, obj_lst, light_lst));
 /////////////////////////////////////////////////////////////////
 				k++;
@@ -411,7 +411,8 @@ int main_loop(t_engine *engine)
 // 21.02.08 sp, pl 리스트를 한번에 처리하기 까다로워서 일단 분리
 //	ft_draw(&engine->data, &engine->cam, &engine->obj_lst, engine->dili);
 //	ft_draw(&engine->data, &engine->cam, &engine->obj_lst, engine->spli);
-	ft_draw(&engine->data, &engine->cam, &engine->obj_lst, &engine->light_lst);
+//	ft_draw(&engine->data, &engine->cam, &engine->obj_lst, &engine->light_lst);
+	ft_draw(&engine->data, &engine->cam, engine->obj_lst, engine->light_lst);
 /////////////////////////////////////////////////////////////////
 	ft_move(&engine->data, &engine->cam);
 	return (0);
@@ -432,7 +433,7 @@ int	main(void)
 
 	// Image
 	engine.data.aspect_ratio = 16.0 / 9.0;
-	engine.data.width = 400;
+	engine.data.width = 1000;
 	engine.data.height = (int)(engine.data.width / engine.data.aspect_ratio);
 	engine.data.right = 0;
 	engine.data.left = 0;
@@ -449,17 +450,18 @@ int	main(void)
 	engine.data.down_rotate = 0;
 ////////////////////////////////////	
 /* *********************************** 추가 ********************************* */
-	engine.data.samples_per_pixel = 1;
+	engine.data.samples_per_pixel = 4;
 /* ************************************************************************** */
 	// World
 	// 사용안하는 도형이더라도 NULL로 선언해줘야 한다. 그렇지 않으면 ft_hit_lst_hit함수에서 세그폴트 뜬다.
-	engine.obj_lst.sp_world = NULL;
-	engine.obj_lst.pl_world = NULL;
-	engine.obj_lst.sq_world = NULL;
-	engine.obj_lst.cy_world = NULL;
-	engine.obj_lst.tr_world = NULL;
+//	engine.obj_lst.sp_world = NULL;
+//	engine.obj_lst.pl_world = NULL;
+//	engine.obj_lst.sq_world = NULL;
+//	engine.obj_lst.cy_world = NULL;
+//	engine.obj_lst.tr_world = NULL;
+	engine.obj_lst = NULL;
 	// 빛 추가
-	engine.light_lst.splight_lst = NULL;
+	engine.light_lst = NULL;
 //	방향성 조명
 //	engine.dili = (t_dilight*)malloc(sizeof(t_dilight));
 //	*(engine.dili) = ft_dilight_set(ft_vec3_set_xyz(0, 0, 0), ft_vec3_set_xyz(1, -1, -1), 10 , ft_vec3_set_xyz(1, 1, 1));
@@ -471,11 +473,11 @@ int	main(void)
 	spli = (t_splight*)malloc(sizeof(t_splight));
 	*(spli) = ft_splight_set(ft_vec_set_xyz(-20, 50, -20),
 											500000, ft_vec_set_xyz(0.5, 0.5, 1));
-	ft_hit_lst_add(&engine.light_lst.splight_lst, ft_hit_lst_newnode(spli));
+	ft_hit_lst_addback(&engine.light_lst, ft_hit_lst_newobj(spli, 10));
 	spli = (t_splight*)malloc(sizeof(t_splight));
 	*(spli) = ft_splight_set(ft_vec_set_xyz(20, 50, 20),
 											500000, ft_vec_set_xyz(1, 0.5, 0.5));
-	ft_hit_lst_add(&engine.light_lst.splight_lst, ft_hit_lst_newnode(spli));
+	ft_hit_lst_addback(&engine.light_lst, ft_hit_lst_newobj(spli, 10));
 //	spli = (t_splight*)malloc(sizeof(t_splight));
 //	*(spli) = ft_splight_set(ft_vec3_set_xyz(0, 5, 0),
 //											10000, ft_vec3_set_xyz(1, 1, 1));
@@ -483,82 +485,82 @@ int	main(void)
 // 도형 ///////////////////////////////////////////
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
 	*sp = ft_sphere_set(ft_vec_set_xyz(0, 1, -5), 8, ft_vec_set_xyz(1, 0, 0));
-	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(sp, 1));
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
 	*sp = ft_sphere_set(ft_vec_set_xyz(12, 25, 13), 10, ft_vec_set_xyz(0, 1, 0));
-	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(sp, 1));
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
 	*sp = ft_sphere_set(ft_vec_set_xyz(-10, 1, -1), 4, ft_vec_set_xyz(0, 0, 1));
-	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(sp, 1));
 	sp = (t_sphere*)malloc(sizeof(t_sphere));
 	*sp = ft_sphere_set(ft_vec_set_xyz(0, 20, -50), 15, ft_vec_set_xyz(1, 0, 1));
-	ft_hit_lst_add(&engine.obj_lst.sp_world, ft_hit_lst_newnode(sp));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(sp, 1));
  // 21.02.08 pl 생성 코드 추가
 	pl = (t_plane*)malloc(sizeof(t_plane));
 	*pl = ft_plane_set(ft_vec_set_xyz(0, -3, 0),
 						ft_vec_set_xyz(0, 1, 0),
 						ft_vec_set_xyz(0.8, 0.8, 0.8));
-	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(pl, 2));
 	pl = (t_plane*)malloc(sizeof(t_plane));
 	*pl = ft_plane_set(ft_vec_set_xyz(0, 0, -100),
 						ft_vec_set_xyz(0, 0, 1),
 						ft_vec_set_xyz(0, 1, 1));
-	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(pl, 2));
 	pl = (t_plane*)malloc(sizeof(t_plane));
 	*pl = ft_plane_set(ft_vec_set_xyz(-100, 0, 0),
 						ft_vec_set_xyz(1, 0, 0),
 						ft_vec_set_xyz(1, 0, 0));
-	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(pl, 2));
 	pl = (t_plane*)malloc(sizeof(t_plane));
 	*pl = ft_plane_set(ft_vec_set_xyz(100, 0, 0),
 						ft_vec_set_xyz(-1, 0, 0),
 						ft_vec_set_xyz(0, 0, 1));
-	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(pl, 2));
 	pl = (t_plane*)malloc(sizeof(t_plane));
 	*pl = ft_plane_set(ft_vec_set_xyz(0, 100, 0),
 						ft_vec_set_xyz(0, -1, 0),
 						ft_vec_set_xyz(1, 0, 1));
-	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(pl, 2));
 	pl = (t_plane*)malloc(sizeof(t_plane));
 	*pl = ft_plane_set(ft_vec_set_xyz(0, 0, 100),
 						ft_vec_set_xyz(0, 0, -1),
 						ft_vec_set_xyz(1, 1, 0));
-	ft_hit_lst_add(&engine.obj_lst.pl_world, ft_hit_lst_newnode(pl));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(pl, 2));
 	sq = (t_square*)malloc(sizeof(t_square));
 	*sq = ft_square_set(ft_vec_set_xyz(0, 15, 20),
 						ft_vec_set_xyz(0, 1, 0), 5,
 						ft_vec_set_xyz(0, 1, 0));
-	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(sq, 3));
 	sq = (t_square*)malloc(sizeof(t_square));
 	*sq = ft_square_set(ft_vec_set_xyz(-15, 10, 1),
 						ft_vec_set_xyz(-1, -1, 1), 10,
 						ft_vec_set_xyz(0.3, 0.5, 1));
-	ft_hit_lst_add(&engine.obj_lst.sq_world, ft_hit_lst_newnode(sq));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(sq, 3));
 	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
 	*cy = ft_cylinder_set(ft_vec_set_xyz(0, 10, -1),
 							ft_vec_set_xyz(1, 0, 0),
 							3, 10, ft_vec_set_xyz(0, 0, 1));
-	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(cy, 4));
 	cy = (t_cylinder*)malloc(sizeof(t_cylinder));
 	*cy = ft_cylinder_set(ft_vec_set_xyz(15, 10, 10),
 							ft_vec_set_xyz(0, 0, 1),
 							10, 15, ft_vec_set_xyz(1, 0.8, 0.5));
-	ft_hit_lst_add(&engine.obj_lst.cy_world, ft_hit_lst_newnode(cy));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(cy, 4));
 	tr = (t_triangle*)malloc(sizeof(t_triangle));
 	*tr = ft_triangle_set(ft_vec_set_xyz(-10, 0, 20),
 							ft_vec_set_xyz(10, 0, 20),
 							ft_vec_set_xyz(0, 10, 10), ft_vec_set_xyz(0.5, 0.5, 1));
-	ft_hit_lst_add(&engine.obj_lst.tr_world, ft_hit_lst_newnode(tr));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(tr, 5));
 	tr = (t_triangle*)malloc(sizeof(t_triangle));
 	*tr = ft_triangle_set(ft_vec_set_xyz(-10, -10, 10),
 							ft_vec_set_xyz(10, -10, 0),
 							ft_vec_set_xyz(0, 0, 0), ft_vec_set_xyz(1, 0, 0));
-	ft_hit_lst_add(&engine.obj_lst.tr_world, ft_hit_lst_newnode(tr));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(tr, 5));
 	tr = (t_triangle*)malloc(sizeof(t_triangle));
 	*tr = ft_triangle_set(ft_vec_set_xyz(20, 40, 0),
 							ft_vec_set_xyz(15, 4, -40),
 							ft_vec_set_xyz(0, 10, -70), ft_vec_set_xyz(0, 1, 0.3));
-	ft_hit_lst_add(&engine.obj_lst.tr_world, ft_hit_lst_newnode(tr));
+	ft_hit_lst_addback(&engine.obj_lst, ft_hit_lst_newobj(tr, 5));
 ///////////////////////////////////////////////
 	// Camera
 	engine.cam.origin = ft_vec_set_xyz(-20, 20, 20);
@@ -585,11 +587,12 @@ int	main(void)
 	mlx_hook(engine.data.mlx_win, 2, 1L<<0, ft_key_press, &engine.data);
 	mlx_hook(engine.data.mlx_win, 3, 1L<<0, ft_key_release, &engine.data);
 /************ 실시간 *************/
-//	mlx_loop_hook(engine.data.mlx, main_loop, &engine);
+	//mlx_loop_hook(engine.data.mlx, main_loop, &engine);
 /************ 한 프레임 *************/
 	//ft_draw(&engine.data, &engine.cam, &engine.obj_lst, engine.dili);
 	//ft_draw(&engine.data, &engine.cam, &engine.obj_lst, engine.spli);
-	ft_draw(&engine.data, &engine.cam, &engine.obj_lst, &engine.light_lst);
+	//ft_draw(&engine.data, &engine.cam, &engine.obj_lst, &engine.light_lst);
+	ft_draw(&engine.data, &engine.cam, engine.obj_lst, engine.light_lst);
 	mlx_loop(engine.data.mlx);
 	return (0);
 }

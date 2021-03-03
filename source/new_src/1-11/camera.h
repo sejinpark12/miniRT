@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:30:20 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:30:54 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/03 16:54:59 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef	struct	s_cam_data
 //t_camera		*ft_camera_set(t_camera *cam, t_point3 lookfrom,
 //								t_point3 lookat, t_vec3 vup,
 //								float vfov, float aspect_ratio);
-void			ft_camera_set(t_camera *cam, t_point3 pos, t_vec3 dir, float vfov);
-t_ray			ft_camera_get_ray(t_camera cam, float u, float v);
+t_camera		ft_camera_set(t_point3 pos, t_vec3 dir, float vfov);
+t_ray			ft_camera_get_ray(t_camera *cam, float u, float v);
 float			ft_degrees_to_radians(float degrees);
 #endif

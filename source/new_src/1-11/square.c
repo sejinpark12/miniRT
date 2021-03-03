@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 20:44:05 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:36:52 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/01 20:01:05 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,18 @@ t_square	ft_square_set(t_point3 cen, t_vec3 norm, float side_size,
 	return (sq);
 }
 
-float		ft_square_solve_t(t_square *sq, t_ray *r, t_t t_range)
+float		ft_square_solve_t(t_square *sq, t_ray *r, t_t *t_range)
 {
 	return (ft_plane_solve_t(&sq->sq_plane, r, t_range));
 }
 
-int			ft_square_set_rec(t_square *sq, t_ray *r, t_hit_rec *rec, float t)
+int			ft_square_chk_size(t_square *sq, t_ray *r, float t)
 {
 	t_vec3	ip;
 	float	cos1;
 	float	limit;
 
-	rec->t = t;
-	ip = ft_vec_add(r->orig, ft_vec_mul_f(rec->t, r->dir));
+	ip = ft_vec_add(r->orig, ft_vec_mul_f(t, r->dir));
 	if (fabs(sq->sq_plane.norm.y) == 1)
 		sq->floor = ft_vec_set_xyz(1, 0, 0);
 	else
@@ -50,16 +49,11 @@ int			ft_square_set_rec(t_square *sq, t_ray *r, t_hit_rec *rec, float t)
 		cos1 = cos(M_PI_2 - acos(cos1));
 	limit = (sq->side_size / 2) / cos1;
 	if (sqrt(ft_vec_dot(sq->center_to_ip, sq->center_to_ip)) <= limit)
-	{
-		rec->p = ft_ray_at(*r, rec->t);
-		ft_set_face_normal(rec, r, &sq->sq_plane.norm);
-		ft_set_hit_rec_color(rec, sq->sq_plane.color);
 		return (1);
-	}
 	return (0);
 }
 
-int			ft_square_hit(t_square *sq, t_ray *r, t_t t_range, t_hit_rec *rec)
+int			ft_square_hit(t_square *sq, t_ray *r, t_t *t_range, t_hit_rec *rec)
 {
 	float	t;
 
@@ -67,5 +61,33 @@ int			ft_square_hit(t_square *sq, t_ray *r, t_t t_range, t_hit_rec *rec)
 	if (t == INFINITY)
 		return (0);
 	else
-		return (ft_square_set_rec(sq, r, rec, t));
+	{
+		if (ft_square_chk_size(sq, r, t))
+		{
+			t_range->max = t;
+			rec->t = t;
+			rec->p = ft_ray_at(*r, rec->t);
+			ft_set_face_normal(rec, r, &sq->sq_plane.norm);
+			ft_set_hit_rec_color(rec, sq->sq_plane.color);
+			return (1);
+		}
+		else
+			return (0);
+	}
+}
+
+int			ft_square_sha_hit(t_square *sq, t_ray *r, t_t *t_range)
+{
+	float	t;
+
+	t = ft_square_solve_t(sq, r, t_range);
+	if (t == INFINITY)
+		return (0);
+	else
+	{
+		if (ft_square_chk_size(sq, r, t))
+			return (1);
+		else
+			return (0);
+	}
 }

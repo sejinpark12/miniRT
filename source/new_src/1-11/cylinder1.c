@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:57:16 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:40:18 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/01 18:38:17 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_cylinder	ft_cylinder_set(t_point3 cen, t_vec3 dir, float diameter, float h,
 //	return (*cy);
 //}
 
-float		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t t_range)
+float		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
 	t_vec3	oc;
 	t_coef	coef;
@@ -57,7 +57,7 @@ float		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t t_range)
 		return (INFINITY);
 	if (ft_vec_dot(cy->dir, ft_vec_sub(ip, cy->bottom_center)) < 0)
 		return (INFINITY);
-	if (t <= t_range.min || t_range.max < t)
+	if (t <= t_range->min || t_range->max < t)
 		return (INFINITY);
 	return (t);
 }
@@ -71,7 +71,7 @@ int			ft_cycap_chk_r(t_ray *r, float t, t_vec3 cap_center, float radius)
 		return (0);
 }
 
-float		ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t t_range)
+float		ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
 	// 원기둥 모자 2개의 각각 t값을 구해서 작은 t값을 얻는 것이 목적
 	// 모자와의 교차점을 구하는 방법은 평면과 직선의 교차점을 구하는 것과 동일하다.
@@ -92,9 +92,9 @@ float		ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t t_range)
 	bottom_center_t = ft_vec_dot(bottom_oc, cy->dir) / denominator;
 	if (ft_cycap_chk_r(r, bottom_center_t, cy->bottom_center, cy->radius))
 		bottom_center_t = INFINITY;
-	if (top_center_t <= t_range.min || t_range.max < top_center_t)
+	if (top_center_t <= t_range->min || t_range->max < top_center_t)
 		top_center_t = INFINITY;
-	if (bottom_center_t <= t_range.min || t_range.max < bottom_center_t)
+	if (bottom_center_t <= t_range->min || t_range->max < bottom_center_t)
 		bottom_center_t = INFINITY;
 	if (top_center_t < bottom_center_t)
 		return (top_center_t);

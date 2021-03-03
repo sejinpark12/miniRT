@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 20:45:01 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:41:08 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/01 20:07:11 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void		ft_triangle_set_c(t_triangle *tr, t_point3 p)
 	tr->c.c2 = ft_vec_sub(p, tr->pos.p2);
 }
 
-float		ft_triangle_solve_t(t_triangle *tr, t_ray *r, t_t t_range)
+float		ft_triangle_solve_t(t_triangle *tr, t_ray *r, t_t *t_range)
 {
 	return (ft_plane_solve_t(&tr->tr_plane, r, t_range));
 }
 
-int			ft_triangle_hit(t_triangle *tr, t_ray *r, t_t t_range,
+int			ft_triangle_hit(t_triangle *tr, t_ray *r, t_t *t_range,
 															t_hit_rec *rec)
 {
 	float	t;
@@ -66,11 +66,33 @@ int			ft_triangle_hit(t_triangle *tr, t_ray *r, t_t t_range,
 		return (0);
 	if (ft_vec_dot(norm, ft_vec_cross(edge.edge2, c.c2)) < 0)
 		return (0);
+	t_range->max = t;
 	rec->t = t;
 	rec->p = ft_ray_at(*r, rec->t);
 	ft_set_face_normal(rec, r, &tr->tr_plane.norm);
-//		printf("tir normal  x = %f, y = %f, z = %f\n", tr->tr_plane.norm.x,tr->tr_plane.norm.y,tr->tr_plane.norm.z);
 	ft_set_hit_rec_color(rec, tr->tr_plane.color);
-//		printf("tir color x = %f, y = %f, z = %f\n", tr->tr_plane.color.x,tr->tr_plane.color.y,tr->tr_plane.color.z);
+	return (1);
+}
+
+int			ft_triangle_sha_hit(t_triangle *tr, t_ray *r, t_t *t_range)
+{
+	float	t;
+	t_vec3	norm;
+	t_edge	edge;
+	t_c		c;
+
+	t = ft_triangle_solve_t(tr, r, t_range);
+	if (t == INFINITY)
+		return (0);
+	ft_triangle_set_c(tr, ft_ray_at(*r, t));
+	norm = tr->tr_plane.norm;
+	edge = tr->edge;
+	c = tr->c;
+	if (ft_vec_dot(norm, ft_vec_cross(edge.edge0, c.c0)) < 0)
+		return (0);
+	if (ft_vec_dot(norm, ft_vec_cross(edge.edge1, c.c1)) < 0)
+		return (0);
+	if (ft_vec_dot(norm, ft_vec_cross(edge.edge2, c.c2)) < 0)
+		return (0);
 	return (1);
 }

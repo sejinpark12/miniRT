@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:50:28 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:29:14 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/01 20:05:48 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ typedef struct	s_cylinder_ts
 t_cylinder		ft_cylinder_set(t_point3 cen, t_vec3 dir, float diameter,
 					float h, t_color color);
 //t_cylinder			ft_cylinder_set(const t_cyclinder *cy);
-float			ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t t_range);
+float			ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range);
 int				ft_cycap_chk_r(t_ray *r, float t, t_vec3 cap_center, float radius);
-float			ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t t_range);
+float			ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range);
 void			ft_cylinder_set_rec(t_cylinder *cy, t_ray *r, t_hit_rec *rec,
 					t_cylinder_ts cy_ts);
-int				ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t t,
+int				ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t *t_range,
 					t_hit_rec *rec);
+int				ft_cylinder_sha_hit(t_cylinder *cy, t_ray *r, t_t *t_range);
 
 #endif

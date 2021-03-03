@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:59:26 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:40:42 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/01 20:05:30 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		ft_cylinder_set_rec(t_cylinder *cy, t_ray *r, t_hit_rec *rec,
 	ft_set_hit_rec_color(rec, cy->color);
 }
 
-int			ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t t_range,
+int			ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t *t_range,
 								t_hit_rec *rec)
 {
 	t_cylinder_ts	cy_ts;
@@ -50,7 +50,23 @@ int			ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t t_range,
 		return (0);
 	else
 	{
+		if (cy_ts.cy_t < cy_ts.cap_t)
+			t_range->max = cy_ts.cy_t;
+		else
+			t_range->max = cy_ts.cap_t;
 		ft_cylinder_set_rec(cy, r, rec, cy_ts);
 		return (1);
 	}
+}
+
+int			ft_cylinder_sha_hit(t_cylinder *cy, t_ray *r, t_t *t_range)
+{
+	t_cylinder_ts	cy_ts;
+
+	cy_ts.cy_t = ft_cylinder_solve_t(cy, r, t_range);
+	cy_ts.cap_t = ft_cycap_solve_t(cy, r, t_range);
+	if (cy_ts.cy_t == INFINITY && cy_ts.cap_t == INFINITY)
+		return (0);
+	else
+		return (1);
 }
