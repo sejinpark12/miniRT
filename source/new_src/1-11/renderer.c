@@ -6,12 +6,11 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:07:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/03 22:41:40 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/04 15:40:35 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderer.h"
-#include <stdio.h>
 
 void	my_mlx_pixel_put(t_data *data, t_image *img, int x, int y, t_vec3 *color)
 {
@@ -34,10 +33,10 @@ void	my_mlx_pixel_put(t_data *data, t_image *img, int x, int y, t_vec3 *color)
 
 void	ft_window_close(t_engine *engine)
 {
+	ft_hit_lst_clear(&(engine->cam_lst));
+	ft_hit_lst_clear(&(engine->data.img_lst));
 	ft_hit_lst_clear(&(engine->obj_lst));
 	ft_hit_lst_clear(&(engine->light_lst));
-	// 카메라 여러대 기능 추가하면 카메라도 메모리 해제 해야 한다.
-	//ft_hit_lst_clear(&(engine->cam_lst));
 	mlx_destroy_window(engine->data.mlx, engine->data.mlx_win);
 	exit(0);
 }
@@ -84,7 +83,7 @@ t_color	ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_obj_lst *light_lst)
 	if (ft_hit_lst_obj_hit(obj_lst, r, &t_minmax, &rec))
 	{
 		cur_splight_lst = light_lst;
-		color = ft_vec_set_xyz(0, 0, 0);
+		color = ft_vec_mul_f(0.1, rec.color);
 		while(cur_splight_lst)
 		{
 			spli_info = ft_splight_get_info(cur_splight_lst->content, &rec.p);
@@ -124,16 +123,21 @@ int		ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 	t_ray		r;
 	t_obj_lst	*tmp_img_lst;
 	t_obj_lst	*tmp_cam_lst;
+	int			cam_idx;
 
 	tmp_img_lst = data->img_lst;
 	tmp_cam_lst = cam_lst;
+	cam_idx = 1;
+	ft_putstr_fd("*********** Rendering... ***********\n", 1);
 	while (tmp_img_lst)
 	{
 		j = data->height - 1;
 		while (j >= 0)
 		{
 			i = 0;
-			ft_putstr_fd("\rScanlines remaining: ", 1);
+			ft_putstr_fd("\r Cam ", 1);
+			ft_putnbr_fd(cam_idx, 1);
+			ft_putstr_fd(" => Scanlines remaining: ", 1);
 			ft_putnbr_fd(j, 1);
 			ft_putchar_fd(' ', 1);
 			while (i < data->width)
@@ -157,8 +161,10 @@ int		ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 		ft_putstr_fd("\n", 1);
 		tmp_img_lst = tmp_img_lst->next;
 		tmp_cam_lst = tmp_cam_lst->next;
+		cam_idx++;
 	}
-	//mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+	ft_putstr_fd("************************************\n", 1);
+	ft_putstr_fd("Done!\n", 1);
 	return (0);
 }
 

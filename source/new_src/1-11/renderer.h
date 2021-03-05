@@ -6,12 +6,12 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:06:06 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/03 21:03:04 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/04 16:45:01 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
-#include "libft.h"
+#include "libft/libft.h"
 #include "vec.h"
 #include "ray.h"
 #include "hittable_list.h"
@@ -41,6 +41,7 @@ typedef struct 	s_data
 	float		aspect_ratio;
 	int			width;
 	int			height;
+	t_ambient	ambient;
 	int			x;
 	int			y;
 	int			z;
@@ -61,6 +62,11 @@ typedef	struct	s_engine
 	t_obj_lst	*obj_lst;
 	t_obj_lst	*light_lst;
 }				t_engine;
+typedef struct	s_ambient
+{
+	t_color		color;
+	float		intensity;
+}				t_ambient;
 typedef struct	s_image
 {
 	void		*image;

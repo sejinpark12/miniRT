@@ -6,13 +6,13 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/03 22:36:14 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/04 15:50:41 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderer.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_engine	engine;
 	t_imgs		imgs;

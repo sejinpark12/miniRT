@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/22 22:43:48 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/04 11:11:47 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,7 +403,7 @@ int	main(void)
 
 	// Image
 	engine.data.aspect_ratio = 16.0 / 9.0;
-	engine.data.width = 200;
+	engine.data.width = 100;
 	engine.data.height = (int)(engine.data.width / engine.data.aspect_ratio);
 	engine.data.right = 0;
 	engine.data.left = 0;
