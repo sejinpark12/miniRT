@@ -6,14 +6,14 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:29:38 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/01 19:52:02 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 16:17:19 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sphere.h"
 #include <math.h>
 
-t_sphere	ft_sphere_set(t_point3 cen, float diameter, t_color color)
+t_sphere	ft_sphere_set(t_point3 cen, double diameter, t_color color)
 {
 	t_sphere sp;
 
@@ -23,12 +23,12 @@ t_sphere	ft_sphere_set(t_point3 cen, float diameter, t_color color)
 	return (sp);
 }
 
-float		ft_sphere_solve_t(t_sphere *sp, t_ray *r, t_t *t_range)
+double		ft_sphere_solve_t(t_sphere *sp, t_ray *r, t_t *t_range)
 {
 	t_vec3	oc;
 	t_coef	coef;
-	float	discriminant;
-	float	t;
+	double	discriminant;
+	double	t;
 
 	oc = ft_vec_sub(r->orig, sp->center);
 	coef.a = ft_vec_sqr_len(r->dir);
@@ -49,7 +49,7 @@ float		ft_sphere_solve_t(t_sphere *sp, t_ray *r, t_t *t_range)
 
 int			ft_sphere_hit(t_sphere *sp, t_ray *r, t_t *t_range, t_hit_rec *rec)
 {
-	float	t;
+	double	t;
 	t_vec3	outward_normal;
 
 	t = ft_sphere_solve_t(sp, r, t_range);

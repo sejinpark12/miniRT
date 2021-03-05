@@ -6,16 +6,16 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 20:44:05 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/01 20:01:05 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 16:17:52 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "square.h"
 #include <math.h>
 
-extern const float g_pi;
+extern const double g_pi;
 
-t_square	ft_square_set(t_point3 cen, t_vec3 norm, float side_size,
+t_square	ft_square_set(t_point3 cen, t_vec3 norm, double side_size,
 							t_color color)
 {
 	t_square sq;
@@ -25,16 +25,16 @@ t_square	ft_square_set(t_point3 cen, t_vec3 norm, float side_size,
 	return (sq);
 }
 
-float		ft_square_solve_t(t_square *sq, t_ray *r, t_t *t_range)
+double		ft_square_solve_t(t_square *sq, t_ray *r, t_t *t_range)
 {
 	return (ft_plane_solve_t(&sq->sq_plane, r, t_range));
 }
 
-int			ft_square_chk_size(t_square *sq, t_ray *r, float t)
+int			ft_square_chk_size(t_square *sq, t_ray *r, double t)
 {
 	t_vec3	ip;
-	float	cos1;
-	float	limit;
+	double	cos1;
+	double	limit;
 
 	ip = ft_vec_add(r->orig, ft_vec_mul_f(t, r->dir));
 	if (fabs(sq->sq_plane.norm.y) == 1)
@@ -55,7 +55,7 @@ int			ft_square_chk_size(t_square *sq, t_ray *r, float t)
 
 int			ft_square_hit(t_square *sq, t_ray *r, t_t *t_range, t_hit_rec *rec)
 {
-	float	t;
+	double	t;
 
 	t = ft_square_solve_t(sq, r, t_range);
 	if (t == INFINITY)
@@ -78,7 +78,7 @@ int			ft_square_hit(t_square *sq, t_ray *r, t_t *t_range, t_hit_rec *rec)
 
 int			ft_square_sha_hit(t_square *sq, t_ray *r, t_t *t_range)
 {
-	float	t;
+	double	t;
 
 	t = ft_square_solve_t(sq, r, t_range);
 	if (t == INFINITY)

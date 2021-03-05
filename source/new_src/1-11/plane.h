@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:18:00 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/01 19:54:30 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 16:12:02 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct	s_plane
 	t_color		color;
 }				t_plane;
 t_plane			ft_plane_set(t_point3 cen, t_vec3 norm, t_color color);
-float			ft_plane_solve_t(t_plane *pl, t_ray *r, t_t *t_range);
+double			ft_plane_solve_t(t_plane *pl, t_ray *r, t_t *t_range);
 int				ft_plane_hit(t_plane *pl, t_ray *r, t_t *t_range,
 													t_hit_rec *rec);
 int				ft_plane_sha_hit(t_plane *pl, t_ray *r, t_t *t_range);

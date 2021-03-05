@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 19:36:34 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:13:33 by sejpark          ###   ########.fr       */
+/*   Created: 2021/03/05 14:27:42 by sejpark           #+#    #+#             */
+/*   Updated: 2021/03/05 16:19:39 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#include "vec.h"
 
-t_ray		ft_ray_set(t_point3 origin, t_vec3 direction)
+t_vec3	ft_vec_unit_vec(const t_vec3 v)
 {
-	t_ray target;
-
-	target.orig = origin;
-	target.dir = direction;
-	return (target);
+	return (ft_vec_div_f(ft_vec_len(v), v));
 }
 
-t_point3	ft_ray_at(t_ray ray, double t)
+t_vec3	ft_vec_set_xyz(const double x, const double y, const double z)
 {
-	t_point3 target;
+	return ((t_vec3){x, y, z});
+}
 
-	target = ft_vec_set_xyz(
-			ray.orig.x + t * ray.dir.x,
-			ray.orig.y + t * ray.dir.y,
-			ray.orig.z + t * ray.dir.z);
-	return (target);
+int		create_trgb(const int t, const int r, const int g, const int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
 }

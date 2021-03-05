@@ -6,13 +6,12 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 20:45:01 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/01 20:07:11 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 16:18:41 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "triangle.h"
-#include <math.h> 
-#include <stdio.h> 
+#include <math.h>
 
 t_triangle	ft_triangle_set(t_point3 p0, t_point3 p1, t_point3 p2,
 															t_color color)
@@ -40,7 +39,7 @@ void		ft_triangle_set_c(t_triangle *tr, t_point3 p)
 	tr->c.c2 = ft_vec_sub(p, tr->pos.p2);
 }
 
-float		ft_triangle_solve_t(t_triangle *tr, t_ray *r, t_t *t_range)
+double		ft_triangle_solve_t(t_triangle *tr, t_ray *r, t_t *t_range)
 {
 	return (ft_plane_solve_t(&tr->tr_plane, r, t_range));
 }
@@ -48,7 +47,7 @@ float		ft_triangle_solve_t(t_triangle *tr, t_ray *r, t_t *t_range)
 int			ft_triangle_hit(t_triangle *tr, t_ray *r, t_t *t_range,
 															t_hit_rec *rec)
 {
-	float	t;
+	double	t;
 	t_vec3	norm;
 	t_edge	edge;
 	t_c		c;
@@ -76,7 +75,7 @@ int			ft_triangle_hit(t_triangle *tr, t_ray *r, t_t *t_range,
 
 int			ft_triangle_sha_hit(t_triangle *tr, t_ray *r, t_t *t_range)
 {
-	float	t;
+	double	t;
 	t_vec3	norm;
 	t_edge	edge;
 	t_c		c;

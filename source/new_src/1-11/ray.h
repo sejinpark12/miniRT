@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:29:52 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:28:30 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 16:13:21 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 typedef struct	s_ray
 {
-	t_point3	orig;		
+	t_point3	orig;
 	t_vec3		dir;
 }				t_ray;
 t_ray			ft_ray_set(t_point3 origin, t_vec3 direction);
-t_point3		ft_ray_at(t_ray ray, float t);
+t_point3		ft_ray_at(t_ray ray, double t);
 #endif

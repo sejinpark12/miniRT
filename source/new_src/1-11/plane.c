@@ -6,14 +6,14 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:28:19 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/01 19:53:54 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 16:12:33 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "plane.h"
 #include <math.h>
 
-extern const float g_pi;
+extern const double g_pi;
 
 t_plane	ft_plane_set(t_point3 cen, t_vec3 norm, t_color color)
 {
@@ -25,11 +25,11 @@ t_plane	ft_plane_set(t_point3 cen, t_vec3 norm, t_color color)
 	return (pl);
 }
 
-float	ft_plane_solve_t(t_plane *pl, t_ray *r, t_t *t_range)
+double	ft_plane_solve_t(t_plane *pl, t_ray *r, t_t *t_range)
 {
 	t_vec3	oc;
-	float	denominator;
-	float	t;
+	double	denominator;
+	double	t;
 
 	denominator = ft_vec_dot(r->dir, pl->norm);
 	if (denominator == 0)
@@ -37,13 +37,13 @@ float	ft_plane_solve_t(t_plane *pl, t_ray *r, t_t *t_range)
 	oc = ft_vec_sub(pl->center, r->orig);
 	t = ft_vec_dot(oc, pl->norm) / denominator;
 	if (t <= t_range->min || t_range->max < t)
-		return(INFINITY);
+		return (INFINITY);
 	return (t);
 }
 
 int		ft_plane_hit(t_plane *pl, t_ray *r, t_t *t_range, t_hit_rec *rec)
 {
-	float	t;
+	double	t;
 
 	t = ft_plane_solve_t(pl, r, t_range);
 	if (t == INFINITY)

@@ -6,26 +6,28 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:07:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/04 15:40:35 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 16:16:28 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderer.h"
 
-void	my_mlx_pixel_put(t_data *data, t_image *img, int x, int y, t_vec3 *color)
+void	my_mlx_pixel_put(t_data *data, t_image *img, int x, int y,
+							t_vec3 *color)
 {
-    char    *dst;
-	float	r;
-	float	g;
-	float	b;
-	float	scale;
+	char	*dst;
+	double	r;
+	double	g;
+	double	b;
+	double	scale;
 
 	scale = 1.0 / data->samples_per_pixel;
 	r = color->x * scale;
 	g = color->y * scale;
 	b = color->z * scale;
-    dst = img->address + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = create_trgb(0,
+	dst = img->address +
+					(y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = create_trgb(0,
 									256 * ft_clamp(r, 0.0, 0.999),
 									256 * ft_clamp(g, 0.0, 0.999),
 									256 * ft_clamp(b, 0.0, 0.999));
@@ -49,7 +51,7 @@ int		ft_key_press(int keycode, t_engine *engine)
 	{
 		if (engine->data.current_img_lst->next)
 			engine->data.current_img_lst = engine->data.current_img_lst->next;
-		else 
+		else
 			engine->data.current_img_lst = engine->data.img_lst;
 	}
 	return (0);
@@ -69,29 +71,30 @@ int		ft_xbtn_click(t_engine *engine)
 t_color	ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_obj_lst *light_lst)
 {
 	t_color		color;
-	float		t;
+	double		t;
 	t_hit_rec	rec;
 	t_ray		sha_ray;
 	t_t			t_minmax;
 	t_spli_info spli_info;
-	float		tmpcolor;
+	double		tmpcolor;
 	int			vis;
 	t_obj_lst	*cur_splight_lst;
 
 	t_minmax.min = 0;
-	t_minmax.max = FLT_MAX;
+	t_minmax.max = DBL_MAX;
 	if (ft_hit_lst_obj_hit(obj_lst, r, &t_minmax, &rec))
 	{
 		cur_splight_lst = light_lst;
 		color = ft_vec_mul_f(0.1, rec.color);
-		while(cur_splight_lst)
+		while (cur_splight_lst)
 		{
 			spli_info = ft_splight_get_info(cur_splight_lst->content, &rec.p);
 			t_minmax.max = spli_info.distance;
 			sha_ray = ft_ray_set(ft_vec_add(rec.p,
 						ft_vec_mul_f(1e-4, rec.normal)),
 						ft_vec_mul_f(-1, spli_info.lightdir));
-			vis = (0 == ft_hit_lst_sha_hit(obj_lst, &sha_ray, &t_minmax)) ? 1 : 0;
+			vis = (0 == ft_hit_lst_sha_hit(obj_lst, &sha_ray, &t_minmax))
+					? 1 : 0;
 			tmpcolor = ft_vec_dot(rec.normal,
 						ft_vec_mul_f(-1, spli_info.lightdir));
 			if (tmpcolor < 0)
@@ -147,9 +150,10 @@ int		ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 				while (k < data->samples_per_pixel)
 				{
 					r = ft_camera_get_ray(tmp_cam_lst->content,
-								((float)i + ft_random_float()) / (data->width - 1),
-								((float)j + ft_random_float()) / (data->height - 1));
-					color = ft_vec_add(color, ft_ray_color(&r, obj_lst, light_lst));
+						((double)i + ft_random_double()) / (data->width - 1),
+						((double)j + ft_random_double()) / (data->height - 1));
+					color = ft_vec_add(color,
+								ft_ray_color(&r, obj_lst, light_lst));
 					k++;
 				}
 				my_mlx_pixel_put(data, tmp_img_lst->content, i,
@@ -173,6 +177,7 @@ int		main_loop(t_engine *engine)
 	t_image *img;
 
 	img = engine->data.current_img_lst->content;
-	mlx_put_image_to_window(engine->data.mlx, engine->data.mlx_win, img->image, 0, 0);
+	mlx_put_image_to_window(engine->data.mlx, engine->data.mlx_win,
+								img->image, 0, 0);
 	return (0);
 }

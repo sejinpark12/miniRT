@@ -6,15 +6,15 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:57:16 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/01 18:38:17 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 16:08:54 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cylinder.h"
 #include <math.h>
 
-t_cylinder	ft_cylinder_set(t_point3 cen, t_vec3 dir, float diameter, float h,
-								t_color color)
+t_cylinder	ft_cylinder_set(t_point3 cen, t_vec3 dir, double diameter,
+								double h, t_color color)
 {
 	t_cylinder	cy;
 
@@ -35,13 +35,13 @@ t_cylinder	ft_cylinder_set(t_point3 cen, t_vec3 dir, float diameter, float h,
 //	return (*cy);
 //}
 
-float		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
+double		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
 	t_vec3	oc;
 	t_coef	coef;
 	t_vec3	ip;
-	float	discriminant;
-	float	t;
+	double	discriminant;
+	double	t;
 
 	oc = ft_vec_sub(r->orig, cy->center);
 	coef.a = ft_vec_sqr_len(ft_vec_cross(r->dir, cy->dir));
@@ -62,7 +62,7 @@ float		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 	return (t);
 }
 
-int			ft_cycap_chk_r(t_ray *r, float t, t_vec3 cap_center, float radius)
+int			ft_cycap_chk_r(t_ray *r, double t, t_vec3 cap_center, double radius)
 {
 	if (ft_vec_sqr_len(ft_vec_sub(ft_ray_at(*r, t), cap_center))
 			> pow(radius, 2.0))
@@ -71,15 +71,15 @@ int			ft_cycap_chk_r(t_ray *r, float t, t_vec3 cap_center, float radius)
 		return (0);
 }
 
-float		ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
+// 원기둥 모자 2개의 각각 t값을 구해서 작은 t값을 얻는 것이 목적
+// 모자와의 교차점을 구하는 방법은 평면과 직선의 교차점을 구하는 것과 동일하다.
+double		ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
-	// 원기둥 모자 2개의 각각 t값을 구해서 작은 t값을 얻는 것이 목적
-	// 모자와의 교차점을 구하는 방법은 평면과 직선의 교차점을 구하는 것과 동일하다.
 	t_vec3	top_oc;
 	t_vec3	bottom_oc;
-	float	denominator;
-	float	top_center_t;
-	float	bottom_center_t;
+	double	denominator;
+	double	top_center_t;
+	double	bottom_center_t;
 
 	denominator = ft_vec_dot(r->dir, cy->dir);
 	if (denominator == 0)

@@ -6,11 +6,11 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2021/03/02 21:52:50 by sejpark          ###   ########.fr        #
+#    Updated: 2021/03/05 14:29:33 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC			= main.c renderer.c vec.c ray.c random.c camera.c \
+SRC			= main.c renderer.c vec1.c vec2.c vec3.c ray.c random.c camera.c \
 			  hittable.c hittable_list1.c hittable_list2.c \
 			  sphere.c plane.c square.c cylinder1.c cylinder2.c triangle.c \
 			  light.c

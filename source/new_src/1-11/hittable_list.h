@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 15:47:39 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/03 21:36:03 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 14:43:07 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "hittable.h"
 # include "camera.h"
 # include "sphere.h"
-// 21.02.8 plane.h 추가
 # include "plane.h"
 # include "square.h"
 # include "cylinder.h"

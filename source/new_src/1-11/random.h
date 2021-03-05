@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:10:25 by sejpark           #+#    #+#             */
-/*   Updated: 2021/02/27 17:26:11 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 16:12:50 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define FT_RAND_MAX	65535
 
 unsigned int	ft_rand(void);
-float			ft_random_float(void);
-float			ft_random_float_range(float min, float max);
-float			ft_clamp(float x, float min, float max);
+double			ft_random_double(void);
+double			ft_random_double_range(double min, double max);
+double			ft_clamp(double x, double min, double max);
 #endif

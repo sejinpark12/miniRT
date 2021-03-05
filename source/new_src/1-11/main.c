@@ -6,13 +6,14 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/04 15:50:41 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/05 14:30:22 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderer.h"
 
-int	main(int argc, char **argv)
+//int	main(int argc, char **argv)
+int	main(void)
 {
 	t_engine	engine;
 	t_imgs		imgs;
@@ -26,7 +27,7 @@ int	main(int argc, char **argv)
 
 	// Image
 	engine.data.aspect_ratio = 16.0 / 9.0;
-	engine.data.width = 500;
+	engine.data.width = 1000;
 	engine.data.height = (int)(engine.data.width / engine.data.aspect_ratio);
 	engine.data.samples_per_pixel = 1;
 	// World
