@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:06:06 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:15:40 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/08 01:43:02 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@
 # include "vec.h"
 # include "ray.h"
 # include "hittable_list.h"
+# include "random.h"
+# include "camera.h"
+# include "scene_reader.h"
 # include "sphere.h"
 # include "plane.h"
 # include "square.h"
 # include "cylinder.h"
 # include "triangle.h"
 # include "light.h"
-# include "random.h"
-# include "camera.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
