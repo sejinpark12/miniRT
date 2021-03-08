@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:21:49 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/08 18:32:10 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/08 22:54:55 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ typedef struct	s_data
 	int			samples_per_pixel;
 	t_obj_lst	*img_lst;
 	t_obj_lst	*current_img_lst;
-//	void		*img;
-//	char		*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
@@ -130,11 +128,14 @@ typedef	struct	s_triangle_scene_data
 	t_point3	p2;
 	t_color		color;
 }				t_triangle_scene_data;
+void			ft_free_all(t_engine *engine);
+int				ft_chk_lightrange(const double intensity);
+int				ft_chk_dirrange(const t_vec3 dir);
+int				ft_chk_colorrange(const t_color color);
 double			ft_beforepoint(const char *nbr, char **decimal_point,
 								size_t *length);
 double			ft_atof(const char *nbr);
-void			ft_line_parser(t_engine *engine, char *line);
+int				ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk);
 int				ft_scene_reader(t_engine *engine, char *filename);
 int				ft_strcmp(const char *str1, const char *str2);
-//int				ft_scene_reader(char *filename);
 #endif

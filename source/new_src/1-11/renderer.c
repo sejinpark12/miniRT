@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:07:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/08 18:07:06 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/08 22:27:44 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,14 @@ void	my_mlx_pixel_put(t_data *data, t_image *img, int x, int y,
 	dst = img->address +
 					(y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = create_trgb(0,
-									256 * ft_clamp(r, 0.0, 0.999),
-									256 * ft_clamp(g, 0.0, 0.999),
-									256 * ft_clamp(b, 0.0, 0.999));
+									ft_clamp(r, 0, 255),
+									ft_clamp(g, 0, 255),
+									ft_clamp(b, 0, 255));
 }
 
 void	ft_window_close(t_engine *engine)
 {
-	ft_hit_lst_clear(&(engine->cam_lst));
-	ft_hit_lst_clear(&(engine->data.img_lst));
-	ft_hit_lst_clear(&(engine->obj_lst));
-	ft_hit_lst_clear(&(engine->light_lst));
+	ft_free_all(engine);
 	mlx_destroy_window(engine->data.mlx, engine->data.mlx_win);
 	exit(0);
 }
@@ -68,7 +65,8 @@ int		ft_xbtn_click(t_engine *engine)
 //	return (0);
 //}
 
-t_color	ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_obj_lst *light_lst)
+t_color	ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_obj_lst *light_lst,
+						t_ambient ambient)
 {
 	t_color		color;
 	double		t;
@@ -85,7 +83,8 @@ t_color	ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_obj_lst *light_lst)
 	if (ft_hit_lst_obj_hit(obj_lst, r, &t_minmax, &rec))
 	{
 		cur_splight_lst = light_lst;
-		color = ft_vec_mul_f(0.1, rec.color);
+		color = ft_vec_mul_f(0.001 * ambient.intensity,
+							ft_vec_mul(rec.color, ambient.color));
 		while (cur_splight_lst)
 		{
 			spli_info = ft_splight_get_info(cur_splight_lst->content, &rec.p);
@@ -100,11 +99,11 @@ t_color	ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_obj_lst *light_lst)
 			if (tmpcolor < 0)
 				tmpcolor = 0;
 			color.x += vis * rec.color.x * 0.18 / M_PI *
-							spli_info.lightintensity.x * tmpcolor;
+							spli_info.lightintensity.x * 5000 * tmpcolor;
 			color.y += vis * rec.color.y * 0.18 / M_PI *
-							spli_info.lightintensity.y * tmpcolor;
+							spli_info.lightintensity.y * 5000 * tmpcolor;
 			color.z += vis * rec.color.z * 0.18 / M_PI *
-							spli_info.lightintensity.z * tmpcolor;
+							spli_info.lightintensity.z * 5000 * tmpcolor;
 			cur_splight_lst = cur_splight_lst->next;
 		}
 		return (color);
@@ -153,7 +152,7 @@ int		ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 						((double)i + ft_random_double()) / (data->width - 1),
 						((double)j + ft_random_double()) / (data->height - 1));
 					color = ft_vec_add(color,
-								ft_ray_color(&r, obj_lst, light_lst));
+							ft_ray_color(&r, obj_lst, light_lst, data->ambient));
 					k++;
 				}
 				my_mlx_pixel_put(data, tmp_img_lst->content, i,

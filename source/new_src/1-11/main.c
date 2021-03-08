@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/08 18:35:44 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/08 22:04:38 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,13 @@ int	main(int argc, char **argv)
 	else if (ft_check_rtfile(argv[1]))
 	{
 		printf("ft_check_rtfile in!!!\n");
-		ft_scene_reader(&engine, argv[1]);
+		if (ft_scene_reader(&engine, argv[1]) == -1)
+		{
+			ft_putstr_fd("Error\n", 1);
+			ft_free_all(&engine);
+			exit(0);
+			// 에러 !!
+		}
 		engine.data.mlx = mlx_init();
 		tmp_cam_lst = engine.cam_lst;
 		while (tmp_cam_lst)
@@ -75,6 +81,7 @@ int	main(int argc, char **argv)
 		else
 		{
 			ft_putstr_fd("Error\n", 1);
+			ft_free_all(&engine);
 			exit(0);
 			// 에러 !!
 		}

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:06:06 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/08 17:25:48 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/08 22:23:46 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void			ft_window_close(t_engine *engine);
 int				ft_key_press(int keycode, t_engine *engine);
 int				ft_xbtn_click(t_engine *engine);
 t_color			ft_ray_color(t_ray *r, t_obj_lst *obj_lst,
-							t_obj_lst *light_lst);
+							t_obj_lst *light_lst, t_ambient);
 int				ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 							t_obj_lst *light_lst);
 int				main_loop(t_engine *engine);
