@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 12:05:45 by sejpark           #+#    #+#             */
-/*   Updated: 2020/08/11 15:34:41 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/08 12:45:25 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include "libft/libft.h"
 
 int		get_next_line(int fd, char **line);
-size_t	ft_strlen(const char *s);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif

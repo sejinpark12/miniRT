@@ -6,12 +6,13 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 12:03:10 by sejpark           #+#    #+#             */
-/*   Updated: 2020/08/11 18:03:45 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/08 12:44:55 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #define ERROR				-1
+#define BUFFER_SIZE			50
 #define _EOF				 0
 #define SUCCESS				 1
 #define FULLBUF_NO_NEWLINE	 2

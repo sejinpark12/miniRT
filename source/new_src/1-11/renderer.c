@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:07:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:16:28 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/08 18:07:06 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,4 +180,31 @@ int		main_loop(t_engine *engine)
 	mlx_put_image_to_window(engine->data.mlx, engine->data.mlx_win,
 								img->image, 0, 0);
 	return (0);
+}
+
+int		ft_check_rtfile(const char *filename)
+{
+	char	**split_line;
+	size_t	cnt;
+	int		i;
+	int		result;
+
+	split_line = ft_split(filename, '.');
+	cnt = 0;
+	i = 0;
+	result = 1;
+	while (split_line[cnt])
+		cnt++;
+	if (cnt != 2)
+		result = 0;
+	else
+	{
+		if (ft_strcmp(split_line[0], "") == 0 ||
+							ft_strcmp(split_line[1], "rt") != 0)
+			result = 0;
+	}
+	while (split_line[i])
+		free(split_line[i++]);
+	free(split_line);
+	return (result);
 }
