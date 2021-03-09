@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 00:03:51 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:11:34 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 14:45:54 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_spli_info	ft_splight_get_info(t_splight *spli, t_point3 *p)
 	spli_info.distance = sqrt(r2);
 	spli_info.lightdir = ft_vec_unit_vec(spli_info.lightdir);
 	spli_info.lightintensity = ft_vec_div_f(4 * M_PI * r2,
-								ft_vec_mul_f(spli->intensity, spli->color));
+			ft_vec_mul_f(spli->intensity, spli->color));
 	return (spli_info);
 }
 

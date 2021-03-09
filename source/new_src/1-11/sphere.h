@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:22:40 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:17:05 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 15:23:33 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 # define SPHERE_H
 # include "hittable.h"
 
-typedef struct	s_sphere
+typedef struct s_sphere_scene_data
+{
+	t_point3	center;
+	double		diameter;
+	t_color		color;
+}				t_sphere_scene_data;
+typedef struct s_sphere
 {
 	t_point3	center;
 	double		radius;
@@ -23,6 +29,6 @@ typedef struct	s_sphere
 t_sphere		ft_sphere_set(t_point3 cen, double diameter, t_color color);
 double			ft_sphere_solve_t(t_sphere *sp, t_ray *r, t_t *t_range);
 int				ft_sphere_hit(t_sphere *sp, t_ray *r, t_t *t_range,
-									t_hit_rec *rec);
+					t_hit_rec *rec);
 int				ft_sphere_sha_hit(t_sphere *sp, t_ray *r, t_t *t_range);
 #endif

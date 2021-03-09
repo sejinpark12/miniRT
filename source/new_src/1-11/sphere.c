@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:29:38 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:17:19 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 15:02:53 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_sphere	ft_sphere_set(t_point3 cen, double diameter, t_color color)
 {
-	t_sphere sp;
+	t_sphere	sp;
 
 	sp.center = cen;
 	sp.radius = diameter / 2;
@@ -23,7 +23,7 @@ t_sphere	ft_sphere_set(t_point3 cen, double diameter, t_color color)
 	return (sp);
 }
 
-double		ft_sphere_solve_t(t_sphere *sp, t_ray *r, t_t *t_range)
+double	ft_sphere_solve_t(t_sphere *sp, t_ray *r, t_t *t_range)
 {
 	t_vec3	oc;
 	t_coef	coef;
@@ -47,7 +47,7 @@ double		ft_sphere_solve_t(t_sphere *sp, t_ray *r, t_t *t_range)
 	return (t);
 }
 
-int			ft_sphere_hit(t_sphere *sp, t_ray *r, t_t *t_range, t_hit_rec *rec)
+int	ft_sphere_hit(t_sphere *sp, t_ray *r, t_t *t_range, t_hit_rec *rec)
 {
 	double	t;
 	t_vec3	outward_normal;
@@ -59,7 +59,7 @@ int			ft_sphere_hit(t_sphere *sp, t_ray *r, t_t *t_range, t_hit_rec *rec)
 		rec->t = t;
 		rec->p = ft_ray_at(*r, rec->t);
 		outward_normal = ft_vec_div_f(sp->radius,
-											ft_vec_sub(rec->p, sp->center));
+				ft_vec_sub(rec->p, sp->center));
 		ft_set_face_normal(rec, r, &outward_normal);
 		ft_set_hit_rec_color(rec, sp->color);
 		return (1);
@@ -67,7 +67,7 @@ int			ft_sphere_hit(t_sphere *sp, t_ray *r, t_t *t_range, t_hit_rec *rec)
 	return (0);
 }
 
-int			ft_sphere_sha_hit(t_sphere *sp, t_ray *r, t_t *t_range)
+int	ft_sphere_sha_hit(t_sphere *sp, t_ray *r, t_t *t_range)
 {
 	if (ft_sphere_solve_t(sp, r, t_range) != INFINITY)
 		return (1);

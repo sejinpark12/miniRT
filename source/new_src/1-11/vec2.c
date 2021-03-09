@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:24:41 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:19:31 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 15:08:47 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ double	ft_vec_dot(const t_vec3 u, const t_vec3 v)
 
 t_vec3	ft_vec_cross(const t_vec3 u, const t_vec3 v)
 {
-	t_vec3 result;
+	t_vec3	result;
 
 	result.x = u.y * v.z - u.z * v.y;
 	result.y = u.z * v.x - u.x * v.z;

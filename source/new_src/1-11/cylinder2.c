@@ -6,14 +6,14 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:59:26 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:09:37 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 14:42:46 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cylinder.h"
 #include <math.h>
 
-void		ft_cylinder_set_rec(t_cylinder *cy, t_ray *r, t_hit_rec *rec,
+void	ft_cylinder_set_rec(t_cylinder *cy, t_ray *r, t_hit_rec *rec,
 				t_cylinder_ts cy_ts)
 {
 	t_vec3	circle_center; // 교차점 절단면으로 생기는 원의 중심
@@ -39,7 +39,7 @@ void		ft_cylinder_set_rec(t_cylinder *cy, t_ray *r, t_hit_rec *rec,
 	ft_set_hit_rec_color(rec, cy->color);
 }
 
-int			ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t *t_range,
+int	ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t *t_range,
 								t_hit_rec *rec)
 {
 	t_cylinder_ts	cy_ts;
@@ -59,7 +59,7 @@ int			ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t *t_range,
 	}
 }
 
-int			ft_cylinder_sha_hit(t_cylinder *cy, t_ray *r, t_t *t_range)
+int	ft_cylinder_sha_hit(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
 	t_cylinder_ts	cy_ts;
 

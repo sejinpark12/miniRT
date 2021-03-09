@@ -6,13 +6,13 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:07:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/08 22:27:44 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 15:00:38 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderer.h"
 
-void	my_mlx_pixel_put(t_data *data, t_image *img, int x, int y,
+void	my_mlx_pixel_put(t_data *data, t_image *img, t_pixel p,
 							t_vec3 *color)
 {
 	char	*dst;
@@ -26,7 +26,7 @@ void	my_mlx_pixel_put(t_data *data, t_image *img, int x, int y,
 	g = color->y * scale;
 	b = color->z * scale;
 	dst = img->address +
-					(y * data->line_length + x * (data->bits_per_pixel / 8));
+					(p.y * data->line_length + p.x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = create_trgb(0,
 									ft_clamp(r, 0, 255),
 									ft_clamp(g, 0, 255),
@@ -126,6 +126,7 @@ int		ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 	t_obj_lst	*tmp_img_lst;
 	t_obj_lst	*tmp_cam_lst;
 	int			cam_idx;
+	t_pixel		p;
 
 	tmp_img_lst = data->img_lst;
 	tmp_cam_lst = cam_lst;
@@ -155,8 +156,11 @@ int		ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 							ft_ray_color(&r, obj_lst, light_lst, data->ambient));
 					k++;
 				}
-				my_mlx_pixel_put(data, tmp_img_lst->content, i,
-									data->height - 1 - j, &color);
+				p.x = i;
+				p.y = data->height - 1 - j;
+				my_mlx_pixel_put(data, tmp_img_lst->content, p, &color);
+//				my_mlx_pixel_put(data, tmp_img_lst->content, i,
+//									data->height - 1 - j, &color);
 				i++;
 			}
 			j--;

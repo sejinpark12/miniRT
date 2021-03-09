@@ -6,36 +6,30 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:57:16 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:08:54 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 14:41:08 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cylinder.h"
 #include <math.h>
 
-t_cylinder	ft_cylinder_set(t_point3 cen, t_vec3 dir, double diameter,
-								double h, t_color color)
+t_cylinder	ft_cylinder_set(t_cylinder_scene_data *cys_data)
 {
 	t_cylinder	cy;
 
-	cy.center = cen;
-	cy.dir = ft_vec_unit_vec(dir);
-	cy.radius = diameter / 2;
-	cy.height = h;
-	cy.color = color;
+	cy.center = cys_data->center;
+	cy.dir = ft_vec_unit_vec(cys_data->dir);
+	cy.radius = cys_data->diameter / 2;
+	cy.height = cys_data->h;
+	cy.color = cys_data->color;
 	cy.top_center = ft_vec_add(cy.center,
-								ft_vec_mul_f(cy.height / 2, cy.dir));
+			ft_vec_mul_f(cy.height / 2, cy.dir));
 	cy.bottom_center = ft_vec_sub(cy.center,
-								ft_vec_mul_f(cy.height / 2, cy.dir));
+			ft_vec_mul_f(cy.height / 2, cy.dir));
 	return (cy);
 }
 
-//t_cylinder		ft_cylinder_set(const t_cyclinder *cy)
-//{
-//	return (*cy);
-//}
-
-double		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
+double	ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
 	t_vec3	oc;
 	t_coef	coef;
@@ -62,10 +56,12 @@ double		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 	return (t);
 }
 
-int			ft_cycap_chk_r(t_ray *r, double t, t_vec3 cap_center, double radius)
+int	ft_cycap_chk_r(t_ray *r, double t, t_vec3 cap_center, double radius)
 {
-	if (ft_vec_sqr_len(ft_vec_sub(ft_ray_at(*r, t), cap_center))
-			> pow(radius, 2.0))
+	t_vec3	tmp;
+
+	tmp = ft_vec_sub(ft_ray_at(*r, t), cap_center);
+	if (ft_vec_sqr_len(tmp) > pow(radius, 2.0))
 		return (1);
 	else
 		return (0);
@@ -73,7 +69,8 @@ int			ft_cycap_chk_r(t_ray *r, double t, t_vec3 cap_center, double radius)
 
 // 원기둥 모자 2개의 각각 t값을 구해서 작은 t값을 얻는 것이 목적
 // 모자와의 교차점을 구하는 방법은 평면과 직선의 교차점을 구하는 것과 동일하다.
-double		ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
+
+double	ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
 	t_vec3	top_oc;
 	t_vec3	bottom_oc;
@@ -101,4 +98,3 @@ double		ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 	else
 		return (bottom_center_t);
 }
-

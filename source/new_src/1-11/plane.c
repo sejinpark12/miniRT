@@ -6,14 +6,14 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:28:19 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:12:33 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 14:47:08 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "plane.h"
 #include <math.h>
 
-extern const double g_pi;
+extern const double	g_pi;
 
 t_plane	ft_plane_set(t_point3 cen, t_vec3 norm, t_color color)
 {
@@ -41,7 +41,7 @@ double	ft_plane_solve_t(t_plane *pl, t_ray *r, t_t *t_range)
 	return (t);
 }
 
-int		ft_plane_hit(t_plane *pl, t_ray *r, t_t *t_range, t_hit_rec *rec)
+int	ft_plane_hit(t_plane *pl, t_ray *r, t_t *t_range, t_hit_rec *rec)
 {
 	double	t;
 
@@ -56,7 +56,7 @@ int		ft_plane_hit(t_plane *pl, t_ray *r, t_t *t_range, t_hit_rec *rec)
 	return (1);
 }
 
-int		ft_plane_sha_hit(t_plane *pl, t_ray *r, t_t *t_range)
+int	ft_plane_sha_hit(t_plane *pl, t_ray *r, t_t *t_range)
 {
 	if (ft_plane_solve_t(pl, r, t_range) == INFINITY)
 		return (0);

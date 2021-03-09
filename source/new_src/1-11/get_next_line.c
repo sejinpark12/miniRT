@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 12:03:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/08 12:44:55 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 14:38:02 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 ssize_t	find_newline_char(const char *const str)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
 	while (str[idx])
@@ -32,12 +32,13 @@ ssize_t	find_newline_char(const char *const str)
 	return (CANT_FIND_NEWLINE);
 }
 
-int		make_static_buf(int fd, char *const buf, ssize_t *const read_cnt,
+int	make_static_buf(int fd, char *const buf, ssize_t *const read_cnt,
 		char **static_buf)
 {
-	char *tmp;
+	char	*tmp;
 
-	if (ERROR == (*read_cnt = read(fd, buf, BUFFER_SIZE)))
+	*read_cnt = read(fd, buf, BUFFER_SIZE);
+	if (ERROR == *read_cnt)
 		return (ERROR);
 	buf[*read_cnt] = '\0';
 	if (*static_buf)
@@ -47,13 +48,15 @@ int		make_static_buf(int fd, char *const buf, ssize_t *const read_cnt,
 		free(tmp);
 		if (NULL == *static_buf)
 			return (ERROR);
+		return (SUCCESS);
 	}
-	else if (NULL == (*static_buf = ft_strdup(buf)))
+	*static_buf = ft_strdup(buf);
+	if (NULL == *static_buf)
 		return (ERROR);
 	return (SUCCESS);
 }
 
-int		meet_eof(char **const line, char **static_buf)
+int	meet_eof(char **const line, char **static_buf)
 {
 	*line = ft_strdup(*static_buf);
 	free(*static_buf);
@@ -63,7 +66,7 @@ int		meet_eof(char **const line, char **static_buf)
 	return (_EOF);
 }
 
-int		get_line(ssize_t *const read_cnt, char **const line,
+int	get_line(ssize_t *const read_cnt, char **const line,
 		char **static_buf)
 {
 	int		newline_idx;
@@ -89,22 +92,24 @@ int		get_line(ssize_t *const read_cnt, char **const line,
 	return (SUCCESS);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	char		*buf;
-	static char *static_buf = NULL;
+	static char	*static_buf = NULL;
 	ssize_t		read_cnt;
 	int			result;
 
 	read_cnt = -1;
 	result = -1;
-	if (NULL == (buf = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (NULL == buf)
 		return (ERROR);
 	while ((fd > -1 && fd <= OPEN_MAX) && BUFFER_SIZE > 0 && line)
 	{
 		if (ERROR == make_static_buf(fd, buf, &read_cnt, &static_buf))
 			break ;
-		if (ERROR == (result = get_line(&read_cnt, line, &static_buf)))
+		result = get_line(&read_cnt, line, &static_buf);
+		if (ERROR == result)
 			break ;
 		if (FULLBUF_NO_NEWLINE == result)
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 03:07:15 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 12:47:19 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,24 @@ int	main(int argc, char **argv)
 	t_imgs		imgs;
 	t_obj_lst	*tmp_cam_lst;
 
-	// Image
 	engine.data.samples_per_pixel = 1;
-	// World
 	engine.obj_lst = NULL;
-	// light
 	engine.light_lst = NULL;
-	// camera
 	engine.cam_lst = NULL;
-	// image
 	engine.data.img_lst = NULL;
 	engine.data.current_img_lst = NULL;
-	// scene_read
 	if (argc < 2 || argc > 3)
 	{
-		ft_putstr_fd("Error\n", 1);
+		perror("Error\n");
 		exit(0);
-		// 에러!!!
 	}
 	else if (ft_check_rtfile(argv[1]))
 	{
-		printf("ft_check_rtfile in!!!\n");
 		if (ft_scene_reader(&engine, argv[1]) == -1 || engine.cam_lst == NULL)
 		{
-			ft_putstr_fd("Error\n", 1);
+			perror("Error\n");
 			ft_free_all(&engine);
 			exit(0);
-			// 에러 !!
 		}
 		engine.data.mlx = mlx_init();
 		tmp_cam_lst = engine.cam_lst;
@@ -80,17 +71,15 @@ int	main(int argc, char **argv)
 		}
 		else
 		{
-			ft_putstr_fd("Error\n", 1);
+			perror("Error\n");
 			ft_free_all(&engine);
 			exit(0);
-			// 에러 !!
 		}
 	}
 	else
 	{
-		ft_putstr_fd("Error\n", 1);
+		perror("Error\n");
 		exit(0);
-		// 에러 !!
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 19:29:52 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/05 16:13:21 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 14:48:28 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RAY_H
 # include "vec.h"
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	t_point3	orig;
 	t_vec3		dir;
