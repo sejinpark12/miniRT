@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:34:54 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 17:36:18 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:54:21 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "struct_set.h"
 # include "parser_util1.h"
 # include "parser_util2.h"
+# include "error_handler.h"
 
 int		ft_parse_plane(t_engine *engine, char **split_line);
 

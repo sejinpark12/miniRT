@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:47:54 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 19:35:16 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:08:09 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int	ft_element_parser(t_engine *engine, char **split_line, int *r_chk,
+int			ft_element_parser(t_engine *engine, char **split_line, int *r_chk,
 		int *a_chk)
 {
 	if (split_line[0][0] == 'R')
@@ -40,7 +40,7 @@ int	ft_element_parser(t_engine *engine, char **split_line, int *r_chk,
 		return (0);
 }
 
-int	ft_line_parser_chk(char **split_line)
+int			ft_line_parser_chk(char **split_line)
 {
 	int	i;
 
@@ -68,7 +68,7 @@ int	ft_line_parser_chk(char **split_line)
 	return (0);
 }
 
-int	ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk)
+int			ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk)
 {
 	int		result;
 	char	**split_line;
@@ -82,43 +82,43 @@ int	ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk)
 	return (result);
 }
 
-int	ft_scene_reader(t_engine *engine, char *filename)
+t_file_info	ft_file_set(char *filename)
 {
-	char	*line;
-	int		fd;
-	int		ret;
-	int		r_chk;
-	int		a_chk;
+	t_file_info	fi;
 
-	line = NULL;
-	fd = open(filename, O_RDONLY);
-	ret = get_next_line(fd, &line);
-	r_chk = 0;
-	a_chk = 0;
-	while (ret > 0)
+	fi.line = NULL;
+	fi.fd = open(filename, O_RDONLY);
+	fi.ret = get_next_line(fi.fd, &fi.line);
+	fi.r_chk = 0;
+	fi.a_chk = 0;
+	return (fi);
+}
+
+int			ft_scene_reader(t_engine *engine, char *filename)
+{
+	t_file_info	fi;
+
+	fi = ft_file_set(filename);
+	while (fi.ret > 0)
 	{
-		if (ft_strcmp(line, ""))
+		if (ft_strcmp(fi.line, "") &&
+			ft_line_parser(engine, fi.line, &fi.r_chk, &fi.a_chk) == 0)
 		{
-			if (ft_line_parser(engine, line, &r_chk, &a_chk) == 0)
-			{
-				free(line);
-				close(fd);
-				return (-1);
-			}
-		}
-		free(line);
-		ret = get_next_line(fd, &line);
-	}
-	if (ft_strcmp(line, ""))
-	{
-		if (ft_line_parser(engine, line, &r_chk, &a_chk) == 0)
-		{
-			free(line);
-			close(fd);
+			free(fi.line);
+			close(fi.fd);
 			return (-1);
 		}
+		free(fi.line);
+		fi.ret = get_next_line(fi.fd, &fi.line);
 	}
-	free(line);
-	close(fd);
+	if (ft_strcmp(fi.line, "") &&
+			ft_line_parser(engine, fi.line, &fi.r_chk, &fi.a_chk) == 0)
+	{
+		free(fi.line);
+		close(fi.fd);
+		return (-1);
+	}
+	free(fi.line);
+	close(fi.fd);
 	return (1);
 }

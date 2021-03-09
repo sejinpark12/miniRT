@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 22:41:59 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 16:10:19 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:11:54 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ t_camera	ft_camera_set(t_point3 pos, t_vec3 dir, double vfov)
 			cam.origin.z - cam.horizontal.z / 2 - cam.vertical.z / 2 - cam.w.z);
 	return (cam);
 }
-
-/* ************************************************************************** */
-
-// 매개변수를 t_camera cam로 하면 render.c 파일의 ft_draw 함수에서 ft_camera_get_ray 함수를 호출할 때 첫번째 매개변수의 타입이 t_camera cam로 되어 있으므로 void*형의 content 변수를 t_camera *로 바꿔주고 역참조를 해야한다. 굳이 이렇게 보기힘들고 불편하기 할 필요가 없으므로 ft_camera_get_ray의 첫번째 매개변수를 t_camera *형으로 바꾸어서 ft_camera_get_ray를 호출할때 매개변수가 자동으로 void*형에서 t_camera*형으로 대입되게 한다.
-
-//t_ray		ft_camera_get_ray(t_camera cam, double u, double v)
 
 t_ray		ft_camera_get_ray(t_camera *cam, double u, double v)
 {

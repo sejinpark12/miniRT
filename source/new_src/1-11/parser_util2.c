@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:47:56 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 19:29:58 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:16:54 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ double	ft_beforepoint(const char *nbr, char **decimal_point, int *length)
 double	ft_atof(const char *nbr)
 {
 	double	result;
-	int	length;
+	int		length;
 	double	decimal;
 	char	*decimal_point;
 
@@ -71,7 +71,7 @@ double	ft_atof(const char *nbr)
 	while (nbr[length])
 	{
 		if (!ft_isdigit(nbr[length]))
-			break;
+			break ;
 		decimal *= 0.1;
 		result += (decimal * (nbr[length++] - '0'));
 	}

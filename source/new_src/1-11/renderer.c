@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:07:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 15:00:38 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:17:08 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	my_mlx_pixel_put(t_data *data, t_image *img, t_pixel p,
 	g = color->y * scale;
 	b = color->z * scale;
 	dst = img->address +
-					(p.y * data->line_length + p.x * (data->bits_per_pixel / 8));
+				(p.y * data->line_length + p.x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = create_trgb(0,
 									ft_clamp(r, 0, 255),
 									ft_clamp(g, 0, 255),
@@ -59,11 +59,6 @@ int		ft_xbtn_click(t_engine *engine)
 	ft_window_close(engine);
 	return (0);
 }
-
-//int		ft_key_release(int keycode, t_data *data)
-//{
-//	return (0);
-//}
 
 t_color	ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_obj_lst *light_lst,
 						t_ambient ambient)
@@ -159,8 +154,6 @@ int		ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 				p.x = i;
 				p.y = data->height - 1 - j;
 				my_mlx_pixel_put(data, tmp_img_lst->content, p, &color);
-//				my_mlx_pixel_put(data, tmp_img_lst->content, i,
-//									data->height - 1 - j, &color);
 				i++;
 			}
 			j--;

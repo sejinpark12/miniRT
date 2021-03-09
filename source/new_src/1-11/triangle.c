@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/21 20:45:01 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 16:16:46 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:18:47 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ t_triangle	ft_triangle_set(t_point3 p0, t_point3 p1, t_point3 p2,
 	tr.pos.p0 = p0;
 	tr.pos.p1 = p1;
 	tr.pos.p2 = p2;
-	tr.tr_plane.center = p0; // 평면과 직선의 교차점을 구하기 위한 과정중 t를 구하기 위해서는 평면상의 한점 아무거나 필요하다. 평면을 구할 때는 그 점을 중점으로 사용했지만 삼각형에서는 p0을 사용하기로 했다.
+	tr.tr_plane.center = p0;
 	tr.tr_plane.color = color;
-	// 방향벡터를 단위벡터로 바꾸지 않으니까 도형의 음영칠할때 내적값이 너무 커버려서 음영 표현이 제대로 되지 않았다.
 	tr.tr_plane.norm = ft_vec_unit_vec(
 			ft_vec_cross(ft_vec_sub(p1, p0), ft_vec_sub(p2, p0)));
 	tr.edge.edge0 = ft_vec_sub(p1, p0);

@@ -6,17 +6,48 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:11:41 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 20:12:14 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:09:45 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_ambient.h"
 
-t_ambient	ft_atoi_chk(char **split_line)
+int		ft_atoi_chk(char *str)
 {
-	t_ambient	result;
+	int	i;
 
-	return (result);
+	i = 0;
+	if (str[0] == '-' || str[0] == '+')
+		i++;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		ft_atof_chk(char *str)
+{
+	int	i;
+	int point_chk;
+
+	i = 0;
+	point_chk = 0;
+	if (str[0] == '.')
+		return (0);
+	if (str[0] == '-' || str[0] == '+')
+		i++;
+	while (str[i])
+	{
+		if (str[i] == '.' && point_chk == 0)
+			point_chk = 1;
+		else if (ft_isdigit(str[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int		ft_parse_ambient(t_engine *engine, int *a_chk, char **split_line)

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:21:49 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 18:01:33 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:02:59 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@
 # include "parser_cylinder.h"
 # include "parser_triangle.h"
 
-int		ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk);
-int		ft_scene_reader(t_engine *engine, char *filename);
+typedef struct	s_file_info
+{
+	char		*line;
+	int			fd;
+	int			ret;
+	int			r_chk;
+	int			a_chk;
+}				t_file_info;
+int				ft_line_parser(t_engine *engine, char *line, int *r_chk,
+					int *a_chk);
+int				ft_scene_reader(t_engine *engine, char *filename);
 #endif

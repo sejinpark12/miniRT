@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_ambient.h                                   :+:      :+:    :+:   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 17:10:00 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 21:53:47 by sejpark          ###   ########.fr       */
+/*   Created: 2021/03/09 21:48:12 by sejpark           #+#    #+#             */
+/*   Updated: 2021/03/09 21:51:22 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_AMBIENT_H
-# define PARSER_AMBIENT_H
-# include "struct_set.h"
-# include "parser_util1.h"
-# include "parser_util2.h"
-# include "error_handler.h"
+#include "error_handler.h"
 
-int		ft_parse_ambient(t_engine *engine, int *a_chk, char **split_line);
-
-#endif
+void	error_handler(char *str, t_engine *engine)
+{
+	ft_putstr_fd("Error\n", 1);
+	ft_putstr_fd(str, 1);
+	ft_free_all(engine);
+	exit(1);
+}
