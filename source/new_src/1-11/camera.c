@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 22:41:59 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 14:08:35 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:10:19 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_camera	ft_camera_set(t_point3 pos, t_vec3 dir, double vfov)
 
 //t_ray		ft_camera_get_ray(t_camera cam, double u, double v)
 
-t_ray	ft_camera_get_ray(t_camera *cam, double u, double v)
+t_ray		ft_camera_get_ray(t_camera *cam, double u, double v)
 {
 	t_vec3	dir;
 
@@ -59,7 +59,7 @@ t_ray	ft_camera_get_ray(t_camera *cam, double u, double v)
 	return (ft_ray_set(cam->origin, ft_vec_unit_vec(dir)));
 }
 
-double	ft_degrees_to_radians(double degrees)
+double		ft_degrees_to_radians(double degrees)
 {
 	return (degrees * g_pi / 180.0);
 }

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:57:16 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 14:41:08 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:14:11 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_cylinder	ft_cylinder_set(t_cylinder_scene_data *cys_data)
 	return (cy);
 }
 
-double	ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
+double		ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
 	t_vec3	oc;
 	t_coef	coef;
@@ -56,7 +56,7 @@ double	ft_cylinder_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 	return (t);
 }
 
-int	ft_cycap_chk_r(t_ray *r, double t, t_vec3 cap_center, double radius)
+int			ft_cycap_chk_r(t_ray *r, double t, t_vec3 cap_center, double radius)
 {
 	t_vec3	tmp;
 
@@ -70,7 +70,7 @@ int	ft_cycap_chk_r(t_ray *r, double t, t_vec3 cap_center, double radius)
 // 원기둥 모자 2개의 각각 t값을 구해서 작은 t값을 얻는 것이 목적
 // 모자와의 교차점을 구하는 방법은 평면과 직선의 교차점을 구하는 것과 동일하다.
 
-double	ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
+double		ft_cycap_solve_t(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
 	t_vec3	top_oc;
 	t_vec3	bottom_oc;

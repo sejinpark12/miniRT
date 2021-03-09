@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 22:50:28 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 14:39:45 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:18:31 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct	s_cylinder_scene_data
 	double		h;
 	t_color		color;
 }				t_cylinder_scene_data;
-typedef struct s_cylinder
+typedef struct	s_cylinder
 {
 	t_point3	center;
 	t_vec3		dir;
@@ -32,7 +32,7 @@ typedef struct s_cylinder
 	t_point3	top_center;
 	t_point3	bottom_center;
 }				t_cylinder;
-typedef struct s_cylinder_ts
+typedef struct	s_cylinder_ts
 {
 	double		cy_t;
 	double		cap_t;

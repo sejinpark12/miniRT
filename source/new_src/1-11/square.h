@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 20:36:59 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 15:24:47 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:20:53 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 # include "hittable.h"
 # include "plane.h"
 
-typedef struct s_square_scene_data
+typedef struct	s_square_scene_data
 {
 	t_point3	center;
 	t_vec3		norm;
 	double		side_size;
 	t_color		color;
 }				t_square_scene_data;
-typedef struct s_square
+typedef struct	s_square
 {
 	t_plane		sq_plane;
 	double		side_size;

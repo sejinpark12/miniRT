@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 23:59:26 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 14:42:46 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:13:43 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_cylinder_set_rec(t_cylinder *cy, t_ray *r, t_hit_rec *rec,
 	ft_set_hit_rec_color(rec, cy->color);
 }
 
-int	ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t *t_range,
+int		ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t *t_range,
 								t_hit_rec *rec)
 {
 	t_cylinder_ts	cy_ts;
@@ -59,7 +59,7 @@ int	ft_cylinder_hit(t_cylinder *cy, t_ray *r, t_t *t_range,
 	}
 }
 
-int	ft_cylinder_sha_hit(t_cylinder *cy, t_ray *r, t_t *t_range)
+int		ft_cylinder_sha_hit(t_cylinder *cy, t_ray *r, t_t *t_range)
 {
 	t_cylinder_ts	cy_ts;
 

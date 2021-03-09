@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:18:00 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 15:23:56 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:19:41 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define PLANE_H
 # include "hittable.h"
 
-typedef struct s_plane_scene_data
+typedef struct	s_plane_scene_data
 {
 	t_point3	center;
 	t_vec3		norm;
 	t_color		color;
 }				t_plane_scene_data;
-typedef struct s_plane
+typedef struct	s_plane
 {
 	t_point3	center;
 	t_vec3		norm;

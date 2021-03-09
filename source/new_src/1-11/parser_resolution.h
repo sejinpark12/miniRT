@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   parser_resolution.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 19:36:34 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 16:14:51 by sejpark          ###   ########.fr       */
+/*   Created: 2021/03/09 17:17:25 by sejpark           #+#    #+#             */
+/*   Updated: 2021/03/09 17:19:54 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#ifndef PARSER_RESOLUTION_H
+# define PARSER_RESOLUTION_H
+# include "mlx.h"
+# include "parser_util1.h"
+# include "parser_util2.h"
 
-t_ray		ft_ray_set(t_point3 origin, t_vec3 direction)
-{
-	t_ray	target;
+int		ft_parse_resolution(t_engine *engine, int *r_chk, char **split_line);
 
-	target.orig = origin;
-	target.dir = direction;
-	return (target);
-}
-
-t_point3	ft_ray_at(t_ray ray, double t)
-{
-	t_point3	target;
-
-	target = ft_vec_set_xyz(
-			ray.orig.x + t * ray.dir.x,
-			ray.orig.y + t * ray.dir.y,
-			ray.orig.z + t * ray.dir.z);
-	return (target);
-}
+#endif

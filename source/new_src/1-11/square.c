@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 20:44:05 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 15:04:24 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:15:36 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ t_square	ft_square_set(t_point3 cen, t_vec3 norm, double side_size,
 	return (sq);
 }
 
-double	ft_square_solve_t(t_square *sq, t_ray *r, t_t *t_range)
+double		ft_square_solve_t(t_square *sq, t_ray *r, t_t *t_range)
 {
 	return (ft_plane_solve_t(&sq->sq_plane, r, t_range));
 }
 
-int	ft_square_chk_size(t_square *sq, t_ray *r, double t)
+int			ft_square_chk_size(t_square *sq, t_ray *r, double t)
 {
 	t_vec3	ip;
 	double	cos1;
@@ -53,7 +53,7 @@ int	ft_square_chk_size(t_square *sq, t_ray *r, double t)
 	return (0);
 }
 
-int	ft_square_hit(t_square *sq, t_ray *r, t_t *t_range, t_hit_rec *rec)
+int			ft_square_hit(t_square *sq, t_ray *r, t_t *t_range, t_hit_rec *rec)
 {
 	double	t;
 
@@ -76,7 +76,7 @@ int	ft_square_hit(t_square *sq, t_ray *r, t_t *t_range, t_hit_rec *rec)
 	}
 }
 
-int	ft_square_sha_hit(t_square *sq, t_ray *r, t_t *t_range)
+int			ft_square_sha_hit(t_square *sq, t_ray *r, t_t *t_range)
 {
 	double	t;
 

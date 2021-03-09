@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:06:06 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 15:00:47 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:21:19 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <math.h>
 # include <float.h>
 
-typedef struct s_pixel
+typedef struct	s_pixel
 {
 	int	x;
 	int	y;

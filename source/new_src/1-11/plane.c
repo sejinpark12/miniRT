@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 13:28:19 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 14:47:08 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:14:28 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ double	ft_plane_solve_t(t_plane *pl, t_ray *r, t_t *t_range)
 	return (t);
 }
 
-int	ft_plane_hit(t_plane *pl, t_ray *r, t_t *t_range, t_hit_rec *rec)
+int		ft_plane_hit(t_plane *pl, t_ray *r, t_t *t_range, t_hit_rec *rec)
 {
 	double	t;
 
@@ -56,7 +56,7 @@ int	ft_plane_hit(t_plane *pl, t_ray *r, t_t *t_range, t_hit_rec *rec)
 	return (1);
 }
 
-int	ft_plane_sha_hit(t_plane *pl, t_ray *r, t_t *t_range)
+int		ft_plane_sha_hit(t_plane *pl, t_ray *r, t_t *t_range)
 {
 	if (ft_plane_solve_t(pl, r, t_range) == INFINITY)
 		return (0);

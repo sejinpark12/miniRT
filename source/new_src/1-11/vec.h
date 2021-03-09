@@ -6,25 +6,25 @@
 /*   By: sejpark <sejpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:44:13 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 15:08:19 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:22:13 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VEC_H
 # define VEC_H
 
-typedef struct s_vec3
+typedef struct	s_vec3
 {
 	double		x;
 	double		y;
 	double		z;
 }				t_vec3;
-typedef struct s_t
+typedef struct	s_t
 {
 	double		min;
 	double		max;
 }				t_t;
-typedef struct s_coef
+typedef struct	s_coef
 {
 	double		a;
 	double		half_b;

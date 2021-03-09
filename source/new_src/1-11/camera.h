@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:30:20 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 15:22:19 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:17:56 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define CAMERA_H
 # include "ray.h"
 
-typedef struct s_cam_scene_data
+typedef struct	s_cam_scene_data
 {
 	t_point3	viewpoint;
 	t_vec3		dir;
 	int			fov;
 }				t_cam_scene_data;
-typedef struct s_camera
+typedef struct	s_camera
 {
 	t_point3	origin;
 	t_vec3		dir;
@@ -33,7 +33,7 @@ typedef struct s_camera
 	t_vec3		horizontal;
 	t_vec3		vertical;
 }				t_camera;
-typedef struct s_cam_data
+typedef struct	s_cam_data
 {
 	double		theta;
 	double		h;

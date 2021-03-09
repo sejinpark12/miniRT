@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:19:36 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 14:43:36 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:19:01 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define HITTABLE_H
 # include "ray.h"
 
-typedef struct s_hit_rec
+typedef struct	s_hit_rec
 {
 	t_point3	p;
 	t_vec3		normal;

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 12:03:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 14:38:02 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:12:02 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ ssize_t	find_newline_char(const char *const str)
 	return (CANT_FIND_NEWLINE);
 }
 
-int	make_static_buf(int fd, char *const buf, ssize_t *const read_cnt,
+int		make_static_buf(int fd, char *const buf, ssize_t *const read_cnt,
 		char **static_buf)
 {
 	char	*tmp;
@@ -56,7 +56,7 @@ int	make_static_buf(int fd, char *const buf, ssize_t *const read_cnt,
 	return (SUCCESS);
 }
 
-int	meet_eof(char **const line, char **static_buf)
+int		meet_eof(char **const line, char **static_buf)
 {
 	*line = ft_strdup(*static_buf);
 	free(*static_buf);
@@ -66,7 +66,7 @@ int	meet_eof(char **const line, char **static_buf)
 	return (_EOF);
 }
 
-int	get_line(ssize_t *const read_cnt, char **const line,
+int		get_line(ssize_t *const read_cnt, char **const line,
 		char **static_buf)
 {
 	int		newline_idx;
@@ -92,7 +92,7 @@ int	get_line(ssize_t *const read_cnt, char **const line,
 	return (SUCCESS);
 }
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	char		*buf;
 	static char	*static_buf = NULL;

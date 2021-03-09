@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 21:15:37 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 14:48:09 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 16:12:54 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ unsigned int	ft_rand(void)
 	return (g_lfsr = (g_lfsr >> 1) | (g_bit << 15));
 }
 
-double	ft_random_double(void)
+double			ft_random_double(void)
 {
 	return (ft_rand() / (FT_RAND_MAX + 1.0));
 }
 
-double	ft_random_double_range(double min, double max)
+double			ft_random_double_range(double min, double max)
 {
 	return (min + (max - min) * ft_random_double());
 }
 
-double	ft_clamp(double x, double min, double max)
+double			ft_clamp(double x, double min, double max)
 {
 	if (x < min)
 		return (min);
