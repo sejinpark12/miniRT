@@ -6,7 +6,7 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2021/03/08 18:00:38 by sejpark          ###   ########.fr        #
+#    Updated: 2021/03/09 10:28:58 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBFT 		= libft.a
 LIBFTPATH 	= libft 
 MLX 		= libmlx.dylib
 MLXPATH 	= ./
-CC 			= gcc
+CC 			= gcc -g
 RM 			= rm -f
 #CFLAGS 		= -Wall -Wextra -Werror -g3 -fsanitize=address
 CFLAGS 		= -Wall -Wextra -Werror

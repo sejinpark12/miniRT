@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:47:54 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/08 22:54:09 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 11:05:51 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,11 @@ int		ft_chk_lightrange(const double intensity)
 int		ft_chk_dirrange(const t_vec3 dir)
 {
 	if (dir.x < -1 || dir.x > 1)
-	{
-		printf("1111111\n");
 		return (0);
-	}
 	if (dir.y < -1 || dir.y > 1)
-	{
-		printf("2222222\n");
 		return (0);
-	}
 	if (dir.z < -1 || dir.z > 1)
-	{
-		printf("3333333\n");
 		return (0);
-	}
-	printf(">>>>>>>>>>>>\n");
 	return (1);
 }
 
@@ -70,11 +60,7 @@ int		ft_chk_colorrange(const t_color color)
 int		ft_chk_fovrange(const int fov)
 {
 	if (fov < 0 || fov > 180)
-	{
-		printf("%d 444444444\n", fov);
 		return (0);
-	}
-	printf("???????????\n");
 	return (1);
 }
 
@@ -144,16 +130,146 @@ double	ft_atof(const char *nbr)
 	return (result);
 }
 
-int		 ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk)
+int		ft_parse_resolution(t_engine *engine, int *r_chk, char **split_line)
+{
+	int result;
+
+	result = 1;
+	if (*r_chk == 0)
+	{
+		printf("%d %d\n", atoi(split_line[0]), atoi(split_line[1]));
+		printf("%d %d\n", atoi(split_line[0]), atoi(split_line[2]));
+		mlx_get_screen_size(engine->data.mlx, &engine->data.width, &engine->data.height);
+		printf("x = %d , y = %d\n", engine->data.width, engine->data.height);
+		if (ft_atoi(split_line[1]) < engine->data.width &&
+				ft_atoi(split_line[2]) < engine->data.height)
+		{
+			engine->data.width = ft_atoi(split_line[1]);
+			engine->data.height = ft_atoi(split_line[2]);
+		}
+		*r_chk = 1;
+	}
+	else
+		result = -1;
+	printf("%s end\n", split_line[0]);
+	return (result);
+}
+
+void	ft_free_split(char **split)
+{
+	size_t	i;
+
+	i = 0;
+	while (split[i])
+		free(split[i++]);
+	free(split);
+}
+
+int		ft_parse_ambient(t_engine *engine, int *a_chk, char **split_line)
+{
+	int		result;
+	char	**split_comma;
+
+	result = 1;
+	if (*a_chk == 0)
+	{
+		printf("%d %d\n", atoi(split_line[0]), atoi(split_line[1]));
+		engine->data.ambient.intensity = ft_atof(split_line[1]);
+		split_comma = ft_split(split_line[2], ',');
+		engine->data.ambient.color.x = ft_atoi(split_comma[0]);
+		engine->data.ambient.color.y = ft_atoi(split_comma[1]);
+		engine->data.ambient.color.z = ft_atoi(split_comma[2]);
+		ft_print_data(engine->data.ambient.color);
+		ft_free_split(split_comma);
+		if (ft_chk_colorrange(engine->data.ambient.color) == 0 ||
+				ft_chk_lightrange(engine->data.ambient.intensity) == 0)
+			result = -1;
+		*a_chk = 1;
+	}
+	else
+		result = -1;
+	printf("%s end\n", split_line[0]);
+	return (result);
+}
+
+int		ft_parse_camera(t_engine *engine, char **split_line)
+{
+	int					result;
+	char				**split_comma;
+	t_cams				cams;
+	t_cam_scene_data	cs_data;
+
+	result = 1;
+	split_comma = ft_split(split_line[1], ',');
+	cs_data.viewpoint = ft_vec_set_xyz(ft_atof(split_comma[0]),
+						ft_atof(split_comma[1]), ft_atof(split_comma[2]));
+	ft_print_data(cs_data.viewpoint);
+	ft_free_split(split_comma);
+	printf("%s 0\n", split_line[0]);
+	split_comma = ft_split(split_line[2], ',');
+	cs_data.dir = ft_vec_set_xyz(ft_atof(split_comma[0]),
+							ft_atof(split_comma[1]), ft_atof(split_comma[2]));
+	ft_print_data(cs_data.dir);
+	ft_free_split(split_comma);
+	cs_data.fov = ft_atoi(split_line[3]);
+	printf("%s 1\n", split_line[0]);
+	if (ft_chk_dirrange(cs_data.dir) == 0 || ft_chk_fovrange(cs_data.fov) == 0)
+		result = -1;
+	else
+	{
+		cams.cam = (t_camera*)malloc(sizeof(t_camera));
+		*(cams.cam) = ft_camera_set(cs_data.viewpoint, cs_data.dir, cs_data.fov);
+		ft_hit_lst_addback(&engine->cam_lst, ft_hit_lst_newobj(cams.cam, 20));
+	}
+	printf("%s end\n", split_line[0]);
+	return (result);
+}
+
+int		ft_parse_light(t_engine *engine, char **split_line)
+{
+	int					result;
+	char				**split_comma;
+	t_lights			lights;
+	t_light_scene_data	ls_data;
+
+	result = 1;
+	printf("%s %s\n", split_line[0], split_line[1]);
+	printf("%s %s\n", split_line[0], split_line[2]);
+	printf("%s %s\n", split_line[0], split_line[3]);
+	split_comma = ft_split(split_line[1], ',');
+	ls_data.pos = ft_vec_set_xyz(ft_atof(split_comma[0]),
+							ft_atof(split_comma[1]), ft_atof(split_comma[2]));
+	ft_free_split(split_comma);
+	ls_data.intensity = ft_atof(split_line[2]);
+	printf("%s 0\n", split_line[0]);
+	split_comma = ft_split(split_line[3], ',');
+	ls_data.color = ft_vec_set_xyz(ft_atoi(split_comma[0]),
+							ft_atoi(split_comma[1]), ft_atoi(split_comma[2]));
+	ft_free_split(split_comma);
+	printf("%s 1\n", split_line[0]);
+	if (ft_chk_lightrange(ls_data.intensity) == 0 ||
+							ft_chk_colorrange(ls_data.color) == 0)
+		result = -1;
+	else
+	{
+		lights.spli = (t_splight*)malloc(sizeof(t_splight));
+		*(lights.spli) = ft_splight_set(ls_data.pos, ls_data.intensity, ls_data.color);
+		ft_hit_lst_addback(&engine->light_lst, ft_hit_lst_newobj(lights.spli, 10));
+	}
+	printf("%s end\n", split_line[0]);
+	return (result);
+}
+
+int		ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk)
 {
 	int						i;
 	int						result;
 	char					**split_line;
 	char					**split_comma;
-	t_cams					cams;
-	t_cam_scene_data		cs_data;
-	t_lights				lights;
-	t_light_scene_data		ls_data;
+//	t_cams					cams;
+//	t_cam_scene_data		cs_data;
+//	t_lights				lights;
+//	t_light_scene_data		ls_data;
 	t_objs					objs;
 	t_sphere_scene_data		sps_data;
 	t_plane_scene_data		ps_data;
@@ -167,113 +283,117 @@ int		 ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk)
 	printf("%s :", split_line[0]);
 	if (split_line[0][0] == 'R')
 	{
-		if (*r_chk == 0)
-		{
-			printf("%d %d\n", atoi(split_line[0]), atoi(split_line[1]));
-			printf("%d %d\n", atoi(split_line[0]), atoi(split_line[2]));
-			mlx_get_screen_size(engine->data.mlx, &engine->data.width, &engine->data.height);
-			printf("x = %d , y = %d\n", engine->data.width, engine->data.height);
-			if (ft_atoi(split_line[1]) < engine->data.width &&
-					ft_atoi(split_line[2]) < engine->data.height)
-			{
-				engine->data.width = ft_atoi(split_line[1]);
-				engine->data.height = ft_atoi(split_line[2]);
-			}
-			*r_chk = 1;
-		}
-		else
-			result = -1;
-		printf("%s end\n", split_line[0]);
+		result = ft_parse_resolution(engine, r_chk, split_line);
+//		if (*r_chk == 0)
+//		{
+//			printf("%d %d\n", atoi(split_line[0]), atoi(split_line[1]));
+//			printf("%d %d\n", atoi(split_line[0]), atoi(split_line[2]));
+//			mlx_get_screen_size(engine->data.mlx, &engine->data.width, &engine->data.height);
+//			printf("x = %d , y = %d\n", engine->data.width, engine->data.height);
+//			if (ft_atoi(split_line[1]) < engine->data.width &&
+//					ft_atoi(split_line[2]) < engine->data.height)
+//			{
+//				engine->data.width = ft_atoi(split_line[1]);
+//				engine->data.height = ft_atoi(split_line[2]);
+//			}
+//			*r_chk = 1;
+//		}
+//		else
+//			result = -1;
+//		printf("%s end\n", split_line[0]);
 	}
 	else if (split_line[0][0] == 'A')
 	{
-		if (*a_chk == 0)
-		{
-			printf("%d %d\n", atoi(split_line[0]), atoi(split_line[1]));
-			engine->data.ambient.intensity = ft_atof(split_line[1]);
-			split_comma = ft_split(split_line[2], ',');
-			engine->data.ambient.color.x = ft_atoi(split_comma[0]);
-			engine->data.ambient.color.y = ft_atoi(split_comma[1]);
-			engine->data.ambient.color.z = ft_atoi(split_comma[2]);
-			ft_print_data(engine->data.ambient.color);
-			while (split_comma[i])
-				free(split_comma[i++]);
-			free(split_comma);
-			if (ft_chk_colorrange(engine->data.ambient.color) == 0 ||
-					ft_chk_lightrange(engine->data.ambient.intensity) == 0)
-				result = -1;
-			*a_chk = 1;
-		}
-		else
-			result = -1;
-		printf("%s end\n", split_line[0]);
+		result = ft_parse_ambient(engine, a_chk, split_line);
+//		if (*a_chk == 0)
+//		{
+//			printf("%d %d\n", atoi(split_line[0]), atoi(split_line[1]));
+//			engine->data.ambient.intensity = ft_atof(split_line[1]);
+//			split_comma = ft_split(split_line[2], ',');
+//			engine->data.ambient.color.x = ft_atoi(split_comma[0]);
+//			engine->data.ambient.color.y = ft_atoi(split_comma[1]);
+//			engine->data.ambient.color.z = ft_atoi(split_comma[2]);
+//			ft_print_data(engine->data.ambient.color);
+//			while (split_comma[i])
+//				free(split_comma[i++]);
+//			free(split_comma);
+//			if (ft_chk_colorrange(engine->data.ambient.color) == 0 ||
+//					ft_chk_lightrange(engine->data.ambient.intensity) == 0)
+//				result = -1;
+//			*a_chk = 1;
+//		}
+//		else
+//			result = -1;
+//		printf("%s end\n", split_line[0]);
 	}
 	else if (ft_strcmp(split_line[0], "c") == 0)
 	{
-		split_comma = ft_split(split_line[1], ',');
-		cs_data.viewpoint = ft_vec_set_xyz(ft_atof(split_comma[0]),
-											ft_atof(split_comma[1]),
-											ft_atof(split_comma[2]));
-		ft_print_data(cs_data.viewpoint);
-		while (split_comma[i])
-			free(split_comma[i++]);
-		free(split_comma);
-		i = 0;
-		printf("%s 0\n", split_line[0]);
-		split_comma = ft_split(split_line[2], ',');
-		cs_data.dir = ft_vec_set_xyz(ft_atof(split_comma[0]),
-										ft_atof(split_comma[1]),
-										ft_atof(split_comma[2]));
-		ft_print_data(cs_data.dir);
-		while (split_comma[i])
-			free(split_comma[i++]);
-		free(split_comma);
-		cs_data.fov = ft_atoi(split_line[3]);
-		printf("%s 1\n", split_line[0]);
-		if (ft_chk_dirrange(cs_data.dir) == 0 || ft_chk_fovrange(cs_data.fov) == 0)
-			result = -1;
-		else
-		{
-			cams.cam = (t_camera*)malloc(sizeof(t_camera));
-			*(cams.cam) = ft_camera_set(cs_data.viewpoint, cs_data.dir,
-											cs_data.fov);
-			ft_hit_lst_addback(&engine->cam_lst, ft_hit_lst_newobj(cams.cam, 20));
-		}
-		printf("%s end\n", split_line[0]);
+		result = ft_parse_camera(engine, split_line);
+//		split_comma = ft_split(split_line[1], ',');
+//		cs_data.viewpoint = ft_vec_set_xyz(ft_atof(split_comma[0]),
+//											ft_atof(split_comma[1]),
+//											ft_atof(split_comma[2]));
+//		ft_print_data(cs_data.viewpoint);
+//		while (split_comma[i])
+//			free(split_comma[i++]);
+//		free(split_comma);
+//		i = 0;
+//		printf("%s 0\n", split_line[0]);
+//		split_comma = ft_split(split_line[2], ',');
+//		cs_data.dir = ft_vec_set_xyz(ft_atof(split_comma[0]),
+//										ft_atof(split_comma[1]),
+//										ft_atof(split_comma[2]));
+//		ft_print_data(cs_data.dir);
+//		while (split_comma[i])
+//			free(split_comma[i++]);
+//		free(split_comma);
+//		cs_data.fov = ft_atoi(split_line[3]);
+//		printf("%s 1\n", split_line[0]);
+//		if (ft_chk_dirrange(cs_data.dir) == 0 || ft_chk_fovrange(cs_data.fov) == 0)
+//			result = -1;
+//		else
+//		{
+//			cams.cam = (t_camera*)malloc(sizeof(t_camera));
+//			*(cams.cam) = ft_camera_set(cs_data.viewpoint, cs_data.dir,
+//											cs_data.fov);
+//			ft_hit_lst_addback(&engine->cam_lst, ft_hit_lst_newobj(cams.cam, 20));
+//		}
+//		printf("%s end\n", split_line[0]);
 	}
 	else if (ft_strcmp(split_line[0], "l") == 0)
 	{
-		printf("%s %s\n", split_line[0], split_line[1]);
-		printf("%s %s\n", split_line[0], split_line[2]);
-		printf("%s %s\n", split_line[0], split_line[3]);
-		split_comma = ft_split(split_line[1], ',');
-		ls_data.pos = ft_vec_set_xyz(ft_atof(split_comma[0]),
-										ft_atof(split_comma[1]),
-										ft_atof(split_comma[2]));
-		while (split_comma[i])
-			free(split_comma[i++]);
-		free(split_comma);
-		ls_data.intensity = ft_atof(split_line[2]);
-		i = 0;
-		printf("%s 0\n", split_line[0]);
-		split_comma = ft_split(split_line[3], ',');
-		ls_data.color = ft_vec_set_xyz(ft_atoi(split_comma[0]),
-										ft_atoi(split_comma[1]),
-										ft_atoi(split_comma[2]));
-		while (split_comma[i])
-			free(split_comma[i++]);
-		free(split_comma);
-		printf("%s 1\n", split_line[0]);
-		if (ft_chk_lightrange(ls_data.intensity) == 0 ||
-								ft_chk_colorrange(ls_data.color) == 0)
-			result = -1;
-		else
-		{
-			lights.spli = (t_splight*)malloc(sizeof(t_splight));
-			*(lights.spli) = ft_splight_set(ls_data.pos, ls_data.intensity, ls_data.color);
-			ft_hit_lst_addback(&engine->light_lst, ft_hit_lst_newobj(lights.spli, 10));
-		}
-		printf("%s end\n", split_line[0]);
+		result = ft_parse_light(engine, split_line);
+//		printf("%s %s\n", split_line[0], split_line[1]);
+//		printf("%s %s\n", split_line[0], split_line[2]);
+//		printf("%s %s\n", split_line[0], split_line[3]);
+//		split_comma = ft_split(split_line[1], ',');
+//		ls_data.pos = ft_vec_set_xyz(ft_atof(split_comma[0]),
+//										ft_atof(split_comma[1]),
+//										ft_atof(split_comma[2]));
+//		while (split_comma[i])
+//			free(split_comma[i++]);
+//		free(split_comma);
+//		ls_data.intensity = ft_atof(split_line[2]);
+//		i = 0;
+//		printf("%s 0\n", split_line[0]);
+//		split_comma = ft_split(split_line[3], ',');
+//		ls_data.color = ft_vec_set_xyz(ft_atoi(split_comma[0]),
+//										ft_atoi(split_comma[1]),
+//										ft_atoi(split_comma[2]));
+//		while (split_comma[i])
+//			free(split_comma[i++]);
+//		free(split_comma);
+//		printf("%s 1\n", split_line[0]);
+//		if (ft_chk_lightrange(ls_data.intensity) == 0 ||
+//								ft_chk_colorrange(ls_data.color) == 0)
+//			result = -1;
+//		else
+//		{
+//			lights.spli = (t_splight*)malloc(sizeof(t_splight));
+//			*(lights.spli) = ft_splight_set(ls_data.pos, ls_data.intensity, ls_data.color);
+//			ft_hit_lst_addback(&engine->light_lst, ft_hit_lst_newobj(lights.spli, 10));
+//		}
+//		printf("%s end\n", split_line[0]);
 	}
 	else if (ft_strcmp(split_line[0], "sp") == 0)
 	{
@@ -299,7 +419,7 @@ int		 ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk)
 			free(split_comma[i++]);
 		free(split_comma);
 		printf("%s 1\n", split_line[0]);
-		if (ft_chk_colorrange(ls_data.color) == 0)
+		if (ft_chk_colorrange(sps_data.color) == 0)
 			result = -1;
 		else
 		{
@@ -522,12 +642,13 @@ int	ft_scene_reader(t_engine *engine, char *filename)
 	{
 		ft_putstr_fd("line =>", 1);
 		ft_putstr_fd(line, 1);
-		ft_putstr_fd("a\n", 1);
+		ft_putchar_fd('\n', 1);
 		if (ft_strcmp(line, ""))
 		{
 			if (ft_line_parser(engine, line, &r_chk, &a_chk) == -1)
 			{
 				free(line);
+				close(fd);
 				return (-1);
 			}
 		}
@@ -536,12 +657,13 @@ int	ft_scene_reader(t_engine *engine, char *filename)
 	}
 	ft_putstr_fd("line =>", 1);
 	ft_putstr_fd(line, 1);
-	ft_putstr_fd("a\n", 1);
+	ft_putchar_fd('\n', 1);
 	if (ft_strcmp(line, ""))
 	{
 		if (ft_line_parser(engine, line, &r_chk, &a_chk) == -1)
 		{
 			free(line);
+			close(fd);
 			return (-1);
 		}
 	}

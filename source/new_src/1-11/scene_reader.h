@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:21:49 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/08 22:54:55 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 03:06:57 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int				ft_chk_colorrange(const t_color color);
 double			ft_beforepoint(const char *nbr, char **decimal_point,
 								size_t *length);
 double			ft_atof(const char *nbr);
+int				ft_parse_resolution(t_engine *engine, int *r_chk, char **split_line);
 int				ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk);
 int				ft_scene_reader(t_engine *engine, char *filename);
 int				ft_strcmp(const char *str1, const char *str2);

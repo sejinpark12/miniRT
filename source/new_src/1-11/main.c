@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/08 22:04:38 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/09 03:07:15 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 	else if (ft_check_rtfile(argv[1]))
 	{
 		printf("ft_check_rtfile in!!!\n");
-		if (ft_scene_reader(&engine, argv[1]) == -1)
+		if (ft_scene_reader(&engine, argv[1]) == -1 || engine.cam_lst == NULL)
 		{
 			ft_putstr_fd("Error\n", 1);
 			ft_free_all(&engine);
