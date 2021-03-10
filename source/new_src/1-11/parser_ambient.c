@@ -6,49 +6,11 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:11:41 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 15:12:11 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 23:30:10 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_ambient.h"
-
-//int		ft_atoi_chk(char *str)
-//{
-//	int	i;
-//
-//	i = 0;
-//	if (str[0] == '-' || str[0] == '+')
-//		i++;
-//	while (str[i])
-//	{
-//		if (ft_isdigit(str[i]) == 0)
-//			return (0);
-//		i++;
-//	}
-//	return (1);
-//}
-//
-//int		ft_atof_chk(char *str)
-//{
-//	int	i;
-//	int point_chk;
-//
-//	i = 0;
-//	point_chk = 0;
-//	if (str[0] == '.')
-//		return (0);
-//	if (str[0] == '-' || str[0] == '+')
-//		i++;
-//	while (str[i])
-//	{
-//		if (str[i] == '.' && point_chk == 0)
-//			point_chk = 1;
-//		else if (ft_isdigit(str[i]) == 0)
-//			return (0);
-//		i++;
-//	}
-//	return (1);
-//}
 
 void	ft_parse_ambient(t_engine *engine, int *a_chk, char **split_line)
 {
@@ -74,5 +36,5 @@ void	ft_parse_ambient(t_engine *engine, int *a_chk, char **split_line)
 		*a_chk = 1;
 	}
 	else
-		error_handler("Ambient가 중복되었습니다.",engine);
+		error_handler("Ambient가 중복되었습니다.", engine);
 }

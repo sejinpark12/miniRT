@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:47:54 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 22:23:00 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 23:26:59 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	ft_element_parser(t_engine *engine, char **split_line, int *r_chk,
 	else if (ft_strcmp(split_line[0], "c") == 0)
 		ft_alloc_camera(engine, split_line);
 	else if (ft_strcmp(split_line[0], "l") == 0)
-		ft_parse_light(engine, split_line);
+		ft_alloc_light(engine, split_line);
 	else if (ft_strcmp(split_line[0], "sp") == 0)
-		ft_parse_sphere(engine, split_line);
+		ft_alloc_sphere(engine, split_line);
 	else if (ft_strcmp(split_line[0], "pl") == 0)
 		ft_parse_plane(engine, split_line);
 	else if (ft_strcmp(split_line[0], "sq") == 0)

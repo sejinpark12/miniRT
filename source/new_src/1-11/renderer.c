@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:07:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 22:25:18 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 22:35:03 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,8 +202,8 @@ void	ft_create_window(t_engine *engine)
 	if (engine->data.mlx_win == NULL)
 		error_handler("mlx_new_window 실패", engine);
 	mlx_loop_hook(engine->data.mlx, main_loop, engine);
-	mlx_hook(engine->data.mlx_win, KEYPRESS, 1L<<0, ft_key_press, engine);
-	mlx_hook(engine->data.mlx_win, X_BTN, 1L<<0, ft_xbtn_click, engine);
+	mlx_hook(engine->data.mlx_win, KEYPRESS, 0, ft_key_press, engine);
+	mlx_hook(engine->data.mlx_win, X_BTN, 0, ft_xbtn_click, engine);
 	mlx_loop(engine->data.mlx);
 }
 
