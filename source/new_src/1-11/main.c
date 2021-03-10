@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 12:47:19 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 13:55:52 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ int	main(int argc, char **argv)
 	engine.obj_lst = NULL;
 	engine.light_lst = NULL;
 	engine.cam_lst = NULL;
+	engine.parser_lst = NULL;
 	engine.data.img_lst = NULL;
 	engine.data.current_img_lst = NULL;
 	if (argc < 2 || argc > 3)
-	{
-		perror("Error\n");
-		exit(0);
-	}
+		error_handler("main문의 인자수가 올바르지 않습니다.", &engine);
 	else if (ft_check_rtfile(argv[1]))
 	{
 		if (ft_scene_reader(&engine, argv[1]) == -1 || engine.cam_lst == NULL)

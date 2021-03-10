@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:36:27 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 21:56:17 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 10:46:34 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int		ft_parse_plane(t_engine *engine, char **split_line)
 
 	result = 1;
 	split_comma = ft_split(split_line[1], ',');
-	ps_data.center = ft_vec_set_xyz(ft_atof(split_comma[0]),
-					ft_atof(split_comma[1]), ft_atof(split_comma[2]));
+	ps_data.center = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
+		ft_atof(split_comma[1], engine), ft_atof(split_comma[2], engine));
 	ft_free_split(split_comma);
 	split_comma = ft_split(split_line[2], ',');
-	ps_data.norm = ft_vec_set_xyz(ft_atof(split_comma[0]),
-					ft_atof(split_comma[1]), ft_atof(split_comma[2]));
+	ps_data.norm = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
+		ft_atof(split_comma[1], engine), ft_atof(split_comma[2], engine));
 	ft_free_split(split_comma);
 	split_comma = ft_split(split_line[3], ',');
 	ps_data.color = ft_vec_set_xyz(ft_atoi(split_comma[0]),

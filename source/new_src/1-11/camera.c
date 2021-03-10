@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 22:41:59 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 21:11:54 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 17:48:01 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,21 @@
 
 const double	g_pi = 3.1415926535897932385;
 
+t_vec3		ft_cam_vup_set(t_vec3 dir)
+{
+	if (dir.x == 0 && dir.y != 0 && dir.z == 0)
+		return (ft_vec_set_xyz(0, dir.y, 0.001));
+	else
+		return (ft_vec_set_xyz(0, 1, 0));
+}
+
 t_camera	ft_camera_set(t_point3 pos, t_vec3 dir, double vfov)
 {
 	t_camera	cam;
 	t_cam_data	cam_data;
 
 	cam_data.aspect_ratio = 16.0 / 9.0;
-	cam_data.vup = ft_vec_set_xyz(0, 1, 0);
+	cam_data.vup = ft_cam_vup_set(dir);
 	cam_data.theta = ft_degrees_to_radians(vfov);
 	cam_data.h = tan(cam_data.theta / 2);
 	cam_data.viewport_h = 2.0 * cam_data.h;

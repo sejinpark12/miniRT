@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_ambient.h                                   :+:      :+:    :+:   */
+/*   parser_util3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 17:10:00 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 14:57:42 by sejpark          ###   ########.fr       */
+/*   Created: 2021/03/10 11:22:07 by sejpark           #+#    #+#             */
+/*   Updated: 2021/03/10 11:32:59 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_AMBIENT_H
-# define PARSER_AMBIENT_H
-# include "struct_set.h"
-# include "parser_util1.h"
-# include "parser_util2.h"
-# include "error_handler.h"
+#include "parser_util3.h"
 
-void	ft_parse_ambient(t_engine *engine, int *a_chk, char **split_line);
+int		ft_atoi_minirt(char *str, t_engine *engine)
+{
+	int	i;
 
-#endif
+	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 0)
+		{
+			free(str);
+			error_handler("잘못된 데이터 타입의 값이 입력되었습니다.", engine);
+		}
+		i++;
+	}
+	return (ft_atoi(str));
+}

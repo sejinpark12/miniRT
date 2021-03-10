@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:31:36 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 16:40:55 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 12:19:36 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCT_SET_H
 # include "vec.h"
 # include "hittable_list.h"
+# include "parser_list.h"
 # include "light.h"
 
 typedef struct	s_ambient
@@ -45,6 +46,7 @@ typedef struct	s_engine
 	t_obj_lst	*cam_lst;
 	t_obj_lst	*obj_lst;
 	t_obj_lst	*light_lst;
+	t_par_lst	*parser_lst;
 }				t_engine;
 typedef struct	s_image
 {

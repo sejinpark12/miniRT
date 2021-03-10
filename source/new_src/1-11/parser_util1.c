@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:28:01 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 16:40:45 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 13:56:50 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_free_all(t_engine *engine)
 	ft_hit_lst_clear(&(engine->data.img_lst));
 	ft_hit_lst_clear(&(engine->obj_lst));
 	ft_hit_lst_clear(&(engine->light_lst));
+	ft_par_lst_clear(&(engine->parser_lst));
 }
 
 int		ft_chk_lightrange(const double intensity)

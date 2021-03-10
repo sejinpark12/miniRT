@@ -6,16 +6,18 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2021/03/09 21:58:01 by sejpark          ###   ########.fr        #
+#    Updated: 2021/03/10 14:23:49 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC			= main.c renderer.c vec1.c vec2.c vec3.c ray.c random.c camera.c \
 			  hittable.c hittable_list1.c hittable_list2.c \
-			  scene_reader.c parser_util1.c parser_util2.c parser_ambient.c \
-			  parser_resolution.c parser_camera.c parser_light.c \
-			  parser_sphere.c parser_plane.c parser_square.c parser_cylinder.c\
-			  parser_triangle.c get_next_line.c error_handler.c \
+			  scene_reader.c parser_util1.c parser_util2.c parser_util3.c \
+			  parser_list.c \
+			  parser_ambient.c parser_resolution.c parser_camera.c \
+			  parser_light.c parser_sphere.c parser_plane.c parser_square.c \
+			  parser_cylinder.c parser_triangle.c get_next_line.c \
+			  error_handler.c \
 			  sphere.c plane.c square.c cylinder1.c cylinder2.c triangle.c \
 			  light.c
 #SRC			= main_test.c vec.c ray.c random.c camera.c \

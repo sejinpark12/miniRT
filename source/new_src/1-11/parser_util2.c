@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:47:56 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 21:16:54 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 13:58:17 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ int		ft_strcmp(const char *str1, const char *str2)
 	return (0);
 }
 
-double	ft_beforepoint(const char *nbr, char **decimal_point, int *length)
+double	ft_beforepoint(const char *nbr, char **decimal_point, int *length,
+			t_engine *engine)
 {
 	double	result;
 	char	*subnbr;
 
+	subnbr = NULL;
 	*decimal_point = ft_strchr(nbr, '.');
 	if (*decimal_point)
 	{
@@ -48,12 +50,14 @@ double	ft_beforepoint(const char *nbr, char **decimal_point, int *length)
 		*length = ft_strlen(nbr);
 		subnbr = ft_substr(nbr, 0, *length);
 	}
-	result = ft_atoi(subnbr);
+	if (subnbr == NULL)
+		error_handler("메모리 동적할당 실패했습니다.", engine);
+	result = ft_atoi_minirt(subnbr, engine);
 	free(subnbr);
 	return (result);
 }
 
-double	ft_atof(const char *nbr)
+double	ft_atof(const char *nbr, t_engine *engine)
 {
 	double	result;
 	int		length;
@@ -61,7 +65,7 @@ double	ft_atof(const char *nbr)
 	char	*decimal_point;
 
 	result = 0.0;
-	result = ft_beforepoint(nbr, &decimal_point, &length);
+	result = ft_beforepoint(nbr, &decimal_point, &length, engine);
 	if (result >= 0 && nbr[0] != '-')
 		decimal = 1;
 	else if (result == 0 && nbr[0] == '-')
@@ -71,21 +75,11 @@ double	ft_atof(const char *nbr)
 	while (nbr[length])
 	{
 		if (!ft_isdigit(nbr[length]))
-			break ;
+			error_handler("잘못된 데이터 타입의 값이 입력되었습니다.", engine);
 		decimal *= 0.1;
 		result += (decimal * (nbr[length++] - '0'));
 	}
 	return (result);
-}
-
-void	ft_free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-		free(split[i++]);
-	free(split);
 }
 
 int		ft_count_split(char **split_line)

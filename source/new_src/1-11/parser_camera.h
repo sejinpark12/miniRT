@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:21:58 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 17:23:32 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 15:26:31 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include "parser_util1.h"
 # include "parser_util2.h"
 
-int		ft_parse_camera(t_engine *engine, char **split_line);
+void	ft_alloc_camera(t_engine *engine, char **split_line);
 
 #endif

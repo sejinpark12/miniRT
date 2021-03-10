@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:48:23 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 18:58:09 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 10:50:26 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int		ft_parse_square(t_engine *engine, char **split_line)
 
 	result = 1;
 	split_comma = ft_split(split_line[1], ',');
-	sqs_data.center = ft_vec_set_xyz(ft_atof(split_comma[0]),
-					ft_atof(split_comma[1]), ft_atof(split_comma[2]));
+	sqs_data.center = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
+		ft_atof(split_comma[1], engine), ft_atof(split_comma[2], engine));
 	ft_free_split(split_comma);
 	split_comma = ft_split(split_line[2], ',');
-	sqs_data.norm = ft_vec_set_xyz(ft_atof(split_comma[0]),
-					ft_atof(split_comma[1]), ft_atof(split_comma[2]));
+	sqs_data.norm = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
+		ft_atof(split_comma[1], engine), ft_atof(split_comma[2], engine));
 	ft_free_split(split_comma);
-	sqs_data.side_size = ft_atof(split_line[3]);
+	sqs_data.side_size = ft_atof(split_line[3], engine);
 	split_comma = ft_split(split_line[4], ',');
 	sqs_data.color = ft_vec_set_xyz(ft_atoi(split_comma[0]),
 					ft_atoi(split_comma[1]), ft_atoi(split_comma[2]));

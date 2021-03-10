@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:32:36 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 18:58:00 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 10:49:47 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int		ft_parse_sphere(t_engine *engine, char **split_line)
 
 	result = 1;
 	split_comma = ft_split(split_line[1], ',');
-	sps_data.center = ft_vec_set_xyz(ft_atof(split_comma[0]),
-						ft_atof(split_comma[1]), ft_atof(split_comma[2]));
+	sps_data.center = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
+		ft_atof(split_comma[1], engine), ft_atof(split_comma[2], engine));
 	ft_free_split(split_comma);
-	sps_data.diameter = ft_atof(split_line[2]);
+	sps_data.diameter = ft_atof(split_line[2], engine);
 	split_comma = ft_split(split_line[3], ',');
 	sps_data.color = ft_vec_set_xyz(ft_atoi(split_comma[0]),
 						ft_atoi(split_comma[1]), ft_atoi(split_comma[2]));

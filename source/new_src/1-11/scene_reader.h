@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:21:49 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 21:02:59 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 14:51:02 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "struct_set.h"
 # include "parser_util1.h"
 # include "parser_util2.h"
+# include "parser_util3.h"
 # include "parser_resolution.h"
 # include "parser_ambient.h"
 # include "parser_camera.h"
@@ -47,7 +48,7 @@ typedef struct	s_file_info
 	int			r_chk;
 	int			a_chk;
 }				t_file_info;
-int				ft_line_parser(t_engine *engine, char *line, int *r_chk,
+void			ft_line_parser(t_engine *engine, char *line, int *r_chk,
 					int *a_chk);
 int				ft_scene_reader(t_engine *engine, char *filename);
 #endif
