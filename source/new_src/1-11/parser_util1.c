@@ -6,11 +6,12 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:28:01 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 13:56:50 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 20:35:29 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_util1.h"
+#include <unistd.h>
 
 void	ft_free_all(t_engine *engine)
 {
@@ -19,6 +20,8 @@ void	ft_free_all(t_engine *engine)
 	ft_hit_lst_clear(&(engine->obj_lst));
 	ft_hit_lst_clear(&(engine->light_lst));
 	ft_par_lst_clear(&(engine->parser_lst));
+	free(engine->data.fi.line);
+	close(engine->data.fi.fd);
 }
 
 int		ft_chk_lightrange(const double intensity)

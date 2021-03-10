@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:31:36 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 12:19:36 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 20:16:39 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ typedef struct	s_ambient
 	t_color		color;
 	double		intensity;
 }				t_ambient;
+typedef struct	s_file_info
+{
+	char		*line;
+	int			fd;
+	int			ret;
+	int			r_chk;
+	int			a_chk;
+}				t_file_info;
 typedef struct	s_data
 {
 	void		*mlx;
@@ -39,6 +47,7 @@ typedef struct	s_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
+	t_file_info	fi;
 }				t_data;
 typedef struct	s_engine
 {

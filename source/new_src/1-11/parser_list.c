@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 12:07:53 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 12:38:59 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 22:17:45 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_par_lst	*ft_par_lst_new(char **split_line)
 		return (par_lst);
 	}
 }
+
 void		ft_par_lst_addback(t_par_lst **par_lst, t_par_lst *new_par)
 {
 	t_par_lst	*cur;
@@ -48,6 +49,7 @@ void		ft_par_lst_delone(t_par_lst *par_lst)
 	ft_free_split(par_lst->split_line);
 	free(par_lst);
 }
+
 void		ft_par_lst_clear(t_par_lst **par_lst)
 {
 	t_par_lst	*cur;
@@ -63,7 +65,7 @@ void		ft_par_lst_clear(t_par_lst **par_lst)
 	*par_lst = NULL;
 }
 
-void	ft_free_split(char **split)
+void		ft_free_split(char **split)
 {
 	int	i;
 

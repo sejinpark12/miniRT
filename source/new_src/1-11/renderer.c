@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:07:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/09 21:17:08 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/10 22:25:18 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,32 @@ t_color	ft_ray_color(t_ray *r, t_obj_lst *obj_lst, t_obj_lst *light_lst,
 	return (color);
 }
 
+void	ft_alloc_image(t_engine *engine)
+{
+	t_imgs		imgs;
+	t_obj_lst	*tmp_cam_lst;
+	t_obj_lst	*new_cam_lst;
+
+	tmp_cam_lst = engine->cam_lst;
+	while (tmp_cam_lst)
+	{
+		imgs.img = (t_image*)malloc(sizeof(t_image));
+		if (imgs.img == NULL)
+			error_handler("image 메모리 동적할당 실패", engine);
+		imgs.img->image = mlx_new_image(engine->data.mlx, engine->data.width,
+								engine->data.height);
+		imgs.img->address = mlx_get_data_addr(imgs.img->image,
+						&engine->data.bits_per_pixel,
+						&engine->data.line_length, &engine->data.endian);
+		new_cam_lst = ft_hit_lst_newobj(imgs.img, 30);
+		if (new_cam_lst == NULL)
+			error_handler("ft_hit_lst_newobj 메모리 동적할당 실패", engine);
+		ft_hit_lst_addback(&engine->data.img_lst, new_cam_lst);
+		tmp_cam_lst = tmp_cam_lst->next;
+	}
+	engine->data.current_img_lst = engine->data.img_lst;
+}
+
 int		ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 							t_obj_lst *light_lst)
 {
@@ -168,6 +194,19 @@ int		ft_draw(t_data *data, t_obj_lst *cam_lst, t_obj_lst *obj_lst,
 	return (0);
 }
 
+void	ft_create_window(t_engine *engine)
+{
+	engine->data.mlx_win = mlx_new_window(
+								engine->data.mlx, engine->data.width,
+								engine->data.height, "miniRT");
+	if (engine->data.mlx_win == NULL)
+		error_handler("mlx_new_window 실패", engine);
+	mlx_loop_hook(engine->data.mlx, main_loop, engine);
+	mlx_hook(engine->data.mlx_win, KEYPRESS, 1L<<0, ft_key_press, engine);
+	mlx_hook(engine->data.mlx_win, X_BTN, 1L<<0, ft_xbtn_click, engine);
+	mlx_loop(engine->data.mlx);
+}
+
 int		main_loop(t_engine *engine)
 {
 	t_image *img;
@@ -176,31 +215,4 @@ int		main_loop(t_engine *engine)
 	mlx_put_image_to_window(engine->data.mlx, engine->data.mlx_win,
 								img->image, 0, 0);
 	return (0);
-}
-
-int		ft_check_rtfile(const char *filename)
-{
-	char	**split_line;
-	size_t	cnt;
-	int		i;
-	int		result;
-
-	split_line = ft_split(filename, '.');
-	cnt = 0;
-	i = 0;
-	result = 1;
-	while (split_line[cnt])
-		cnt++;
-	if (cnt != 2)
-		result = 0;
-	else
-	{
-		if (ft_strcmp(split_line[0], "") == 0 ||
-							ft_strcmp(split_line[1], "rt") != 0)
-			result = 0;
-	}
-	while (split_line[i])
-		free(split_line[i++]);
-	free(split_line);
-	return (result);
 }
