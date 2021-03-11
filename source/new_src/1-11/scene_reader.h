@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:21:49 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 11:09:02 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:32:41 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # include "parser_triangle.h"
 
 void	ft_check_rtfile(const char *filename, t_engine *engine);
+void	ft_file_set(char *filename, t_engine *engine);
 void	ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk);
 void	ft_scene_reader(t_engine *engine, char *filename);
 #endif

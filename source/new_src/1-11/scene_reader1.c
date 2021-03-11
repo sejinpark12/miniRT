@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene_reader.c                                     :+:      :+:    :+:   */
+/*   scene_reader1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:47:54 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 12:35:27 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 14:30:28 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,26 +117,4 @@ void	ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk)
 		error_handler("ft_par_lst_new 함수 메모리 동적할당 실패", engine);
 	ft_par_lst_addback(&engine->parser_lst, new_par_lst);
 	ft_element_parser(engine, split_line, r_chk, a_chk);
-}
-
-void	ft_scene_reader(t_engine *engine, char *filename)
-{
-	ft_file_set(filename, engine);
-	while (engine->data.fi.ret > 0)
-	{
-		if (ft_strcmp(engine->data.fi.line, "") != 0)
-			ft_line_parser(engine, engine->data.fi.line,
-					&(engine->data.fi.r_chk), &(engine->data.fi.a_chk));
-		free(engine->data.fi.line);
-		engine->data.fi.ret = get_next_line(engine->data.fi.fd,
-				&(engine->data.fi.line));
-	}
-	if (ft_strcmp(engine->data.fi.line, "") != 0)
-		ft_line_parser(engine, engine->data.fi.line, &(engine->data.fi.r_chk),
-				&(engine->data.fi.a_chk));
-	free(engine->data.fi.line);
-	engine->data.fi.line = NULL;
-	ft_par_lst_clear(&(engine->parser_lst));
-	engine->parser_lst = NULL;
-	close(engine->data.fi.fd);
 }
