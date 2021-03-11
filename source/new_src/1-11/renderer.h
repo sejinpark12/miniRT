@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:06:06 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 17:27:11 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 17:37:05 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ int				ft_draw(t_engine *engine);
 void			ft_window_close(t_engine *engine);
 int				ft_key_press(int keycode, t_engine *engine);
 int				ft_xbtn_click(t_engine *engine);
+void			ft_engine_init(t_engine *engine);
 #endif

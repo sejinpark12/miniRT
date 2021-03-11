@@ -6,25 +6,11 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:50:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 16:39:26 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 17:37:44 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderer.h"
-
-void	ft_engine_init(t_engine *engine)
-{
-	engine->data.mlx = NULL;
-	engine->data.mlx_win = NULL;
-	engine->cam_lst = NULL;
-	engine->obj_lst = NULL;
-	engine->light_lst = NULL;
-	engine->parser_lst = NULL;
-	engine->data.img_lst = NULL;
-	engine->data.current_img_lst = NULL;
-	engine->data.fi.line = NULL;
-	engine->data.samples_per_pixel = 1;
-}
 
 int	main(int argc, char **argv)
 {
@@ -36,7 +22,7 @@ int	main(int argc, char **argv)
 	ft_check_rtfile(argv[1], &engine);
 	ft_scene_reader(&engine, argv[1]);
 	if (engine.cam_lst == NULL)
-		error_handler("camera가 존재하지 않아 씬을 생성할 수 없습니다.", &engine);
+		error_handler("cam이 존재하지 않아 씬을 생성할 수 없습니다.", &engine);
 	if (engine.data.fi.r_chk == 0 || engine.data.fi.a_chk == 0)
 		error_handler("resolution 또는 ambient가 존재하지 않습니다.", &engine);
 	if (argc == 3 && ft_strcmp(argv[2], "--save") != 0)
