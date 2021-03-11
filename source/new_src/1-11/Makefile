@@ -6,11 +6,11 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2021/03/11 17:26:10 by sejpark          ###   ########.fr        #
+#    Updated: 2021/03/11 21:37:23 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC			= main.c renderer1.c renderer2.c renderer3.c \
+SRC			= main.c renderer1.c renderer2.c renderer3.c bmp_creator.c \
 			  vec1.c vec2.c vec3.c ray.c random.c camera.c \
 			  hittable.c hittable_list1.c hittable_list2.c \
 			  scene_reader1.c scene_reader2.c parser_util1.c parser_util2.c \
@@ -28,7 +28,6 @@ MLX 		= libmlx.dylib
 MLXPATH 	= ./
 CC 			= gcc
 RM 			= rm -f
-#CFLAGS 		= -Wall -Wextra -Werror -g3 -fsanitize=address
 CFLAGS 		= -Wall -Wextra -Werror
 FRAMEWORK 	= -framework OpenGL -framework Appkit
 
