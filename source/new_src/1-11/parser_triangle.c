@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:56:06 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 12:36:56 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 12:48:29 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ void	ft_alloc_triangle(t_engine *engine, char **split_line)
 							trs_data.color);
 	new_obj_lst = ft_hit_lst_newobj(objs.tr, 5);
 	if (new_obj_lst == NULL)
-		error_handler("ft_hit_lst_newobj 메모리 동적할당 실패",	engine);
+		error_handler("ft_hit_lst_newobj 메모리 동적할당 실패", engine);
 	ft_hit_lst_addback(&engine->obj_lst, new_obj_lst);
 }

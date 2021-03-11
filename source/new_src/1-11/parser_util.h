@@ -6,12 +6,12 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:26:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 11:24:00 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 12:49:37 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_UTIL1_H
-# define PARSER_UTIL1_H
+#ifndef PARSER_UTIL_H
+# define PARSER_UTIL_H
 # include "struct_set.h"
 # include "vec.h"
 # include "hittable_list.h"
