@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 17:21:15 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 17:36:53 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 23:11:30 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	ft_window_close(t_engine *engine)
 
 int		ft_key_press(int keycode, t_engine *engine)
 {
+	t_image *img;
+
 	if (keycode == ESC)
 		ft_window_close(engine);
 	if (keycode == SPACEBAR)
@@ -29,6 +31,9 @@ int		ft_key_press(int keycode, t_engine *engine)
 			engine->data.current_img_lst = engine->data.current_img_lst->next;
 		else
 			engine->data.current_img_lst = engine->data.img_lst;
+		img = engine->data.current_img_lst->content;
+		mlx_put_image_to_window(engine->data.mlx, engine->data.mlx_win,
+									img->image, 0, 0);
 	}
 	return (0);
 }
