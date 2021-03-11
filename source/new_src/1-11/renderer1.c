@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:07:10 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 23:10:51 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 23:25:10 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,7 @@ void	ft_create_window(t_engine *engine)
 	img = engine->data.current_img_lst->content;
 	mlx_put_image_to_window(engine->data.mlx, engine->data.mlx_win,
 								img->image, 0, 0);
-//	mlx_loop_hook(engine->data.mlx, main_loop, engine);
 	mlx_hook(engine->data.mlx_win, KEYPRESS, 0, ft_key_press, engine);
 	mlx_hook(engine->data.mlx_win, X_BTN, 0, ft_xbtn_click, engine);
 	mlx_loop(engine->data.mlx);
-}
-
-int		main_loop(t_engine *engine)
-{
-	t_image *img;
-
-	img = engine->data.current_img_lst->content;
-	mlx_put_image_to_window(engine->data.mlx, engine->data.mlx_win,
-								img->image, 0, 0);
-	return (0);
 }
