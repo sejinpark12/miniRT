@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:21:49 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 20:56:48 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 11:09:02 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@
 # include "triangle.h"
 # include "light.h"
 # include "struct_set.h"
-# include "parser_util1.h"
-# include "parser_util2.h"
-# include "parser_util3.h"
+# include "parser_util.h"
 # include "parser_resolution.h"
 # include "parser_ambient.h"
 # include "parser_camera.h"

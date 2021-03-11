@@ -6,11 +6,11 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:47:56 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 13:58:17 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 11:06:59 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser_util2.h"
+#include "parser_util.h"
 
 int		ft_strcmp(const char *str1, const char *str2)
 {
@@ -82,12 +82,21 @@ double	ft_atof(const char *nbr, t_engine *engine)
 	return (result);
 }
 
-int		ft_count_split(char **split_line)
+int		ft_atoi_minirt(char *str, t_engine *engine)
 {
 	int	i;
 
 	i = 0;
-	while (split_line[i])
+	if (str[i] == '+' || str[i] == '-')
 		i++;
-	return (i);
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 0)
+		{
+			free(str);
+			error_handler("잘못된 데이터 타입의 값이 입력되었습니다.", engine);
+		}
+		i++;
+	}
+	return (ft_atoi(str));
 }
