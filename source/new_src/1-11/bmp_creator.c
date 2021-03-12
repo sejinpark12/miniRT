@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 17:44:30 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 20:56:33 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/11 23:37:07 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	bmp_pixel_data(int fd, t_engine *engine)
 			}
 			i++;
 		}
-		j--;	
+		j--;
 	}
 }
 
@@ -83,7 +83,7 @@ void	save_bmp(t_engine *engine)
 	int	filesize;
 	int	fd;
 
-	filesize =  54 + (engine->data.width * engine->data.height) * 4;
+	filesize = 54 + (engine->data.width * engine->data.height) * 4;
 	fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666);
 	if (fd == -1)
 		error_handler("bmp 파일 생성 실패", engine);
