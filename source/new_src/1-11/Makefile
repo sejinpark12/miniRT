@@ -6,7 +6,7 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2021/03/11 21:37:23 by sejpark          ###   ########.fr        #
+#    Updated: 2021/03/12 10:33:01 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,5 +62,7 @@ fclean : 	clean
 			@echo "\033[0m"
 
 re : 		fclean all
+
+bonus :		${NAME}
 
 .PHONY : 	all clean fclean re bonus
