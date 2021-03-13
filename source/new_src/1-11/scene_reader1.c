@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:47:54 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 14:30:28 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/13 16:03:41 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,22 @@ void	ft_file_set(char *filename, t_engine *engine)
 		error_handler("파일을 열 수 없습니다.", engine);
 	engine->data.fi.ret = get_next_line(engine->data.fi.fd,
 			&(engine->data.fi.line));
+	if (engine->data.fi.ret == -1)
+		error_handler("get next line 오류", engine);
 	engine->data.fi.r_chk = 0;
 	engine->data.fi.a_chk = 0;
 }
 
 void	ft_check_rtfile(const char *filename, t_engine *engine)
 {
-	char		**split_line;
-	t_par_lst	*new_par_lst;
-	size_t		cnt;
-	int			i;
+	char	**split_line;
+	int		cnt;
 
 	split_line = ft_split(filename, '.');
 	if (split_line == NULL)
 		error_handler("ft_split 함수 메모리 동적할당 실패", engine);
-	new_par_lst = ft_par_lst_new(split_line);
-	if (new_par_lst == NULL)
-		error_handler("ft_par_lst_new 함수 메모리 동적할당 실패", engine);
-	ft_par_lst_addback(&engine->parser_lst, new_par_lst);
-	cnt = 0;
-	i = 0;
-	while (split_line[cnt])
-		cnt++;
+	ft_add_split_data_to_par_lst(engine, split_line);
+	cnt = ft_count_split(split_line);
 	if (cnt != 2)
 		error_handler("열 수 없는 파일입니다.", engine);
 	if (ft_strcmp(split_line[0], "") == 0 ||
@@ -105,16 +99,12 @@ void	ft_check_rtfile(const char *filename, t_engine *engine)
 
 void	ft_line_parser(t_engine *engine, char *line, int *r_chk, int *a_chk)
 {
-	char		**split_line;
-	t_par_lst	*new_par_lst;
+	char	**split_line;
 
 	split_line = ft_split(line, ' ');
 	if (split_line == NULL)
 		error_handler("ft_split 함수 메모리 동적할당 실패", engine);
+	ft_add_split_data_to_par_lst(engine, split_line);
 	ft_line_parser_chk(split_line, engine);
-	new_par_lst = ft_par_lst_new(split_line);
-	if (new_par_lst == NULL)
-		error_handler("ft_par_lst_new 함수 메모리 동적할당 실패", engine);
-	ft_par_lst_addback(&engine->parser_lst, new_par_lst);
 	ft_element_parser(engine, split_line, r_chk, a_chk);
 }

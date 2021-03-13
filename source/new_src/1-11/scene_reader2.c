@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 14:29:14 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 14:29:50 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/13 16:02:36 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_scene_reader(t_engine *engine, char *filename)
 		free(engine->data.fi.line);
 		engine->data.fi.ret = get_next_line(engine->data.fi.fd,
 				&(engine->data.fi.line));
+		if (engine->data.fi.ret == -1)
+			error_handler("get_next_line 오류", engine);
 	}
 	if (ft_strcmp(engine->data.fi.line, "") != 0)
 		ft_line_parser(engine, engine->data.fi.line, &(engine->data.fi.r_chk),

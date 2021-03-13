@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:23:42 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 11:39:28 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/13 15:52:55 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	ft_parse_camera(t_engine *engine, char **split_line,
 {
 	char	**split_comma;
 
-	split_comma = ft_get_split_data(engine, split_line[1], ',');
+	split_comma = ft_get_split_data(engine, split_line[1], ',', 3);
 	cs_data->viewpoint = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
-		ft_atof(split_comma[1], engine), ft_atof(split_comma[2], engine));
+										ft_atof(split_comma[1], engine),
+										ft_atof(split_comma[2], engine));
 	ft_add_split_data_to_par_lst(engine, split_comma);
-	split_comma = ft_get_split_data(engine, split_line[2], ',');
+	split_comma = ft_get_split_data(engine, split_line[2], ',', 3);
 	cs_data->dir = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
-		ft_atof(split_comma[1], engine), ft_atof(split_comma[2], engine));
+								  ft_atof(split_comma[1], engine),
+								  ft_atof(split_comma[2], engine));
 	ft_add_split_data_to_par_lst(engine, split_comma);
 	cs_data->fov = ft_atoi_minirt(split_line[3], engine);
 	if (ft_chk_dirrange(cs_data->dir) == 0 || ft_chk_fovrange(cs_data->fov)

@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:26:12 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 12:49:37 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/13 14:52:26 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ double	ft_beforepoint(const char *nbr, char **decimal_point, int *length,
 double	ft_atof(const char *nbr, t_engine *engine);
 int		ft_atoi_minirt(char *str, t_engine *engine);
 int		ft_count_split(char **split_line);
-char	**ft_get_split_data(t_engine *engine, char *str, char separator);
+char	**ft_get_split_data(t_engine *engine, char *str, char separator,
+			int cnt);
 void	ft_add_split_data_to_par_lst(t_engine *engine, char **split_line);
 #endif

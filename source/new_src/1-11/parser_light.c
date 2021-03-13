@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:28:34 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/10 23:11:15 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/13 15:54:13 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,19 @@
 void	ft_parse_light(t_engine *engine, char **split_line,
 			t_light_scene_data *ls_data)
 {
-	char		**s_c;
-	t_par_lst	*new_par_lst;
+	char	**split_comma;
 
-	s_c = ft_split(split_line[1], ',');
-	if (s_c == NULL)
-		error_handler("ft_split 함수 메모리 동적할당 실패", engine);
-	ls_data->pos = ft_vec_set_xyz(ft_atof(s_c[0], engine),
-		ft_atof(s_c[1], engine), ft_atof(s_c[2], engine));
-	new_par_lst = ft_par_lst_new(s_c);
-	if (new_par_lst == NULL)
-		error_handler("ft_par_lst_new 함수 메모리 동적할당 실패", engine);
-	ft_par_lst_addback(&engine->parser_lst, new_par_lst);
+	split_comma = ft_get_split_data(engine, split_line[1], ',', 3);
+	ls_data->pos = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
+								  ft_atof(split_comma[1], engine),
+								  ft_atof(split_comma[2], engine));
+	ft_add_split_data_to_par_lst(engine, split_comma);
 	ls_data->intensity = ft_atof(split_line[2], engine);
-	s_c = ft_split(split_line[3], ',');
-	if (s_c == NULL)
-		error_handler("ft_split 함수 메모리 동적할당 실패", engine);
-	ls_data->color = ft_vec_set_xyz(ft_atoi_minirt(s_c[0], engine),
-			ft_atoi_minirt(s_c[1], engine), ft_atoi_minirt(s_c[2], engine));
-	new_par_lst = ft_par_lst_new(s_c);
-	if (new_par_lst == NULL)
-		error_handler("ft_par_lst_new 함수 메모리 동적할당 실패", engine);
-	ft_par_lst_addback(&engine->parser_lst, new_par_lst);
+	split_comma = ft_get_split_data(engine, split_line[3], ',', 3);
+	ls_data->color = ft_vec_set_xyz(ft_atoi_minirt(split_comma[0], engine),
+									ft_atoi_minirt(split_comma[1], engine),
+									ft_atoi_minirt(split_comma[2], engine));
+	ft_add_split_data_to_par_lst(engine, split_comma);
 	if (ft_chk_lightrange(ls_data->intensity) == 0 ||
 							ft_chk_colorrange(ls_data->color) == 0)
 		error_handler("light의 데이터 범위가 잚못되었습니다.", engine);

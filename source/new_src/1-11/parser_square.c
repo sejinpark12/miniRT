@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 17:48:23 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 12:23:38 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/03/13 15:55:40 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,21 @@ void	ft_parse_square(t_engine *engine, char **split_line,
 {
 	char	**split_comma;
 
-	split_comma = ft_get_split_data(engine, split_line[1], ',');
+	split_comma = ft_get_split_data(engine, split_line[1], ',', 3);
 	sqs_data->center = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
-		ft_atof(split_comma[1], engine), ft_atof(split_comma[2], engine));
+									  ft_atof(split_comma[1], engine),
+									  ft_atof(split_comma[2], engine));
 	ft_add_split_data_to_par_lst(engine, split_comma);
-	split_comma = ft_get_split_data(engine, split_line[2], ',');
+	split_comma = ft_get_split_data(engine, split_line[2], ',', 3);
 	sqs_data->norm = ft_vec_set_xyz(ft_atof(split_comma[0], engine),
-		ft_atof(split_comma[1], engine), ft_atof(split_comma[2], engine));
+									ft_atof(split_comma[1], engine),
+									ft_atof(split_comma[2], engine));
 	ft_add_split_data_to_par_lst(engine, split_comma);
 	sqs_data->side_size = ft_atof(split_line[3], engine);
-	split_comma = ft_get_split_data(engine, split_line[4], ',');
+	split_comma = ft_get_split_data(engine, split_line[4], ',', 3);
 	sqs_data->color = ft_vec_set_xyz(ft_atoi_minirt(split_comma[0], engine),
-									ft_atoi_minirt(split_comma[1], engine),
-									ft_atoi_minirt(split_comma[2], engine));
+									 ft_atoi_minirt(split_comma[1], engine),
+									 ft_atoi_minirt(split_comma[2], engine));
 	ft_add_split_data_to_par_lst(engine, split_comma);
 	if (ft_chk_dirrange(sqs_data->norm) == 0 ||
 									ft_chk_colorrange(sqs_data->color) == 0)
