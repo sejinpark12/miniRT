@@ -6,7 +6,7 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2021/05/07 15:38:05 by sejpark          ###   ########.fr        #
+#    Updated: 2021/05/07 15:59:51 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC			= main.c renderer1.c renderer2.c renderer3.c bmp_creator.c \
 OBJS 		= ${SRC:.c=.o}
 NAME 		= miniRT
 LIBFT 		= libft.a
-LIBFTPATH 	= libft 
+LIBFTPATH 	= libft
 MLX 		= libmlx.dylib
 MLXPATH 	= ./
 CC 			= gcc

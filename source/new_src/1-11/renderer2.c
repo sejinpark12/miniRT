@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 14:49:20 by sejpark           #+#    #+#             */
-/*   Updated: 2021/03/11 19:21:52 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/05/07 15:50:23 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,7 @@ int		ft_draw(t_engine *engine)
 		cam_idx++;
 	}
 	ft_putstr_fd("************************************\nDONE!\n", 1);
+	if (cam_idx > 2)
+		ft_putstr_fd("Cam Switching : Press Space Bar\n", 1);
 	return (0);
 }
