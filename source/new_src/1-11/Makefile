@@ -6,7 +6,7 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2021/03/12 10:33:01 by sejpark          ###   ########.fr        #
+#    Updated: 2021/05/07 15:38:05 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,12 +53,14 @@ ${LIBFT} :
 
 clean :
 			@echo "\033[0;31mCleaning..."
+			cd ${LIBFTPATH}; make clean
 			${RM} ${OBJS}
 			@echo "\033[0m"
 
 fclean : 	clean
 			@echo "\033[0;31mRemoving executable..."
-			${RM} ${NAME} 
+			cd ${LIBFTPATH}; make fclean
+			${RM} ${NAME} ${LIBFT}
 			@echo "\033[0m"
 
 re : 		fclean all
