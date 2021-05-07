@@ -2,7 +2,31 @@
 
 ---
 
-## 목차
+## miniRT 결과물
+### build
+```shell
+git clone https://github.com/psj3205/miniRT.git
+```
+
+### run
+```shell
+./miniRT ./scene/final_scene.rt
+```
+
+### rendering images
+
+![image](https://user-images.githubusercontent.com/19530862/117430478-24dcb800-af63-11eb-87a8-37e85ed9d8a2.png)
+![image](https://user-images.githubusercontent.com/19530862/117430506-2d34f300-af63-11eb-82fb-aaa22b24f4ae.png)
+![image](https://user-images.githubusercontent.com/19530862/117430524-31f9a700-af63-11eb-9da2-4bbcd312d0ef.png)
+![image](https://user-images.githubusercontent.com/19530862/117430584-3aea7880-af63-11eb-84ce-89604f6c585f.png)
+![image](https://user-images.githubusercontent.com/19530862/117430731-5b1a3780-af63-11eb-84a9-0b18fa5ebde4.png)
+![image](https://user-images.githubusercontent.com/19530862/117430752-61101880-af63-11eb-99e5-aa8e0ef102ff.png)
+![image](https://user-images.githubusercontent.com/19530862/117430764-64a39f80-af63-11eb-858e-9abe5f608f49.png)
+![image](https://user-images.githubusercontent.com/19530862/117430777-69685380-af63-11eb-8f88-da281ef79737.png)
+![image](https://user-images.githubusercontent.com/19530862/117430792-6cfbda80-af63-11eb-9968-d045ebba8a39.png)
+
+
+## miniRT 구현 목차
 
 [1. miniLibX로 윈도우 생성과 간단한 도형 그리기](https://github.com/psj3205/miniRT#1-minilibx%EB%A1%9C-%EC%9C%88%EB%8F%84%EC%9A%B0-%EC%83%9D%EC%84%B1%EA%B3%BC-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%8F%84%ED%98%95-%EA%B7%B8%EB%A6%AC%EA%B8%B0)
 
