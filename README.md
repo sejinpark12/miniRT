@@ -5,7 +5,7 @@
 ## miniRT 결과물
 ### build
 ```shell
-git clone https://github.com/psj3205/miniRT.git
+git clone https://github.com/psj3205/miniRT.git && cd miniRT/src && make all
 ```
 
 ### run
