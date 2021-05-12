@@ -3,6 +3,9 @@
 ---
 
 ## miniRT 결과물
+
+> ❗️**macOS 에서만 작동가능**
+
 ### build
 ```shell
 git clone https://github.com/psj3205/miniRT.git && cd miniRT/src && make all
@@ -15,15 +18,15 @@ git clone https://github.com/psj3205/miniRT.git && cd miniRT/src && make all
 
 ### rendering images
 
-![image](https://user-images.githubusercontent.com/19530862/117430478-24dcb800-af63-11eb-87a8-37e85ed9d8a2.png)
-![image](https://user-images.githubusercontent.com/19530862/117430506-2d34f300-af63-11eb-82fb-aaa22b24f4ae.png)
-![image](https://user-images.githubusercontent.com/19530862/117430524-31f9a700-af63-11eb-9da2-4bbcd312d0ef.png)
-![image](https://user-images.githubusercontent.com/19530862/117430584-3aea7880-af63-11eb-84ce-89604f6c585f.png)
-![image](https://user-images.githubusercontent.com/19530862/117430731-5b1a3780-af63-11eb-84a9-0b18fa5ebde4.png)
-![image](https://user-images.githubusercontent.com/19530862/117430752-61101880-af63-11eb-99e5-aa8e0ef102ff.png)
-![image](https://user-images.githubusercontent.com/19530862/117430764-64a39f80-af63-11eb-858e-9abe5f608f49.png)
-![image](https://user-images.githubusercontent.com/19530862/117430777-69685380-af63-11eb-8f88-da281ef79737.png)
-![image](https://user-images.githubusercontent.com/19530862/117430792-6cfbda80-af63-11eb-9968-d045ebba8a39.png)
+![image](https://user-images.githubusercontent.com/19530862/117911571-fbcc7680-b318-11eb-9406-f8b6c8f6de52.png)
+![image](https://user-images.githubusercontent.com/19530862/117911577-fd963a00-b318-11eb-8482-28bf0ac5eb6e.png)
+![image](https://user-images.githubusercontent.com/19530862/117911579-ff5ffd80-b318-11eb-8901-13eb8b00e90f.png)
+![image](https://user-images.githubusercontent.com/19530862/117911587-04bd4800-b319-11eb-88ac-a55bde79392b.png)
+![image](https://user-images.githubusercontent.com/19530862/117911595-08e96580-b319-11eb-8fe1-6344067baba4.png)
+![image](https://user-images.githubusercontent.com/19530862/117911602-0a1a9280-b319-11eb-9ed5-0efb00e6a2c8.png)
+![image](https://user-images.githubusercontent.com/19530862/117911605-0b4bbf80-b319-11eb-88ab-d3fd9202818c.png)
+![image](https://user-images.githubusercontent.com/19530862/117911611-0c7cec80-b319-11eb-9079-3f45e00cf6dc.png)
+![image](https://user-images.githubusercontent.com/19530862/117911614-0d158300-b319-11eb-90f5-49a681262643.png)
 
 
 ## miniRT 구현 목차
