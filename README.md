@@ -2,7 +2,7 @@
 
 ---
 
-## 프로젝트 설명
+## 1. 프로젝트 설명
 
 ### 개요
 - 3D 컴퓨터 렌더링 이미지는 두 가지 접근법이 가능합니다. 크게 **레스터라이제이션**(Rasterization)과 **레이 트레이싱**(Ray Tracing)입니다. 1968년에 처음 개발된 레이 트레이싱은 현재까지도  레스터라이제이션보다 연산 비용이 큽니다. 그런 이유로 실시간 처리에서는 잘 적용되지 않지만 더 사실적인 이미지를 생성할 수 있는 장점이 있습니다.
@@ -28,7 +28,7 @@
 ### 제작 기간
 - 2020.12 ~ 2021.03
 
-## miniRT 결과물
+## 2. miniRT 결과물
 
 > ❗️**macOS 에서만 작동가능**
 
@@ -44,18 +44,20 @@ git clone https://github.com/psj3205/miniRT.git && cd miniRT/src && make all
 
 ### rendering images
 
-![image](https://user-images.githubusercontent.com/19530862/117911571-fbcc7680-b318-11eb-9406-f8b6c8f6de52.png)
-![image](https://user-images.githubusercontent.com/19530862/117911577-fd963a00-b318-11eb-8482-28bf0ac5eb6e.png)
-![image](https://user-images.githubusercontent.com/19530862/117911579-ff5ffd80-b318-11eb-8901-13eb8b00e90f.png)
-![image](https://user-images.githubusercontent.com/19530862/117911587-04bd4800-b319-11eb-88ac-a55bde79392b.png)
-![image](https://user-images.githubusercontent.com/19530862/117911595-08e96580-b319-11eb-8fe1-6344067baba4.png)
-![image](https://user-images.githubusercontent.com/19530862/117911602-0a1a9280-b319-11eb-9ed5-0efb00e6a2c8.png)
-![image](https://user-images.githubusercontent.com/19530862/117911605-0b4bbf80-b319-11eb-88ab-d3fd9202818c.png)
-![image](https://user-images.githubusercontent.com/19530862/117911611-0c7cec80-b319-11eb-9079-3f45e00cf6dc.png)
-![image](https://user-images.githubusercontent.com/19530862/117911614-0d158300-b319-11eb-90f5-49a681262643.png)
+![image](https://user-images.githubusercontent.com/19530862/118808267-4c793c00-b8e4-11eb-94ad-108d263a2d00.png)
+![image](https://user-images.githubusercontent.com/19530862/118808293-556a0d80-b8e4-11eb-9dad-e2cf64dc13e5.png)
+![image](https://user-images.githubusercontent.com/19530862/118808361-687cdd80-b8e4-11eb-8c9f-dfdfa2f9f926.png)
+![image](https://user-images.githubusercontent.com/19530862/118808428-7a5e8080-b8e4-11eb-83a5-abb830709f2c.png)
+![image](https://user-images.githubusercontent.com/19530862/118808498-8ba78d00-b8e4-11eb-9b84-5537f09cde87.png)
+![image](https://user-images.githubusercontent.com/19530862/118808573-9f52f380-b8e4-11eb-9875-08e588c91a9e.png)
+![image](https://user-images.githubusercontent.com/19530862/118808610-a974f200-b8e4-11eb-9a7e-ffd6258398d3.png)
+![image](https://user-images.githubusercontent.com/19530862/118808653-b396f080-b8e4-11eb-8377-b416accaa574.png)
+![image](https://user-images.githubusercontent.com/19530862/118808715-c14c7600-b8e4-11eb-9250-f7cfbabe3caa.png)
 
+---
+<br><br><br><br><br><br>
 
-## miniRT 구현 목차
+## 3. miniRT 구현 목차
 
 [1. miniLibX로 윈도우 생성과 간단한 도형 그리기](https://github.com/psj3205/miniRT#1-minilibx%EB%A1%9C-%EC%9C%88%EB%8F%84%EC%9A%B0-%EC%83%9D%EC%84%B1%EA%B3%BC-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%8F%84%ED%98%95-%EA%B7%B8%EB%A6%AC%EA%B8%B0)
 
