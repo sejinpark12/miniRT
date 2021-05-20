@@ -28,6 +28,9 @@
 ### 제작 기간
 - 2020.12 ~ 2021.03
 
+### 플로우 차트
+![image](https://user-images.githubusercontent.com/19530862/118958092-0da6bd00-b99c-11eb-91f4-cca11c3c82f4.png)
+
 ## 2. miniRT 결과물
 
 > ❗️**macOS 에서만 작동가능**
@@ -38,8 +41,13 @@ git clone https://github.com/psj3205/miniRT.git && cd miniRT/src && make all
 ```
 
 ### run
+### 스크린 출력
 ```shell
 ./miniRT ./scene/final_scene.rt
+```
+### BMP 파일 저장
+```shell
+./miniRT ./scene/final_scene.rt --save
 ```
 
 ### rendering images
