@@ -6,7 +6,7 @@
 /*   By: sejpark <sejpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:06:06 by sejpark           #+#    #+#             */
-/*   Updated: 2021/05/23 19:55:40 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/05/23 20:13:42 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define X_BTN		17
 # define KEYPRESS	2
 # define KEYRELEASE	3
-# include "mlx.h"
+# include "../library/mlx/includes/mlx.h"
 # include "../library/libft/includes/libft.h"
 # include "scene_reader.h"
 # include <stdio.h>

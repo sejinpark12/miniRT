@@ -6,7 +6,7 @@
 #    By: sejpark <sejpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/10 17:57:28 by sejpark           #+#    #+#              #
-#    Updated: 2021/05/23 19:57:10 by sejpark          ###   ########.fr        #
+#    Updated: 2021/05/23 20:16:56 by sejpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ all : 		${NAME}
 
 ${NAME} : 	${LIBFT} ${OBJS}
 			@echo "\n\033[0;32mminiRT Building..."
+			cp ${MLXPATH}/${MLX} ./
 			${CC} ${CFLAGS} -L./ -lft -L./ -lmlx ${FRAMEWORK} -o ${NAME} ${OBJS} 
 			@echo "\033[0m"
 
@@ -69,7 +70,7 @@ clean :
 fclean : 	clean
 			@echo "\033[0;31mRemoving executable..."
 			cd ${LIBFTPATH}; make fclean
-			${RM} ${NAME} ${LIBFT}
+			${RM} ${NAME} ${LIBFT} ${MLX}
 			@echo "\033[0m"
 
 re : 		fclean all

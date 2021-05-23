@@ -6,13 +6,13 @@
 /*   By: sejpark <sejpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 17:21:49 by sejpark           #+#    #+#             */
-/*   Updated: 2021/05/23 19:55:40 by sejpark          ###   ########.fr       */
+/*   Updated: 2021/05/23 20:13:42 by sejpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_READER_H
 # define SCENE_READER_H
-# include "mlx.h"
+# include "../library/mlx/includes/mlx.h"
 # include "get_next_line.h"
 # include "../library/libft/includes/libft.h"
 # include "vec.h"
